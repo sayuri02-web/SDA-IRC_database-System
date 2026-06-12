@@ -1,0 +1,89 @@
+body {
+    background: #f5f6fa;
+}
+
+.cv-container {
+    max-width: 900px;
+    margin: 30px auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.08);
+}
+
+.cv-header {
+    text-align: center;
+    border-bottom: 2px solid #000;
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+}
+
+.cv-header h1 {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.profile-photo {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 3px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.section-title {
+    margin-top: 25px;
+    font-weight: bold;
+    font-size: 16px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.info-table {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.info-table td {
+    padding: 6px;
+    vertical-align: top;
+}
+
+.label {
+    font-weight: 600;
+    width: 200px;
+}
+
+.top-actions {
+max-width: 900px;
+margin: 20px auto 0;
+display: flex;
+justify-content: flex-end; /* push to right */
+gap: 10px; /* space between buttons */
+}
+
+@media print {
+
+body * {
+    visibility: hidden;
+}
+
+.cv-container, .cv-container * {
+    visibility: visible;
+}
+
+.cv-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+
+.sidebar,
+.navbar,
+.footer {
+    display: none !important;
+}
+}

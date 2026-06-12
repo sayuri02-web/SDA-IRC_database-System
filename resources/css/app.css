@@ -1,0 +1,30 @@
+@import 'tailwindcss';
+
+/*LAYOUT CSS*/
+@import './layout.css';
+@import './dashboard.css';
+
+/*CERTIFICATES MODULE CSS*/
+@import './certificates/baptism.css';
+@import './certificates/index.css';
+@import './certificates/baptism_print.css';
+
+/*MEMBERS MODULE CSS*/
+@import './members/index.css';
+@import './members/edit.css';
+@import './members/create.css';
+@import './members/show.css';
+
+/*CHURCHES MODULE CSS*/
+@import './church/index.css';
+@import './church/show.css';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}

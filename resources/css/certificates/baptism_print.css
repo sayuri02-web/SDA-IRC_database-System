@@ -1,0 +1,338 @@
+@page{
+    size:A4 portrait;
+    margin:0;
+}
+
+/* ========================================
+   BODY
+======================================== */
+
+.baptism-print-body{
+    margin:0;
+    padding:0;
+    background:#fff;
+    font-family:"Times New Roman", serif;
+}
+
+/* ========================================
+   PAGE
+======================================== */
+
+.baptism-certificate-page{
+    width:210mm;
+    height:297mm;
+
+    margin:auto;
+    padding:12mm;
+
+    box-sizing:border-box;
+}
+
+.baptism-outer-border{
+    width:100%;
+    height:100%;
+
+    border:3px solid #2f6ea5;
+
+    padding:4px;
+
+    box-sizing:border-box;
+}
+
+.baptism-inner-border{
+    width:100%;
+    height:100%;
+
+    border:1px solid #6fa3c7;
+
+    padding:18px 28px 25px;
+
+    box-sizing:border-box;
+
+    position:relative;
+}
+
+/* ========================================
+   HEADER
+======================================== */
+
+.baptism-header{
+    position:relative;
+    text-align:center;
+}
+
+.baptism-logo{
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:75px;
+}
+
+.baptism-church-name{
+    font-size:28px;
+    font-weight:bold;
+
+    color:#163d6b;
+
+    margin-top:2px;
+}
+
+.baptism-church-sub{
+    font-size:11px;
+    line-height:1.3;
+
+    margin-top:2px;
+}
+
+.baptism-cert-title{
+    margin-top:28px;
+
+    font-size:30px;
+    font-style:italic;
+    font-weight:bold;
+
+    color:#1d4e89;
+}
+
+.baptism-intro{
+    margin-top:22px;
+
+    text-align:center;
+
+    font-size:14px;
+    line-height:1.45;
+}
+
+/* ========================================
+   NAME
+======================================== */
+
+.baptism-name-line{
+    margin-top:65px;
+
+    border-bottom:1px solid #000;
+
+    text-align:center;
+
+    font-size:20px;
+    font-weight:bold;
+
+    text-transform:uppercase;
+
+    padding-bottom:2px;
+}
+
+.baptism-name-label{
+    text-align:center;
+
+    font-size:11px;
+
+    margin-top:4px;
+}
+
+/* ========================================
+   CONTENT
+======================================== */
+
+.baptism-content{
+    margin-top:28px;
+
+    width:100%;
+
+    font-size:14px;
+    line-height:2.2;
+
+    text-align:justify;
+}
+
+.baptism-content-row{
+    display:flex;
+
+    align-items:flex-end;
+
+    gap:10px;
+
+    width:100%;
+}
+
+.baptism-line{
+    display:inline-block;
+
+    border-bottom:1px solid #000;
+
+    text-align:center;
+
+    font-weight:bold;
+
+    min-width:170px;
+
+    padding:0 3px;
+}
+
+.baptism-birthplace-line{
+    flex:1;
+    min-width:0;
+}
+
+.baptism-date-line{
+    width:220px;
+}
+
+.baptism-place-line{
+    display:inline-block;
+    min-width:500px;
+}
+
+.baptism-text{
+    margin-top:18px;
+    padding-left:78px;
+}
+
+/* ========================================
+   PARENTS
+======================================== */
+
+.baptism-parents{
+    margin-top:65px;
+
+    display:flex;
+
+    justify-content:space-between;
+    align-items:flex-start;
+}
+
+.baptism-parent-box{
+    width:43%;
+    text-align:center;
+}
+
+.baptism-parent-line{
+    border-bottom:1px solid #000;
+
+    padding-bottom:2px;
+
+    font-weight:bold;
+}
+
+.baptism-parent-label{
+    margin-top:3px;
+    font-size:12px;
+}
+
+.baptism-and{
+    width:14%;
+
+    text-align:center;
+
+    margin-top:3px;
+
+    font-size:14px;
+}
+
+/* ========================================
+   SIGNATURES
+======================================== */
+
+.baptism-signatures{
+    margin-top:60px;
+
+    display:flex;
+
+    align-items:flex-start;
+    justify-content:center;
+
+    gap:35px;
+}
+
+.baptism-sig-box{
+    width:260px;
+    text-align:center;
+}
+
+.baptism-signatures .baptism-and{
+    width:auto;
+
+    position:relative;
+
+    top:8px;
+
+    font-size:14px;
+}
+
+.baptism-signatures .baptism-sig-box:last-child{
+    margin-top:-2px;
+}
+
+.baptism-sig-line{
+    height:24px;
+
+    display:flex;
+
+    align-items:flex-end;
+    justify-content:center;
+
+    border-bottom:1px solid #000;
+
+    font-weight:bold;
+}
+
+.baptism-sig-label{
+    margin-top:6px;
+    font-size:12px;
+}
+
+/* ========================================
+   LOWER AREA
+======================================== */
+
+.baptism-bottom-area{
+    margin-top:85px;
+
+    display:flex;
+
+    justify-content:space-between;
+}
+
+.baptism-doc-section{
+    width:35%;
+
+    font-size:12px;
+    line-height:1.5;
+}
+
+.baptism-fellowship{
+    width:48%;
+
+    font-size:12px;
+    line-height:1.45;
+}
+
+.baptism-fellowship-title{
+    font-weight:bold;
+    font-size:13px;
+}
+
+.baptism-secretary{
+    margin-top:95px;
+    text-align:right;
+}
+
+.baptism-secretary-line{
+    display:inline-block;
+
+    width:240px;
+
+    border-bottom:1px solid #000;
+}
+
+.baptism-secretary-label{
+    width:240px;
+
+    margin-left:auto;
+
+    text-align:center;
+
+    font-size:12px;
+}

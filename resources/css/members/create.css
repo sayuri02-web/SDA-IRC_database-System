@@ -1,0 +1,125 @@
+.card-description{
+    font-size:15px;
+    font-weight:600;
+    margin-bottom:15px;
+    color:#198754;
+}
+
+/* REMOVE PHOTO BUTTON */
+#remove-photo{
+    display:none;
+    align-items:center;
+    justify-content:center;
+
+    width:28px;
+    height:28px;
+
+    border:none;
+    border-radius:50%;
+
+    background:#dc3545;
+    color:#fff;
+
+    font-size:16px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:0 2px 8px rgba(0,0,0,0.15);
+    transition:0.2s;
+
+    z-index:999;
+}
+
+#remove-photo:hover{
+    transform:scale(1.08);
+    background:#bb2d3b;
+}
+
+/* FADE ANIMATION */
+.fade-in{
+    animation:fadeIn .3s ease-in-out;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* =========================
+   CREATE MEMBER PAGE LAYOUT
+========================= */
+
+/* PAGE WRAPPER */
+.create-page-wrapper{
+    height:100%;
+    display:flex;
+    flex-direction:column;
+}
+
+/* CARD */
+.create-member-card{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    min-height:0;
+    overflow:hidden;
+}
+
+/* CARD BODY */
+.create-member-body{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    min-height:0;
+    overflow:hidden;
+}
+
+/* FORM */
+.form-sample{
+    flex:1;
+
+    display:flex;
+    flex-direction:column;
+
+    min-height:0;
+}
+
+/* SCROLLABLE FORM AREA */
+.create-form-scroll{
+    flex:1;
+    min-height:0;
+    overflow-y:auto;
+    overflow-x:hidden;
+    padding-right:8px;
+}
+
+/* CUSTOM SCROLLBAR */
+.create-form-scroll::-webkit-scrollbar{
+    width:8px;
+}
+
+.create-form-scroll::-webkit-scrollbar-thumb{
+    background:#cfd8dc;
+    border-radius:10px;
+}
+/* IMPORTANT: form should NOT stretch scroll */
+.create-form{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    min-height:0;
+}
+
+.create-form-footer{
+    flex-shrink:0;
+    background:#fff;
+    border-top:1px solid #eee;
+}

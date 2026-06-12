@@ -1,0 +1,597 @@
+/* ============================================================
+   CHURCH MODULE — MODERN UI
+   ============================================================ */
+
+/* ---- PAGE WRAPPER ---- */
+
+/* The outer col must not create its own scroll — full height, no overflow */
+.church-index-wrapper {
+    height: 100%;
+    min-height: 0;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column;
+}
+
+.church-index-card {
+    border-radius: 20px !important;
+    border: none !important;
+    /* Fill the wrapper, flex column so body can stretch */
+    flex: 1;
+    min-height: 0;
+    overflow: visible !important;
+    display: flex !important;
+    flex-direction: column;
+}
+
+/* Card body stretches and holds its own layout */
+.church-index-body {
+    flex: 1;
+    min-height: 0;
+    display: flex !important;
+    flex-direction: column;
+    overflow: visible !important;
+}
+
+/* ---- PAGE HEADER ---- */
+.church-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.church-page-header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.church-page-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #28a745, #5cd65c);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
+    box-shadow: 0 6px 16px rgba(40, 167, 69, 0.30);
+}
+
+.church-page-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1f36;
+}
+
+.church-page-subtitle {
+    font-size: 13px;
+    color: #8898aa;
+}
+
+/* header right is now just the Add button */
+.church-page-header-right {
+    display: flex;
+    align-items: center;
+}
+
+/* ---- SEARCH (now lives inside stats row right side) ---- */
+
+.church-search-wrap {
+    position: relative;
+    flex: 0 0 200px;   /* fixed 200px, never grow, never shrink */
+}
+
+.church-search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #28a745;
+    font-size: 18px;
+    pointer-events: none;
+}
+
+.church-search-input {
+    width: 100%;
+    height: 38px;
+    padding-left: 38px;
+    border-radius: 10px;
+    border: 1.5px solid #e2e8f0;
+    background: #f8fafc;
+    font-size: 13px;
+    transition: 0.25s;
+    box-shadow: none;
+}
+
+.church-search-input:focus {
+    border-color: #28a745;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.12);
+    outline: none;
+}
+
+.church-cluster-filter {
+    flex: 0 0 150px;   /* fixed 150px, never grow, never shrink */
+    height: 38px;
+    border-radius: 10px;
+    border: 1.5px solid #e2e8f0;
+    background: #f8fafc;
+    font-size: 13px;
+    padding-left: 10px;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.church-cluster-filter:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.12);
+    outline: none;
+}
+
+/* ---- ADD BUTTON (uses Bootstrap btn-outline-success btn-sm) ---- */
+
+/* ---- STATS ROW (visual only — layout via Bootstrap d-flex on the element) ---- */
+.church-stats-row {
+    background: #f8fafc;
+    border-radius: 14px;
+    border: 1px solid #edf0f5;
+    flex-shrink: 0;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+/* Left side: stat numbers */
+.church-stats-left {
+    display: flex;
+    align-items: center;
+}
+
+/* Right side: search + filter */
+.church-stats-right {
+    display: flex;
+    align-items: center;
+}
+
+.church-stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 16px;
+    min-width: 70px;
+}
+
+.church-stat-num {
+    font-size: 20px;
+    font-weight: 800;
+    color: #1a1f36;
+    line-height: 1;
+}
+
+.church-stat-label {
+    font-size: 11px;
+    color: #8898aa;
+    margin-top: 3px;
+    white-space: nowrap;
+}
+
+.church-stat-divider {
+    width: 1px;
+    height: 32px;
+    background: #e2e8f0;
+    flex-shrink: 0;
+}
+
+/* ---- CHURCH CARD ---- */
+.church-card{
+    border-radius:20px;
+    background:#fff;
+    border:1px solid #e2e8f0;
+    overflow:hidden;
+    position:relative;
+
+    transition:
+        transform .35s cubic-bezier(.4,0,.2,1),
+        box-shadow .35s cubic-bezier(.4,0,.2,1),
+        border-color .35s cubic-bezier(.4,0,.2,1);
+}
+
+.church-card::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:4px;
+
+    background:var(--cluster-color);
+
+    transform:scaleX(0);
+    transform-origin:left;
+
+    transition:.35s ease;
+    z-index:2;
+}
+
+.church-card:hover{
+    transform:translateY(-3px);
+
+    border-color:var(--cluster-color);
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.07),
+        0 1px 4px rgba(0,0,0,.04);
+}
+
+.church-card:hover::before{
+    transform:scaleX(1);
+}
+
+.church-card-accent {
+    height: 6px;
+    width: 100%;
+}
+
+.church-card-body {
+    padding: 20px;
+}
+
+.church-avatar{
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease;
+}
+
+.church-card:hover .church-avatar{
+    transform:scale(1.08);
+
+    box-shadow:0 8px 24px color-mix(in srgb, var(--cluster-color) 25%, transparent);
+}
+.church-card-name{
+    transition:color .3s ease;
+}
+
+.church-card:hover{
+    transform:translateY(-6px);
+
+    border-color:var(--cluster-color);
+
+    box-shadow:
+        0 12px 30px color-mix(in srgb,
+            var(--cluster-color) 25%,
+            transparent),
+
+        0 4px 12px color-mix(in srgb,
+            var(--cluster-color) 15%,
+            transparent);
+}
+
+.church-card-address {
+    font-size: 12px;
+    color: #8898aa;
+    text-align: center;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+/* ---- CLUSTER PILLS ---- */
+.cluster-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 14px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+}
+
+.cluster-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    flex-shrink: 0;
+}
+
+.cluster-one    { background: #eef4ff; color: #2457ff; }
+.cluster-two    { background: #e9fff3; color: #11a75c; }
+.cluster-three  { background: #fff4e8; color: #ff8a00; }
+.cluster-four   { background: #f7ecff; color: #8e3dff; }
+.cluster-default{ background: #f1f3f5; color: #6c757d; }
+
+/* ---- MEMBER COUNT ---- */
+.church-member-count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #525f7f;
+    margin-bottom: 14px;
+}
+
+.church-member-count strong {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1f36;
+}
+
+.church-card-divider {
+    height: 1px;
+    background: #f0f0f5;
+    margin-bottom: 14px;
+}
+
+/* ---- CARD ACTIONS (unified with certificates module) ---- */
+.church-card-actions {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.church-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    background: transparent;
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.church-action-btn:hover {
+    transform: translateY(-2px);
+}
+
+.church-edit-btn {
+    background: #eef4ff;
+    color: #2449d8;
+}
+
+.church-edit-btn:hover {
+    background: #2449d8;
+    color: white;
+    box-shadow: 0 4px 12px rgba(36, 73, 216, 0.25);
+}
+
+.church-delete-btn {
+    background: #fff0f0;
+    color: #e53935;
+}
+
+.church-delete-btn:hover {
+    background: #e53935;
+    color: white;
+    box-shadow: 0 4px 12px rgba(229, 57, 53, 0.25);
+}
+
+/* ---- EMPTY STATE ---- */
+.church-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.church-empty-icon {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: #f0f4ff;
+    color: #c5cde6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 44px;
+    margin-bottom: 20px;
+}
+
+.church-empty-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1f36;
+    margin-bottom: 8px;
+}
+
+.church-empty-text {
+    font-size: 14px;
+    color: #8898aa;
+    margin-bottom: 20px;
+}
+
+/* ============================================================
+   CHURCH FORM (create/edit shared styles)
+   ============================================================ */
+
+/* ---- BREADCRUMB ---- */
+.church-breadcrumb {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+}
+
+.church-breadcrumb-link {
+    color: #28a745;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.church-breadcrumb-link:hover { color: #218838; }
+
+.church-breadcrumb-sep { color: #c4c9d4; }
+.church-breadcrumb-current { color: #8898aa; }
+
+/* ---- FORM CARD ---- */
+.church-form-card {
+    background: #fff;
+    border-radius: 20px;
+    border: 1px solid #edf0f5;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* ---- FORM HEADER ---- */
+.church-form-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 24px 28px;
+    background: linear-gradient(135deg, #28a745 0%, #5cd65c 100%);
+}
+
+.church-form-header-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
+}
+
+.church-form-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+}
+
+.church-form-subtitle {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.80);
+}
+
+/* ---- FORM BODY ---- */
+.church-form-body {
+    padding: 28px;
+}
+
+/* ---- SECTION LABEL ---- */
+.church-form-section {
+    margin-bottom: 28px;
+}
+
+.church-section-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1f36;
+    margin-bottom: 4px;
+}
+
+.church-section-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #28a745, #5cd65c);
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* ---- LABELS & INPUTS ---- */
+.church-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #525f7f;
+    margin-bottom: 6px;
+}
+
+.church-input-wrap {
+    position: relative;
+}
+
+.church-input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a0aec0;
+    font-size: 18px;
+    pointer-events: none;
+}
+
+.church-input,
+.church-select {
+    height: 46px;
+    padding-left: 44px;
+    border-radius: 12px;
+    border: 1.5px solid #e2e8f0;
+    background: #f8fafc;
+    font-size: 14px;
+    transition: 0.25s;
+    width: 100%;
+    color: #1a1f36;
+}
+
+.church-input:focus,
+.church-select:focus {
+    border-color: #28a745;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.12);
+    outline: none;
+}
+
+/* ---- FORM ACTIONS (uses Bootstrap btn-outline-success / btn-outline-secondary) ---- */
+.church-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 20px;
+    border-top: 1px solid #f0f0f5;
+    margin-top: 8px;
+}
+
+/* ---- SCROLLABLE CARD AREA ---- */
+/* flex:1 + min-height:0 fills all remaining space without overflow on the parent */
+.church-cards-scroll {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 4px;
+    padding-bottom: 8px;
+}
+
+.church-cards-scroll::-webkit-scrollbar {
+    width: 5px;
+}
+
+.church-cards-scroll::-webkit-scrollbar-track {
+    background: #f0f4f8;
+    border-radius: 10px;
+}
+
+.church-cards-scroll::-webkit-scrollbar-thumb {
+    background: #c4c9d4;
+    border-radius: 10px;
+}
+
+.church-cards-scroll::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
+}
