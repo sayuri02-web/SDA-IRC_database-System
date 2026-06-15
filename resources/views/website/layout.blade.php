@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title', 'SDA Church')</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MDI Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+    <!-- AOS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+    <!-- SCSS -->
+    @vite('resources/scss/website/app.scss')
+</head>
+<body>
+
+    {{-- NAVBAR --}}
+    <nav class="ws-navbar">
+        <div class="container">
+            <div class="ws-navbar-inner">
+                <a href="{{ route('website.home') }}" class="ws-brand">
+                    <img src="{{ asset('assets/images/logo.jpg') }}" alt="Logo" class="ws-brand-logo">
+                    <span>SDA-IRC Church</span>
+                </a>
+                <button class="ws-nav-toggle" id="navToggle">
+                    <i class="mdi mdi-menu"></i>
+                </button>
+                <ul class="ws-nav-links" id="navLinks">
+                    <li><a href="{{ route('website.home') }}" class="{{ request()->routeIs('website.home') ? 'active' : '' }}">Home</a></li>
+                    <li><a href="{{ route('website.about') }}" class="{{ request()->routeIs('website.about') ? 'active' : '' }}">About Us</a></li>
+                    <li><a href="{{ route('website.pastors-message') }}" class="{{ request()->routeIs('website.pastors-message') ? 'active' : '' }}">Pastor's Message</a></li>
+                    <li><a href="{{ route('website.ministries') }}" class="{{ request()->routeIs('website.ministries') ? 'active' : '' }}">Ministries</a></li>
+                    <li><a href="{{ route('website.events') }}" class="{{ request()->routeIs('website.events') ? 'active' : '' }}">Events</a></li>
+                    <li><a href="{{ route('website.announcements') }}" class="{{ request()->routeIs('website.announcements') ? 'active' : '' }}">Announcements</a></li>
+                    <li><a href="{{ route('website.gallery') }}" class="{{ request()->routeIs('website.gallery') ? 'active' : '' }}">Gallery</a></li>
+                    <li><a href="{{ route('website.contact') }}" class="{{ request()->routeIs('website.contact') ? 'active' : '' }}">Contact</a></li>
+                    <li><a href="{{ url('/dashboard') }}" class="ws-login-btn"><i class="mdi mdi-login me-1"></i>Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {{-- CONTENT --}}
+    <main>
+        @yield('content')
+    </main>
+
+    {{-- FOOTER --}}
+    <footer class="ws-footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="ws-footer-title">SDA-IRC Church</h5>
+                    <p class="ws-footer-text">Growing in Faith. Serving the Community. Sharing God's Love.</p>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="ws-footer-title">Service Schedule</h5>
+                    <p class="ws-footer-text">
+                        <i class="mdi mdi-clock-outline me-1"></i>Sabbath School: 9:00 AM<br>
+                        <i class="mdi mdi-clock-outline me-1"></i>Divine Service: 11:00 AM<br>
+                        <i class="mdi mdi-clock-outline me-1"></i>AY Program: 3:00 PM
+                    </p>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="ws-footer-title">Connect</h5>
+                    <p class="ws-footer-text">
+                        <i class="mdi mdi-map-marker me-1"></i>Panabo City, Davao del Norte<br>
+                        <i class="mdi mdi-phone me-1"></i>(084) 123-4567<br>
+                        <i class="mdi mdi-email me-1"></i>info@sdairc.org
+                    </p>
+                </div>
+            </div>
+            <div class="ws-footer-bottom">
+                <p>&copy; {{ date('Y') }} SDA Inter-Regional Conference. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true, offset: 50 });
+        document.getElementById('navToggle').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>

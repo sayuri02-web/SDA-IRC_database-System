@@ -1,0 +1,21 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Public Church Website Routes (Static)
+|--------------------------------------------------------------------------
+| Completely isolated from CMS routes.
+*/
+
+Route::prefix('website')->name('website.')->group(function () {
+    Route::view('/', 'website.home')->name('home');
+    Route::view('/about', 'website.about')->name('about');
+    Route::view('/pastors-message', 'website.pastors-message')->name('pastors-message');
+    Route::view('/ministries', 'website.ministries')->name('ministries');
+    Route::view('/events', 'website.events')->name('events');
+    Route::view('/announcements', 'website.announcements')->name('announcements');
+    Route::view('/gallery', 'website.gallery')->name('gallery');
+    Route::view('/contact', 'website.contact')->name('contact');
+});

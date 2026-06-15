@@ -1,0 +1,22 @@
+// ============================================================
+// CHURCH MANAGEMENT SYSTEM — SCSS (Single Source of Truth)
+// ============================================================
+// All styles live here. CSS files have been stripped.
+// Tailwind is handled by resources/css/app.css separately.
+
+// Abstracts (tokens + utilities — no CSS output)
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// Base reset
+@import 'base/reset';
+
+// Layout (sidebar + main content)
+@import 'layout/sidebar';
+@import 'layout/content';
+
+// Pages (each module self-contained)
+@import 'pages/dashboard';
+@import 'pages/members';
+@import 'pages/church-registration';
+@import 'pages/certificates';

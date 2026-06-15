@@ -51,4 +51,7 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
 
 Route::post('/task/store', [TaskController::class, 'store']);
 Route::post('/task/toggle/{id}', [TaskController::class, 'toggle']);
+Route::post('/task/update-status', [TaskController::class, 'updateStatus']);
+Route::get('/task/dates', [TaskController::class, 'getDates']);
+Route::get('/task/by-date', [TaskController::class, 'getByDate']);
 Route::delete('/task/delete/{id}', [TaskController::class, 'destroy']);

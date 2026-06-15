@@ -7,6 +7,7 @@ use App\Models\Church;
 use App\Models\Certificate;
 use App\Models\CertificateLog;
 use App\Models\ActivityLog;
+use App\Models\Task;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -24,7 +25,10 @@ class DashboardController extends Controller
         $newMembersThisMonth = Member::whereMonth('created_at', $now->month)
                                      ->whereYear('created_at', $now->year)
                                      ->count();
-        $activitiesToday    = ActivityLog::whereDate('created_at', $now->toDateString())->count();
+        $activitiesToday    = Task::whereDate('due_date', $now->toDateString())->count();
+
+        // ========== QUICK TASKS ==========
+        $tasks = Task::latest()->get();
 
         // ========== MEMBER GROWTH (last 12 months) ==========
         $memberGrowth = Member::select(
@@ -102,6 +106,7 @@ class DashboardController extends Controller
             'totalTemplates',
             'newMembersThisMonth',
             'activitiesToday',
+            'tasks',
             'monthLabels',
             'monthData',
             'baptizedCount',

@@ -1,0 +1,141 @@
+// ============================================================
+// DASHBOARD — Current production styles (migrated from CSS)
+// ============================================================
+
+.dashboard-wrapper {
+    flex: 1 1 0% !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden;
+    padding-right: 4px;
+    padding-bottom: 20px;
+
+    &::-webkit-scrollbar { width: 5px; }
+    &::-webkit-scrollbar-track { background: #f0f4f8; border-radius: 10px; }
+    &::-webkit-scrollbar-thumb { background: #c4c9d4; border-radius: 10px; }
+}
+
+// ---- SUMMARY CARDS (gradient) ----
+.dash-card {
+    border-radius: 18px;
+    border: none;
+    padding: 22px 18px;
+    text-align: center;
+    height: 100%;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    transition: transform .35s cubic-bezier(.4,0,.2,1), box-shadow .35s cubic-bezier(.4,0,.2,1);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 14px 32px rgba(0,0,0,0.14);
+    }
+
+    &-icon {
+        width: 48px; height: 48px; border-radius: 12px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 22px; margin: 0 auto 14px;
+        background: rgba(255,255,255,0.2); color: #fff;
+        transition: transform 0.25s ease;
+    }
+
+    &:hover &-icon { transform: scale(1.1); }
+
+    &-num { font-size: 28px; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 6px; letter-spacing: -0.5px; }
+    &-label { font-size: 11px; color: rgba(255,255,255,0.85); font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; line-height: 1.3; }
+}
+
+.dash-card-gradient-blue   { background: linear-gradient(135deg, #667eea, #764ba2); }
+.dash-card-gradient-green  { background: linear-gradient(135deg, #11998e, #38ef7d); }
+.dash-card-gradient-orange { background: linear-gradient(135deg, #f093fb, #f5576c); }
+.dash-card-gradient-purple { background: linear-gradient(135deg, #7f53ac, #647dee); }
+.dash-card-gradient-teal   { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+.dash-card-gradient-red    { background: linear-gradient(135deg, #fa709a, #fee140); }
+
+// ---- PANELS ----
+.dash-panel {
+    background: #fff; border-radius: 18px; border: 1px solid #edf0f5;
+    padding: 24px; height: 100%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow .35s cubic-bezier(.4,0,.2,1);
+    &:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+
+    &-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    &-title { font-size: 15px; font-weight: 700; color: #1a1f36; margin: 0; display: flex; align-items: center; gap: 2px; i { color: #28a745; font-size: 20px; } }
+    &-badge { font-size: 11px; font-weight: 600; background: #f0f4ff; color: #2449d8; padding: 5px 12px; border-radius: 30px; letter-spacing: 0.2px; }
+}
+
+// ---- LEGEND ----
+.dash-legend { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+.dash-legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #525f7f; font-weight: 500; }
+.dash-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+// ---- CERTIFICATE STATS ----
+.dash-cert-stats { display: flex; gap: 12px; }
+.dash-cert-stat { flex: 1; text-align: center; padding: 14px 10px; background: #f8fafc; border-radius: 12px; border: 1px solid #edf0f5; transition: all 0.25s ease; &:hover { background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.05); } }
+.dash-cert-num { display: block; font-size: 24px; font-weight: 800; color: #1a1f36; line-height: 1; letter-spacing: -0.3px; }
+.dash-cert-label { display: block; font-size: 11px; color: #8898aa; margin-top: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
+
+// ---- ACTIVITY LIST ----
+.dash-activity-list { max-height: 320px; overflow-y: auto; padding-right: 4px; &::-webkit-scrollbar { width: 4px; } &::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; } }
+.dash-activity-item { display: flex; align-items: flex-start; gap: 14px; padding: 12px 8px; border-bottom: 1px solid #f5f6fa; border-radius: 10px; transition: all .2s ease; &:last-child { border-bottom: none; } &:hover { background: #f8faff; transform: translateX(3px); } }
+.dash-activity-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); color: white; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.dash-activity-info { flex: 1; min-width: 0; }
+.dash-activity-desc { font-size: 13px; color: #1a1f36; line-height: 1.5; margin-bottom: 4px; }
+.dash-activity-meta { display: flex; align-items: center; gap: 10px; }
+.dash-activity-module { font-size: 11px; font-weight: 600; color: #2449d8; background: #eef4ff; padding: 3px 10px; border-radius: 6px; }
+.dash-activity-time { font-size: 11px; color: #8898aa; display: flex; align-items: center; }
+.dash-activity-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; text-align: center; }
+.dash-panel-activities .dash-activity-list { max-height: 280px; }
+
+// ---- QUICK TASKS ----
+.dash-tasks-widget { background: #ffffff; border-radius: 20px; border: 1px solid #ede8f5; padding: 28px; height: 100%; }
+.dash-tasks-input { display: flex; gap: 10px; margin-bottom: 24px; }
+.dash-tasks-field { flex: 1; height: 48px; padding: 0 18px; border-radius: 10px; border: 1.5px solid #e2e0ea; background: #ffffff; font-size: 14px; color: #1a1f36; transition: border-color .25s; &::placeholder { color: #b0a8c0; } &:focus { border-color: #9b59b6; outline: none; box-shadow: 0 0 0 3px rgba(155, 89, 182, 0.10); } }
+.dash-tasks-add-btn { height: 48px; padding: 0 28px; border-radius: 10px; background: linear-gradient(135deg, #9b59b6, #d291f0); color: white; font-size: 15px; font-weight: 700; border: none; cursor: pointer; transition: all .25s ease; box-shadow: 0 4px 14px rgba(155, 89, 182, 0.30); white-space: nowrap; &:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(155, 89, 182, 0.40); } }
+.dash-tasks-list { display: flex; flex-direction: column; max-height: 300px; overflow-y: auto; &::-webkit-scrollbar { width: 4px; } &::-webkit-scrollbar-thumb { background: #e2e0ea; border-radius: 10px; } }
+
+.dash-task-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 8px;
+    border-bottom: 1px solid #f0edf5;
+    transition: background .15s;
+    &:last-child { border-bottom: none; }
+    &:hover { background: #fcfaff; }
+}
+
+// Checkbox
+.task-cb { width: 18px; height: 18px; accent-color: #9b59b6; flex-shrink: 0; cursor: pointer; margin: 0; }
+
+// Task title — takes available space
+.dash-task-text { flex: 1; min-width: 0; font-size: 14px; font-weight: 600; color: #1a1f36; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+// Due date — fixed width, muted
+.dash-task-due { flex-shrink: 0; font-size: 12px; color: #8898aa; white-space: nowrap; min-width: 90px; }
+
+// Status badge — prominent
+.dash-task-status { flex-shrink: 0; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 14px; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.3px; }
+.dash-task-status-pending { background: #fff4e8; color: #e67e00; }
+.dash-task-status-ongoing { background: #eef4ff; color: #2449d8; }
+.dash-task-status-completed { background: #e6f9ed; color: #1a8c45; }
+
+// Delete X
+.dash-task-delete { font-size: 18px; color: #b0a8c0; cursor: pointer; transition: color .2s; flex-shrink: 0; &:hover { color: #e53935; } }
+
+// Completed state
+.dash-task-done {
+    .dash-task-text { text-decoration: line-through; color: #9b59b6; font-weight: 500; }
+    .dash-task-due { color: #c0b8d0; }
+}
+
+// Empty state
+.dash-task-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; }
+
+@media (max-width: 768px) {
+    .dash-tasks-input { flex-direction: column; }
+    .dash-tasks-add-btn { width: 100%; }
+}

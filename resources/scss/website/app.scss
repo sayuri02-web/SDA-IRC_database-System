@@ -1,0 +1,228 @@
+// ============================================================
+// CHURCH WEBSITE — PREMIUM PUBLIC FACING
+// ============================================================
+
+// Variables
+$ws-primary: #28a745;
+$ws-primary-dark: #1e7e34;
+$ws-primary-light: #e6f9ed;
+$ws-dark: #0b1d3a;
+$ws-dark-alt: #163d5b;
+$ws-text: #3a3a3a;
+$ws-muted: #6c757d;
+$ws-light: #f7faf8;
+$ws-border: #e8ede9;
+$ws-white: #ffffff;
+$ws-radius: 16px;
+$ws-radius-sm: 10px;
+$ws-shadow: 0 4px 24px rgba(0,0,0,0.05);
+$ws-shadow-md: 0 8px 32px rgba(0,0,0,0.08);
+$ws-shadow-lg: 0 16px 48px rgba(0,0,0,0.10);
+
+// Base
+* { box-sizing: border-box; }
+body { font-family: 'Segoe UI', -apple-system, sans-serif; color: $ws-text; margin: 0; overflow-x: hidden; line-height: 1.6; }
+img { max-width: 100%; }
+
+// ============================================================
+// NAVBAR
+// ============================================================
+.ws-navbar {
+    position: sticky; top: 0; z-index: 1000;
+    background: rgba($ws-white, 0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba($ws-border, 0.6);
+}
+.ws-navbar-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+.ws-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: $ws-dark; font-weight: 700; font-size: 17px; }
+.ws-brand-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid $ws-primary-light; }
+.ws-nav-links {
+    display: flex; align-items: center; gap: 2px; list-style: none; margin: 0; padding: 0;
+    a { padding: 9px 16px; border-radius: $ws-radius-sm; text-decoration: none; font-size: 14px; font-weight: 500; color: $ws-text; transition: .2s;
+        &:hover, &.active { background: $ws-primary-light; color: $ws-primary-dark; }
+    }
+}
+.ws-login-btn { background: $ws-primary !important; color: $ws-white !important; font-weight: 600 !important; &:hover { background: $ws-primary-dark !important; } }
+.ws-nav-toggle { display: none; background: none; border: none; font-size: 28px; color: $ws-dark; cursor: pointer; }
+
+@media(max-width: 992px) {
+    .ws-nav-toggle { display: block; }
+    .ws-nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; right: 0; background: $ws-white; padding: 16px; border-bottom: 1px solid $ws-border; box-shadow: $ws-shadow-md; border-radius: 0 0 $ws-radius $ws-radius; &.show { display: flex; } a { width: 100%; } }
+}
+
+// ============================================================
+// HERO
+// ============================================================
+.ws-hero {
+    position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+}
+.ws-hero-bg {
+    position: absolute; inset: 0;
+    background: url('https://images.unsplash.com/photo-1438232992991-995b7058bbb3?w=1920&q=80') center/cover no-repeat;
+}
+.ws-hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba($ws-dark, 0.7) 0%, rgba($ws-dark, 0.5) 50%, rgba($ws-dark, 0.85) 100%);
+}
+.ws-hero-content { text-align: center; max-width: 720px; margin: 0 auto; position: relative; z-index: 2; padding-top: 40px; }
+.ws-hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba($ws-white, 0.08); border: 1px solid rgba($ws-white, 0.18); padding: 8px 22px; border-radius: 30px; font-size: 13px; font-weight: 500; color: rgba($ws-white, 0.9); margin-bottom: 26px; letter-spacing: 0.6px; backdrop-filter: blur(4px); }
+.ws-hero-title { font-size: 50px; font-weight: 800; color: $ws-white; margin-bottom: 20px; line-height: 1.12; letter-spacing: -0.5px; text-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+.ws-hero-sub { font-size: 19px; color: rgba($ws-white, 0.8); margin-bottom: 38px; line-height: 1.7; max-width: 540px; margin-left: auto; margin-right: auto; }
+.ws-hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.ws-hero-scroll { text-align: center; margin-top: 50px; i { font-size: 28px; color: rgba($ws-white, 0.45); animation: bounceDown 2s infinite; } }
+@keyframes bounceDown { 0%,100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+// Service times embedded in hero bottom
+.ws-hero-services { position: absolute; bottom: 0; left: 0; right: 0; z-index: 3; }
+.ws-hero-services-inner {
+    display: flex; justify-content: center; align-items: center; gap: 0;
+    background: rgba($ws-white, 0.95); backdrop-filter: blur(12px);
+    border-radius: $ws-radius $ws-radius 0 0; padding: 0;
+    box-shadow: 0 -4px 24px rgba(0,0,0,0.08);
+}
+.ws-hero-service {
+    display: flex; align-items: center; gap: 12px; padding: 22px 32px;
+    i { font-size: 24px; color: $ws-primary; }
+    div { strong { display: block; font-size: 14px; color: $ws-dark; font-weight: 600; } span { font-size: 12px; color: $ws-muted; } }
+}
+.ws-hero-service-divider { width: 1px; height: 36px; background: $ws-border; }
+
+@media(max-width: 992px) {
+    .ws-hero-services-inner { flex-wrap: wrap; border-radius: 0; }
+    .ws-hero-service { padding: 16px 24px; flex: 1; min-width: 200px; }
+    .ws-hero-service-divider { display: none; }
+}
+@media(max-width: 768px) {
+    .ws-hero { min-height: 90vh; }
+    .ws-hero-title { font-size: 32px; }
+    .ws-hero-sub { font-size: 16px; }
+    .ws-hero-services-inner { flex-direction: column; }
+    .ws-hero-service { width: 100%; border-bottom: 1px solid $ws-border; &:last-child { border-bottom: none; } }
+}
+
+// ============================================================
+// BUTTONS
+// ============================================================
+.ws-btn { display: inline-flex; align-items: center; padding: 14px 30px; border-radius: $ws-radius-sm; font-size: 15px; font-weight: 600; text-decoration: none; transition: .3s; border: none; cursor: pointer; }
+.ws-btn-primary { background: $ws-primary; color: $ws-white; box-shadow: 0 4px 16px rgba($ws-primary, 0.3); &:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba($ws-primary, 0.4); color: $ws-white; background: $ws-primary-dark; } }
+.ws-btn-outline { background: transparent; border: 2px solid rgba($ws-white, 0.35); color: $ws-white; &:hover { background: rgba($ws-white, 0.08); border-color: rgba($ws-white, 0.7); color: $ws-white; } }
+.ws-btn-lg { padding: 16px 36px; font-size: 16px; }
+
+// ============================================================
+// SECTIONS
+// ============================================================
+.ws-section { padding: 80px 0; }
+.ws-section-alt { background: $ws-light; }
+.ws-section-badge { display: inline-block; background: $ws-primary-light; color: $ws-primary-dark; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
+.ws-section-title { font-size: 32px; font-weight: 800; color: $ws-dark; margin-bottom: 12px; letter-spacing: -0.3px; }
+.ws-section-desc { font-size: 16px; color: $ws-muted; max-width: 500px; margin: 0 auto; }
+.ws-page-hero { background: linear-gradient(135deg, $ws-dark, $ws-dark-alt); padding: 70px 0 50px; text-align: center; color: $ws-white; h1 { font-size: 34px; font-weight: 800; margin-bottom: 10px; } p { color: rgba($ws-white, 0.7); font-size: 16px; margin: 0; } }
+
+// ============================================================
+// ============================================================
+// MISSION & VISION
+// ============================================================
+.ws-mv-card {
+    background: $ws-white; border-radius: $ws-radius; padding: 36px; border: 1px solid $ws-border; height: 100%; position: relative; overflow: hidden;
+    box-shadow: $ws-shadow; transition: .35s;
+    &:hover { transform: translateY(-5px); box-shadow: $ws-shadow-lg; }
+    h3 { font-size: 22px; font-weight: 700; color: $ws-dark; margin-bottom: 14px; }
+    p { color: $ws-muted; line-height: 1.8; font-size: 15px; }
+}
+.ws-mv-icon { width: 60px; height: 60px; border-radius: 14px; background: $ws-primary-light; color: $ws-primary; display: flex; align-items: center; justify-content: center; font-size: 28px; margin-bottom: 20px; }
+.ws-mv-accent { position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, $ws-primary, transparent); }
+
+// ============================================================
+// STATISTICS
+// ============================================================
+.ws-stats-section { position: relative; padding: 80px 0; overflow: hidden; }
+.ws-stats-bg { position: absolute; inset: 0; background: linear-gradient(160deg, $ws-dark 0%, #1a5235 100%); }
+.ws-stats-title { font-size: 30px; font-weight: 800; color: $ws-white; margin-bottom: 8px; }
+.ws-stats-sub { color: rgba($ws-white, 0.7); font-size: 16px; }
+.ws-stat-card {
+    background: rgba($ws-white, 0.06); border: 1px solid rgba($ws-white, 0.10); border-radius: $ws-radius; padding: 28px 20px; text-align: center; backdrop-filter: blur(4px);
+    transition: .3s;
+    &:hover { background: rgba($ws-white, 0.10); transform: translateY(-4px); }
+}
+.ws-stat-icon { width: 50px; height: 50px; border-radius: 50%; background: rgba($ws-primary, 0.15); color: $ws-primary; display: flex; align-items: center; justify-content: center; font-size: 22px; margin: 0 auto 14px; }
+.ws-stat-num { display: block; font-size: 34px; font-weight: 800; color: $ws-white; line-height: 1; margin-bottom: 6px; small { font-size: 20px; opacity: 0.7; } }
+.ws-stat-label { font-size: 13px; color: rgba($ws-white, 0.7); font-weight: 500; }
+
+// ============================================================
+// EVENT CARDS
+// ============================================================
+.ws-event-card {
+    background: $ws-white; border-radius: $ws-radius; padding: 28px; border: 1px solid $ws-border; height: 100%; transition: .3s; position: relative; overflow: hidden;
+    box-shadow: $ws-shadow;
+    &:hover { transform: translateY(-4px); box-shadow: $ws-shadow-md; }
+    &::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: $ws-primary; transform: scaleX(0); transform-origin: left; transition: .35s; }
+    &:hover::before { transform: scaleX(1); }
+}
+.ws-event-card-lg { padding: 32px; }
+.ws-event-icon { width: 48px; height: 48px; border-radius: 12px; background: $ws-primary-light; color: $ws-primary; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 16px; }
+.ws-event-date { font-size: 12px; color: $ws-primary; font-weight: 600; margin-bottom: 8px; }
+.ws-event-title { font-size: 16px; font-weight: 700; color: $ws-dark; margin-bottom: 8px; }
+.ws-event-desc { font-size: 13px; color: $ws-muted; line-height: 1.6; margin: 0; }
+.ws-event-time { font-size: 12px; color: $ws-muted; margin-top: 12px; display: inline-block; }
+
+// ============================================================
+// ANNOUNCEMENTS
+// ============================================================
+.ws-announce-card {
+    background: $ws-white; border-radius: $ws-radius; padding: 28px; border: 1px solid $ws-border; height: 100%; transition: .3s;
+    box-shadow: $ws-shadow;
+    &:hover { transform: translateY(-3px); box-shadow: $ws-shadow-md; }
+    h5 { font-size: 17px; font-weight: 700; color: $ws-dark; margin-bottom: 10px; }
+    p { font-size: 14px; color: $ws-muted; line-height: 1.7; margin: 0; }
+}
+.ws-announce-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
+.ws-announce-badge { font-size: 11px; font-weight: 600; color: $ws-primary-dark; background: $ws-primary-light; padding: 4px 10px; border-radius: 6px; }
+.ws-announce-date { font-size: 12px; color: $ws-muted; }
+
+// ============================================================
+// CTA BANNER
+// ============================================================
+.ws-cta { background: linear-gradient(135deg, $ws-primary 0%, #1a8c45 100%); padding: 70px 0; }
+.ws-cta-title { font-size: 32px; font-weight: 800; color: $ws-white; margin-bottom: 14px; }
+.ws-cta-sub { font-size: 17px; color: rgba($ws-white, 0.85); margin-bottom: 28px; max-width: 500px; margin-left: auto; margin-right: auto; }
+.ws-cta .ws-btn-primary { background: $ws-white; color: $ws-primary-dark; box-shadow: 0 4px 16px rgba(0,0,0,0.15); &:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); } }
+
+// ============================================================
+// MINISTRY CARDS
+// ============================================================
+.ws-ministry-card { background: $ws-white; border-radius: $ws-radius; padding: 32px 24px; border: 1px solid $ws-border; box-shadow: $ws-shadow; height: 100%; text-align: center; transition: .3s; &:hover { transform: translateY(-4px); box-shadow: $ws-shadow-md; } h5 { font-size: 16px; font-weight: 700; color: $ws-dark; margin: 16px 0 10px; } p { font-size: 13px; color: $ws-muted; line-height: 1.6; margin: 0; } }
+.ws-ministry-icon { width: 64px; height: 64px; border-radius: 50%; background: $ws-primary-light; color: $ws-primary; display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto; }
+
+// ============================================================
+// ABOUT PAGE
+// ============================================================
+.ws-about-img-placeholder { width: 100%; height: 300px; border-radius: $ws-radius; background: $ws-light; border: 1px solid $ws-border; display: flex; align-items: center; justify-content: center; font-size: 80px; color: #d0d0d0; }
+.ws-value-card { background: $ws-white; border-radius: $ws-radius; padding: 32px; border: 1px solid $ws-border; box-shadow: $ws-shadow; text-align: center; height: 100%; transition: .3s; &:hover { transform: translateY(-4px); box-shadow: $ws-shadow-md; } i { font-size: 38px; color: $ws-primary; margin-bottom: 14px; display: block; } h5 { font-weight: 700; color: $ws-dark; margin-bottom: 10px; } p { font-size: 14px; color: $ws-muted; line-height: 1.6; } }
+.ws-leader-card { text-align: center; padding: 28px 16px; background: $ws-white; border-radius: $ws-radius; border: 1px solid $ws-border; box-shadow: $ws-shadow; transition: .3s; &:hover { transform: translateY(-3px); box-shadow: $ws-shadow-md; } h6 { font-weight: 700; color: $ws-dark; margin-top: 14px; margin-bottom: 4px; } p { font-size: 12px; color: $ws-muted; margin: 0; } }
+.ws-leader-avatar { width: 72px; height: 72px; border-radius: 50%; background: $ws-light; color: #c0c0c0; display: flex; align-items: center; justify-content: center; font-size: 34px; margin: 0 auto; border: 3px solid $ws-border; }
+
+// ============================================================
+// PASTOR PAGE
+// ============================================================
+.ws-pastor-photo { width: 200px; height: 200px; border-radius: 50%; background: $ws-light; border: 4px solid $ws-border; display: flex; align-items: center; justify-content: center; font-size: 80px; color: #c0c0c0; margin: 0 auto; }
+
+// ============================================================
+// GALLERY
+// ============================================================
+.ws-gallery-item { border-radius: $ws-radius; overflow: hidden; position: relative; transition: .3s; &:hover { transform: translateY(-3px); box-shadow: $ws-shadow-md; } }
+.ws-gallery-placeholder { width: 100%; height: 200px; background: $ws-light; border: 1px solid $ws-border; display: flex; align-items: center; justify-content: center; font-size: 44px; color: #d0d0d0; }
+.ws-gallery-label { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.7)); color: $ws-white; padding: 20px 14px 10px; font-size: 12px; font-weight: 600; }
+
+// ============================================================
+// CONTACT
+// ============================================================
+.ws-contact-item { display: flex; gap: 14px; margin-bottom: 20px; i { font-size: 22px; color: $ws-primary; margin-top: 3px; flex-shrink: 0; } p { margin: 0; color: $ws-muted; font-size: 14px; } strong { color: $ws-dark; display: block; margin-bottom: 3px; font-size: 14px; } }
+.ws-map-placeholder { width: 100%; height: 400px; border-radius: $ws-radius; background: $ws-light; border: 1px solid $ws-border; display: flex; flex-direction: column; align-items: center; justify-content: center; i { font-size: 60px; color: #d0d0d0; } p { color: $ws-muted; margin-top: 10px; } }
+
+// ============================================================
+// FOOTER
+// ============================================================
+.ws-footer { background: $ws-dark; color: rgba($ws-white, 0.75); padding: 60px 0 24px; }
+.ws-footer-title { color: $ws-white; font-size: 16px; font-weight: 700; margin-bottom: 14px; }
+.ws-footer-text { font-size: 14px; line-height: 1.9; }
+.ws-footer-bottom { border-top: 1px solid rgba($ws-white, 0.08); margin-top: 36px; padding-top: 18px; text-align: center; p { font-size: 13px; color: rgba($ws-white, 0.4); margin: 0; } }

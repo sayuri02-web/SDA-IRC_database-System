@@ -1,0 +1,114 @@
+// ============================================================
+// MIXINS — Reusable patterns
+// ============================================================
+
+// ---- RESPONSIVE ----
+@mixin mobile  { @media (max-width: $bp-mobile)  { @content; } }
+@mixin tablet  { @media (max-width: $bp-tablet)  { @content; } }
+@mixin desktop { @media (min-width: $bp-desktop) { @content; } }
+@mixin large   { @media (min-width: $bp-large)   { @content; } }
+
+// ---- FLEX HELPERS ----
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@mixin flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+// ---- FULL HEIGHT SCROLL CONTAINER ----
+@mixin page-wrapper {
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin scrollable-area {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 4px;
+    padding-bottom: 8px;
+
+    &::-webkit-scrollbar { width: 5px; }
+    &::-webkit-scrollbar-track { background: #f0f4f8; border-radius: 10px; }
+    &::-webkit-scrollbar-thumb { background: #c4c9d4; border-radius: 10px; }
+    &::-webkit-scrollbar-thumb:hover { background: #a0aec0; }
+}
+
+// ---- CARD ----
+@mixin card-base($radius: $radius-3xl) {
+    background: $color-white;
+    border-radius: $radius;
+    border: 1px solid $color-border;
+    overflow: hidden;
+    position: relative;
+    transition: $transition-smooth;
+    transition-property: transform, box-shadow, border-color;
+}
+
+@mixin card-hover-lift($color: $color-primary, $y: -6px) {
+    &:hover {
+        transform: translateY($y);
+        border-color: $color;
+        box-shadow: 0 12px 30px rgba($color, 0.25), 0 4px 12px rgba($color, 0.15);
+    }
+}
+
+// ---- ACTION BUTTON (inline card actions) ----
+@mixin action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 14px;
+    border-radius: $radius-sm;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semi;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    background: transparent;
+    transition: transform $transition-base, background $transition-base, color $transition-base, box-shadow $transition-base;
+
+    &:hover { transform: translateY(-2px); }
+}
+
+// ---- PAGE ICON ----
+@mixin page-icon($bg: $color-primary, $bg-end: $color-primary-light) {
+    width: 52px;
+    height: 52px;
+    border-radius: $radius-xl;
+    background: linear-gradient(135deg, $bg, $bg-end);
+    color: $color-white;
+    @include flex-center;
+    font-size: 26px;
+    flex-shrink: 0;
+    box-shadow: 0 6px 16px rgba($bg, 0.30);
+}
+
+// ---- EMPTY STATE ----
+@mixin empty-state {
+    @include flex-col;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+// ---- PRINT HIDE ----
+@mixin print-hide {
+    @media print { display: none !important; }
+}

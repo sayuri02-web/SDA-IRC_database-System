@@ -1,0 +1,97 @@
+// ============================================================
+// DESIGN TOKENS — Single source of truth
+// ============================================================
+
+// ---- COLORS ----
+$color-primary:       #28a745;
+$color-primary-light: #5cd65c;
+$color-primary-bg:    #e9fff3;
+
+$color-secondary:     #2449d8;
+$color-secondary-bg:  #eef4ff;
+
+$color-danger:        #e53935;
+$color-danger-bg:     #fff0f0;
+
+$color-warning:       #ff8a00;
+$color-warning-bg:    #fff4e8;
+
+$color-purple:        #8e3dff;
+$color-purple-bg:     #f7ecff;
+
+$color-purple-task:   #9b59b6;
+
+$color-dark:          #1a1f36;
+$color-text:          #525f7f;
+$color-muted:         #8898aa;
+$color-border:        #e2e8f0;
+$color-border-light:  #edf0f5;
+$color-bg:            #f3f0f7;
+$color-bg-light:      #f8fafc;
+$color-white:         #ffffff;
+
+// Sidebar
+$sidebar-bg-start:    #07142c;
+$sidebar-bg-end:      #0b1d3a;
+$sidebar-width:       240px;
+$sidebar-active:      #2449d8;
+
+// ---- TYPOGRAPHY ----
+$font-family:         'Segoe UI', sans-serif;
+$font-size-xs:        11px;
+$font-size-sm:        12px;
+$font-size-base:      14px;
+$font-size-md:        15px;
+$font-size-lg:        18px;
+$font-size-xl:        20px;
+$font-size-xxl:       26px;
+
+$font-weight-medium:  500;
+$font-weight-semi:    600;
+$font-weight-bold:    700;
+$font-weight-black:   800;
+
+// ---- BORDER RADIUS ----
+$radius-sm:           8px;
+$radius-md:           10px;
+$radius-lg:           12px;
+$radius-xl:           14px;
+$radius-2xl:          18px;
+$radius-3xl:          20px;
+$radius-full:         50%;
+$radius-pill:         30px;
+
+// ---- SHADOWS ----
+$shadow-sm:           0 2px 10px rgba(0, 0, 0, 0.05);
+$shadow-md:           0 4px 24px rgba(0, 0, 0, 0.06);
+$shadow-lg:           0 10px 30px rgba(0, 0, 0, 0.08);
+$shadow-xl:           0 16px 40px rgba(0, 0, 0, 0.10);
+$shadow-primary:      0 4px 14px rgba($color-primary, 0.35);
+$shadow-primary-lg:   0 8px 20px rgba($color-primary, 0.40);
+
+// ---- SPACING ----
+$space-xs:            4px;
+$space-sm:            8px;
+$space-md:            12px;
+$space-lg:            16px;
+$space-xl:            20px;
+$space-2xl:           24px;
+$space-3xl:           28px;
+
+// ---- BREAKPOINTS ----
+$bp-mobile:           576px;
+$bp-tablet:           768px;
+$bp-desktop:          992px;
+$bp-large:            1200px;
+
+// ---- Z-INDEX ----
+$z-dropdown:          100;
+$z-sticky:            200;
+$z-modal-backdrop:    1000;
+$z-sidebar:           1000;
+$z-modal:             1050;
+
+// ---- TRANSITIONS ----
+$transition-fast:     0.2s ease;
+$transition-base:     0.25s ease;
+$transition-smooth:   0.35s cubic-bezier(0.4, 0, 0.2, 1);

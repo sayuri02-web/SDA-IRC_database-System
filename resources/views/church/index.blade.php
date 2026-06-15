@@ -10,7 +10,7 @@
             <div class="church-page-header mb-3">
                 <div class="church-page-header-left">
                     <div class="church-page-icon">
-                        <i class="mdi mdi-church"></i>
+                        <i class="mdi mdi-home"></i>
                     </div>
                     <div>
                         <h3 class="church-page-title mb-0">Church Registration</h3>
@@ -99,7 +99,7 @@
                             <div class="church-card-body">
                                 {{-- AVATAR --}}
                                 <div class="church-avatar" style="background: {{ $clusterColor }}1a; color: {{ $clusterColor }};">
-                                    <i class="mdi mdi-church"></i>
+                                    <i class="mdi mdi-home"></i>
                                 </div>
 
                                 {{-- NAME --}}
@@ -153,7 +153,7 @@
                     <div class="col-12">
                         <div class="church-empty-state">
                             <div class="church-empty-icon">
-                                <i class="mdi mdi-church"></i>
+                                <i class="mdi mdi-home"></i>
                             </div>
                             <h4 class="church-empty-title">No Churches Registered</h4>
                             <p class="church-empty-text">Start by adding your first church to the system.</p>

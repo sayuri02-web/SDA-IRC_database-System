@@ -16,22 +16,14 @@
                 <div class="d-flex align-items-center">
 
                     <!-- SEARCH -->
-                    <div class="me-2">
-
+                    <div class="me-2 member-search-wrap">
+                        <i class="mdi mdi-magnify member-search-icon"></i>
                         <input type="text"
                             name="search"
                             id="searchInput"
-                            class="form-control shadow-sm"
-                            style="
-                                    border-radius:10px;
-                                    background:#f8f9fa;
-                                    height:42px;
-                                    min-width:250px;
-                                    border:1px solid #98d7b5;
-                            "
+                            class="form-control shadow-sm member-search-input"
                             placeholder="Search member..."
                             value="">
-
                     </div>
 
                     <!-- ADD BUTTON -->

@@ -1,0 +1,30 @@
+// ============================================================
+// MAIN CONTENT & TOPBAR
+// ============================================================
+
+.main-content {
+    margin-left: $sidebar-width;
+    padding: $space-xl;
+    background: $color-bg;
+    height: 100vh;
+    @include flex-col;
+    overflow: hidden;
+
+    @include tablet { margin-left: 0; }
+}
+
+.main-content > .content-wrapper {
+    flex: 1;
+    min-height: 0;
+    @include flex-col;
+    overflow: hidden;
+}
+
+.topbar {
+    background: $color-white;
+    border-radius: $radius-lg;
+    padding: 15px 25px;
+    margin-bottom: $space-xl;
+    box-shadow: $shadow-sm;
+    flex: 0 0 auto;
+}
