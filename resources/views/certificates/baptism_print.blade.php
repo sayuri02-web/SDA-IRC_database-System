@@ -4,7 +4,7 @@
     
     <title>Certificate of Baptism</title>
 
-    @vite('resources/css/certificates/baptism_print.css')
+    @vite('resources/scss/certificates/baptism_print.scss')
 
 </head>
 

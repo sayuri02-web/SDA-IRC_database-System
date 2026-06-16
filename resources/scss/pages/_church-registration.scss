@@ -68,7 +68,7 @@
 .church-empty-text { font-size: 14px; color: #8898aa; margin-bottom: 20px; }
 
 // Form styles (create/edit)
-.church-breadcrumb { display: flex; align-items: center; font-size: 13px; }
+.church-breadcrumb { display: flex; align-items: center; font-size: 13px; flex-shrink: 0; }
 .church-breadcrumb-link { color: #28a745; text-decoration: none; font-weight: 600; transition: 0.2s; &:hover { color: #218838; } }
 .church-breadcrumb-sep { color: #c4c9d4; }
 .church-breadcrumb-current { color: #8898aa; }
@@ -83,8 +83,8 @@
 .church-section-num { width: 26px; height: 26px; border-radius: 50%; background: linear-gradient(135deg, #28a745, #5cd65c); color: white; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .church-label { display: block; font-size: 13px; font-weight: 600; color: #525f7f; margin-bottom: 6px; }
 .church-input-wrap { position: relative; }
-.church-input-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #a0aec0; font-size: 18px; pointer-events: none; }
-.church-input, .church-select { height: 46px; padding-left: 44px; border-radius: 12px; border: 1.5px solid #e2e8f0; background: #f8fafc; font-size: 14px; transition: 0.25s; width: 100%; color: #1a1f36; &:focus { border-color: #28a745; background: #fff; box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.12); outline: none; } }
+.church-input-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #a0aec0; font-size: 18px; pointer-events: none; z-index: 1; }
+.church-input, .church-select { height: 46px; padding-left: 44px !important; border-radius: 12px; border: 1.5px solid #e2e8f0; background: #f8fafc; font-size: 14px; transition: 0.25s; width: 100%; color: #1a1f36; &:focus { border-color: #28a745; background: #fff; box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.12); outline: none; } }
 .church-form-actions { display: flex; justify-content: flex-end; padding-top: 20px; border-top: 1px solid #f0f0f5; margin-top: 8px; }
 
 // Scrollable card area

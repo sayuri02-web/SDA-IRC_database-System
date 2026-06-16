@@ -34,8 +34,8 @@
 .fade-in { animation: fadeIn .3s ease-in-out; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-.create-page-wrapper { height: 100%; display: flex; flex-direction: column; }
-.create-member-card { flex: 1; display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+.create-page-wrapper { height: 100%; display: flex; flex-direction: column; min-height: 0; }
+.create-member-card { flex: 1; display: flex; flex-direction: column; min-height: 0; overflow: hidden; border-radius: 20px; .church-form-header { flex-shrink: 0; } }
 .create-member-body { flex: 1; display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
 .form-sample { flex: 1; display: flex; flex-direction: column; min-height: 0; }
 .create-form-scroll { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding-right: 8px; &::-webkit-scrollbar { width: 8px; } &::-webkit-scrollbar-thumb { background: #cfd8dc; border-radius: 10px; } }
@@ -43,8 +43,8 @@
 .create-form-footer { flex-shrink: 0; background: #fff; border-top: 1px solid #eee; }
 
 // ---- EDIT ----
-.edit-page-wrapper { height: calc(100vh - 110px); display: flex; flex-direction: column; min-height: 0; }
-.edit-member-card { flex: 1; display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+.edit-page-wrapper { height: 100%; display: flex; flex-direction: column; min-height: 0; }
+.edit-member-card { flex: 1; display: flex; flex-direction: column; min-height: 0; overflow: hidden; border-radius: 20px; .church-form-header { flex-shrink: 0; } .card-header { flex-shrink: 0; } }
 .edit-member-body { flex: 1; display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
 .edit-form-scroll { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 0 8px 30px 0; &::-webkit-scrollbar { width: 8px; } &::-webkit-scrollbar-thumb { background: #cfd8dc; border-radius: 10px; } }
 
@@ -55,7 +55,8 @@
 .section-title { margin-top: 25px; font-weight: bold; font-size: 16px; border-bottom: 1px solid #ddd; padding-bottom: 5px; text-transform: uppercase; }
 .info-table { width: 100%; margin-top: 10px; td { padding: 6px; vertical-align: top; } }
 .label { font-weight: 600; width: 200px; }
-.top-actions { max-width: 900px; margin: 20px auto 0; display: flex; justify-content: flex-end; gap: 10px; }
+.top-actions, .member-show-top { max-width: 900px; margin: 0 auto 14px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.member-show-btns { display: flex; gap: 8px; }
 
 @media print {
     body * { visibility: hidden; }

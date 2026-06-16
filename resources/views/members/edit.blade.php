@@ -2,10 +2,25 @@
 @section('content')
 
 <div class="col-12 edit-page-wrapper">
-    <div class="card edit-member-card">
 
-        <div class="card-header">
-            <h4 class="card-title">Edit Member's Information</h4>
+    {{-- TRANSACTION HEADER (fixed, never scrolls) --}}
+    <div class="church-breadcrumb mb-3">
+        <a href="{{ url('/members') }}" class="church-breadcrumb-link">
+            <i class="mdi mdi-account-group me-1"></i>Members
+        </a>
+        <i class="mdi mdi-chevron-right mx-1 church-breadcrumb-sep"></i>
+        <span class="church-breadcrumb-current">Edit Member</span>
+    </div>
+
+    <div class="card edit-member-card">
+        <div class="church-form-header" style="background: linear-gradient(135deg,#2449d8,#5c7cfa);">
+            <div class="church-form-header-icon" style="background: rgba(255,255,255,0.2);">
+                <i class="mdi mdi-account-edit"></i>
+            </div>
+            <div>
+                <h4 class="church-form-title mb-0">Edit Member</h4>
+                <p class="church-form-subtitle mb-0">Update information for {{ $members->first_name }} {{ $members->last_name }}</p>
+            </div>
         </div>
 
         <div class="card-body edit-member-body">

@@ -2,8 +2,27 @@
 @section('content')
 
     <div class="col-12 create-page-wrapper">
+
+        {{-- TRANSACTION HEADER (fixed, never scrolls) --}}
+        <div class="church-breadcrumb mb-3">
+            <a href="{{ url('/members') }}" class="church-breadcrumb-link">
+                <i class="mdi mdi-account-group me-1"></i>Members
+            </a>
+            <i class="mdi mdi-chevron-right mx-1 church-breadcrumb-sep"></i>
+            <span class="church-breadcrumb-current">Add New Member</span>
+        </div>
+
         <div class="card create-member-card">
-            <div class="card-header"><h4 class="card-title">Add Member</h4></div>
+            <div class="church-form-header">
+                <div class="church-form-header-icon">
+                    <i class="mdi mdi-account-plus"></i>
+                </div>
+                <div>
+                    <h4 class="church-form-title mb-0">Add New Member</h4>
+                    <p class="church-form-subtitle mb-0">Fill in the details to register a new church member</p>
+                </div>
+            </div>
+
             <div class="card-body create-member-body">
                 <form action="{{ url('members') }}" method="post" enctype="multipart/form-data" class="form-sample create-form">
                     {!! csrf_field()!!}

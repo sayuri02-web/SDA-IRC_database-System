@@ -1,15 +1,23 @@
 @extends('layout')
 @section('content')
 
-
-<div class="top-actions">
-    <a href="{{ url('/members') }}" class="btn btn-outline-secondary btn-sm">
-        <i class="mdi mdi-arrow-left me-1"></i> Back
-    </a>
-
-    <button onclick="window.print()" class="btn btn-outline-success btn-sm">
-        <i class="mdi mdi-printer-outline me-1"></i> Print Document
-    </button>
+{{-- BREADCRUMB + ACTIONS --}}
+<div class="member-show-top">
+    <div class="church-breadcrumb">
+        <a href="{{ url('/members') }}" class="church-breadcrumb-link">
+            <i class="mdi mdi-account-group me-1"></i>Members
+        </a>
+        <i class="mdi mdi-chevron-right mx-1 church-breadcrumb-sep"></i>
+        <span class="church-breadcrumb-current">View Member</span>
+    </div>
+    <div class="member-show-btns">
+        <a href="{{ url('/members') }}" class="btn btn-outline-secondary btn-sm">
+            <i class="mdi mdi-arrow-left me-1"></i> Back
+        </a>
+        <button onclick="window.print()" class="btn btn-outline-success btn-sm">
+            <i class="mdi mdi-printer-outline me-1"></i> Print
+        </button>
+    </div>
 </div>
 
 <div class="cv-container">
