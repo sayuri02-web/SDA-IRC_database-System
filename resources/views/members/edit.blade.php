@@ -5,11 +5,17 @@
 
     {{-- TRANSACTION HEADER (fixed, never scrolls) --}}
     <div class="church-breadcrumb mb-3">
+        @if(request('from') === 'leaders')
+        <a href="{{ url('/leaders-directory') }}" class="church-breadcrumb-link">
+            <i class="mdi mdi-account-tie me-1"></i>Leaders Directory
+        </a>
+        @else
         <a href="{{ url('/members') }}" class="church-breadcrumb-link">
             <i class="mdi mdi-account-group me-1"></i>Members
         </a>
+        @endif
         <i class="mdi mdi-chevron-right mx-1 church-breadcrumb-sep"></i>
-        <span class="church-breadcrumb-current">Edit Member</span>
+        <span class="church-breadcrumb-current">{{ request('from') === 'leaders' ? 'Edit Officer' : 'Edit Member' }}</span>
     </div>
 
     <div class="card edit-member-card">
@@ -392,7 +398,30 @@
                     </div>
                     <br>
 
-                    
+                    {{-- ORGANIZATION INFO (only when editing from Leaders Directory) --}}
+                    @if(request('from') === 'leaders' && $members->is_leader)
+                    <h5 class="card-description" style="color:#2449d8;"> Organization Information </h5>
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Organization</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="organization" class="form-control" value="{{ $members->organization }}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Position</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="position" class="form-control" value="{{ $members->position }}" placeholder="e.g. President, Secretary">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    @endif
+
                     <h5 class="card-description"> Other Info </h5>
 
                     <div class="row mb-2">
@@ -646,7 +675,7 @@
 
                 <!-- BUTTONS -->
                 <div class="d-flex justify-content-end me-4 pb-4">
-                    <a href="{{ url('/members') }}" class="btn btn-outline-secondary me-2">Cancel</a>
+                    <a href="{{ request('from') === 'leaders' ? url('/leaders-directory') : url('/members') }}" class="btn btn-outline-secondary me-2">Cancel</a>
                     <button type="submit" class="btn btn-outline-success">Update</button>
                 </div>
 

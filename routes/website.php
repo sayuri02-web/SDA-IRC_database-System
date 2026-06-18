@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WebsiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -8,6 +9,8 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 | Completely isolated from CMS routes.
 */
+
+Route::get('/', [WebsiteController::class, 'home']);
 
 Route::prefix('website')->name('website.')->group(function () {
     Route::view('/', 'website.home')->name('home');

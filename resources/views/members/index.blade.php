@@ -27,8 +27,13 @@
                     </div>
 
                     <!-- ADD BUTTON -->
-                    <a href="{{ url('/members/create')}}" class="btn btn-outline-success btn-sm">
+                    <a href="{{ url('/members/create')}}" class="btn btn-outline-success btn-sm me-2">
                         <i class="fa fa-plus me-1"></i> Add New
+                    </a>
+
+                    <!-- LEADERS DIRECTORY -->
+                    <a href="{{ route('leaders-directory.index') }}" class="btn btn-outline-primary btn-sm">
+                        <i class="mdi mdi-account-tie me-1"></i> Leaders Directory
                     </a>
 
                 </div>

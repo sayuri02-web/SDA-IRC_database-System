@@ -20,6 +20,7 @@ class MemberController extends Controller
         $search = $request->search;
 
         $members = Member::with('church')
+        ->where('is_leader', false)
         ->when($search, function ($query, $search) {
 
             $query->where('first_name', 'like', "%{$search}%")
@@ -32,11 +33,13 @@ class MemberController extends Controller
         return view('members.index', compact('members'));
     }
 
-    public function create(): View
+    public function create(Request $request): View
     {
         $churches = Church::all();
+        $isLeader = $request->has('leader');
+        $organization = $request->get('organization', '');
 
-        return view('members.create', compact('churches'));
+        return view('members.create', compact('churches', 'isLeader', 'organization'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -103,6 +106,11 @@ class MemberController extends Controller
         Member::create($input);
 
         ActivityLog::log('Members', 'Created', 'Added new member: ' . $input['first_name'] . ' ' . $input['last_name']);
+
+        // Redirect based on context
+        if ($request->is_leader) {
+            return redirect('/leaders-directory')->with('flash_message', 'Officer Added Successfully');
+        }
 
         return redirect('members')->with('flash_message', 'Member Added');
     }

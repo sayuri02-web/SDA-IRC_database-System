@@ -1,0 +1,97 @@
+// ============================================================
+// LEADERS DIRECTORY — Phase 2 Enhanced UI
+// ============================================================
+
+// Layout
+.leaders-page-wrapper { height: 100%; min-height: 0; overflow: hidden; display: flex; flex-direction: column; }
+.leaders-page-card { flex: 1; min-height: 0; display: flex; flex-direction: column; border-radius: 20px !important; border: none !important; }
+.leaders-page-body { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
+.leaders-scroll-area { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding-right: 4px; &::-webkit-scrollbar { width: 5px; } &::-webkit-scrollbar-thumb { background: #c4c9d4; border-radius: 10px; } }
+
+// Organization cards
+.leaders-org-card {
+    background: #fff; border-radius: 16px; border: 1px solid #edf0f5; padding: 24px; text-align: center;
+    transition: all .3s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.04); height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    &:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.08); border-color: transparent; }
+}
+.leaders-org-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 14px; }
+.leaders-org-name { font-size: 15px; font-weight: 700; color: #1a1f36; margin-bottom: 4px; }
+.leaders-org-count { font-size: 13px; color: #8898aa; margin-bottom: 14px; }
+.leaders-view-btn { border-radius: 8px; font-weight: 600; font-size: 12px; padding: 6px 16px; }
+.leaders-action-delete-org { border-radius: 8px; font-weight: 600; font-size: 12px; padding: 6px 14px; background: transparent; color: #e53935; border: 1px solid #e53935; transition: .2s; &:hover { background: #e53935; color: #fff; } }
+
+// Table
+.leaders-table-scroll { overflow-x: auto; }
+
+// Avatars
+.leaders-avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, #2449d8, #5c7cfa); color: #fff; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.leaders-avatar-sm { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #28a745, #5cd65c); color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.leaders-avatar-lg { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, #2449d8, #5c7cfa); color: #fff; font-size: 28px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+
+// Organization badges (color-coded)
+.leaders-org-badge { display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+.badge-council  { background: #eef4ff; color: #2449d8; }
+.badge-ayc      { background: #e9fff3; color: #28a745; }
+.badge-cluster1 { background: #eef4ff; color: #2457ff; }
+.badge-cluster2 { background: #e9fff3; color: #11a75c; }
+.badge-cluster3 { background: #fff4e8; color: #ff8a00; }
+.badge-cluster4 { background: #f7ecff; color: #8e3dff; }
+
+// Status badges
+.leaders-status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.leaders-status-active { background: #e8fff1; color: #0f9d58; border: 1px solid rgba(15,157,88,0.15); }
+.leaders-status-inactive { background: #f4f5f7; color: #8898aa; border: 1px solid rgba(136,152,170,0.15); }
+
+// Action buttons (icon-only) — matches Member module: View=info, Edit=primary, Delete=danger
+.leaders-action-view { background: #e8f8f8; color: #0dcaf0; border: none; border-radius: 6px; width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; transition: .2s; margin-right: 4px; cursor: pointer; text-decoration: none; &:hover { background: #0dcaf0; color: #fff; } }
+.leaders-action-edit { background: #eef4ff; color: #0d6efd; border: none; border-radius: 6px; width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; transition: .2s; margin-right: 4px; cursor: pointer; text-decoration: none; &:hover { background: #0d6efd; color: #fff; } }
+.leaders-action-delete { background: #fff0f0; color: #dc3545; border: none; border-radius: 6px; width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; transition: .2s; cursor: pointer; &:hover { background: #dc3545; color: #fff; } }
+
+// Modal
+.leaders-modal { border-radius: 18px !important; overflow: hidden; border: none !important; box-shadow: 0 20px 60px rgba(0,0,0,0.12) !important;
+    position: relative;
+
+    // X button pinned to modal-content top-right corner
+    > .modal-header .btn-close,
+    .modal-header .btn-close {
+        position: absolute !important;
+        top: 14px !important;
+        right: 14px !important;
+        margin: 0 !important;
+        padding: 6px !important;
+        z-index: 10;
+        opacity: 0.4;
+        transition: opacity .2s;
+        &:hover { opacity: 1; }
+    }
+
+    .modal-header {
+        padding-right: 40px; // just enough for the X button
+    }
+}
+.leaders-modal-bar { height: 5px; background: linear-gradient(to right, #2449d8, #5c7cfa); }
+.leaders-modal-icon { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+
+// Modal XL height — workspace feel (85-90% viewport)
+[id^="modal-org-"] {
+    .modal-dialog { max-width: 1100px; }
+    .modal-content { max-height: 88vh; display: flex; flex-direction: column; }
+    .modal-header { flex-shrink: 0; }
+    .modal-body { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden;
+        &::-webkit-scrollbar { width: 5px; }
+        &::-webkit-scrollbar-thumb { background: #c4c9d4; border-radius: 10px; }
+    }
+}
+
+// Disabled button tooltip fix — must beat Bootstrap's .btn:disabled { pointer-events: none }
+.leaders-modal .btn[disabled],
+.leaders-modal .btn:disabled {
+    pointer-events: auto !important;
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+// Table hover in modals
+.leaders-modal .table tbody tr { transition: background .15s; &:hover { background: #f8faff; } }
+.leaders-modal .table thead th { font-size: 12px; color: #8898aa; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; border-bottom: 2px solid #f0f4f8; position: sticky; top: 0; background: #fff; z-index: 1; }

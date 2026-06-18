@@ -58,8 +58,8 @@
 // Card actions
 .church-card-actions { display: flex; justify-content: center; gap: 8px; }
 .church-action-btn { display: inline-flex; align-items: center; gap: 4px; padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 600; border: none; cursor: pointer; text-decoration: none; background: transparent; transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease; &:hover { transform: translateY(-2px); } }
-.church-edit-btn { background: #eef4ff; color: #2449d8; &:hover { background: #2449d8; color: white; box-shadow: 0 4px 12px rgba(36, 73, 216, 0.25); } }
-.church-delete-btn { background: #fff0f0; color: #e53935; &:hover { background: #e53935; color: white; box-shadow: 0 4px 12px rgba(229, 57, 53, 0.25); } }
+.church-edit-btn { background: #eef4ff; color: #0d6efd; &:hover { background: #0d6efd; color: white; box-shadow: 0 4px 12px rgba(13, 110, 253, 0.25); } }
+.church-delete-btn { background: #fff0f0; color: #dc3545; &:hover { background: #dc3545; color: white; box-shadow: 0 4px 12px rgba(220, 53, 69, 0.25); } }
 
 // Empty state
 .church-empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; text-align: center; }

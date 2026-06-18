@@ -54,13 +54,14 @@
                 <div class="col-lg-4">
                     <h5 class="ws-footer-title">SDA-IRC Church</h5>
                     <p class="ws-footer-text">Growing in Faith. Serving the Community. Sharing God's Love.</p>
+                    <p class="ws-footer-text">Website Creator: Francis Lloyd Andrew T. Cantones</p>
                 </div>
                 <div class="col-lg-4">
                     <h5 class="ws-footer-title">Service Schedule</h5>
                     <p class="ws-footer-text">
-                        <i class="mdi mdi-clock-outline me-1"></i>Sabbath School: 9:00 AM<br>
-                        <i class="mdi mdi-clock-outline me-1"></i>Divine Service: 11:00 AM<br>
-                        <i class="mdi mdi-clock-outline me-1"></i>AY Program: 3:00 PM
+                        <i class="mdi mdi-clock-outline me-1"></i>Sabbath School: 8:00 AM<br>
+                        <i class="mdi mdi-clock-outline me-1"></i>Divine Service: 10:00 AM<br>
+                        <i class="mdi mdi-clock-outline me-1"></i>AY Program: 2:00 PM
                     </p>
                 </div>
                 <div class="col-lg-4">

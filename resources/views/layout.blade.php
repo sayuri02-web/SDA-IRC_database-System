@@ -73,6 +73,14 @@
             </li>
 
             <li>
+                <a class="{{ request()->is('website-management') ? 'active' : '' }}"
+                   href="{{ url('/website-management') }}">
+                    <i class="mdi mdi-web"></i>
+                    Website Management
+                </a>
+            </li>
+
+            <li>
                 <a class="{{ request()->is('settings') ? 'active' : '' }}"
                    href="{{ url('/settings') }}">
                     <i class="mdi mdi-cog"></i>

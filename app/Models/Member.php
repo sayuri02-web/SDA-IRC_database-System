@@ -46,6 +46,11 @@ class Member extends Model
 
     // PHOTO
     'photo',
+
+    // LEADER
+    'is_leader',
+    'organization',
+    'position',
 ];
     
     public function getFullNameAttribute()

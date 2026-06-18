@@ -4,14 +4,20 @@
 {{-- BREADCRUMB + ACTIONS --}}
 <div class="member-show-top">
     <div class="church-breadcrumb">
+        @if(request('from') === 'leaders')
+        <a href="{{ url('/leaders-directory') }}" class="church-breadcrumb-link">
+            <i class="mdi mdi-account-tie me-1"></i>Leaders Directory
+        </a>
+        @else
         <a href="{{ url('/members') }}" class="church-breadcrumb-link">
             <i class="mdi mdi-account-group me-1"></i>Members
         </a>
+        @endif
         <i class="mdi mdi-chevron-right mx-1 church-breadcrumb-sep"></i>
         <span class="church-breadcrumb-current">View Member</span>
     </div>
     <div class="member-show-btns">
-        <a href="{{ url('/members') }}" class="btn btn-outline-secondary btn-sm">
+        <a href="{{ request('from') === 'leaders' ? url('/leaders-directory') : url('/members') }}" class="btn btn-outline-secondary btn-sm">
             <i class="mdi mdi-arrow-left me-1"></i> Back
         </a>
         <button onclick="window.print()" class="btn btn-outline-success btn-sm">
@@ -40,6 +46,13 @@
                 <h1 style="margin:0; font-size:28px;">
                     {{ $members->first_name }} {{ $members->middle_initial }} {{ $members->last_name }}
                 </h1>
+
+                @if(request('from') === 'leaders' && $members->is_leader)
+                <p style="margin:4px 0 8px; display:flex; align-items:center; gap:8px;">
+                    <span style="display:inline-block; padding:3px 10px; border-radius:6px; background:#eef4ff; color:#2449d8; font-size:14px; font-weight:600;">{{ $members->organization }} :</span>
+                    <span style="font-size:14px; color:#525f7f; font-weight:500;">{{ $members->position }}</span>
+                </p>
+                @endif
 
                 <p style="margin:8px 0; display:flex; align-items:center; gap:10px;">
                     <i class="mdi mdi-cellphone" style="color:#28a745; font-size:20px;"></i>

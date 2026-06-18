@@ -5,28 +5,42 @@
 
         {{-- TRANSACTION HEADER (fixed, never scrolls) --}}
         <div class="church-breadcrumb mb-3">
+            @if(!empty($isLeader))
+            <a href="{{ url('/leaders-directory') }}" class="church-breadcrumb-link">
+                <i class="mdi mdi-account-tie me-1"></i>Leaders Directory
+            </a>
+            @else
             <a href="{{ url('/members') }}" class="church-breadcrumb-link">
                 <i class="mdi mdi-account-group me-1"></i>Members
             </a>
+            @endif
             <i class="mdi mdi-chevron-right mx-1 church-breadcrumb-sep"></i>
-            <span class="church-breadcrumb-current">Add New Member</span>
+            <span class="church-breadcrumb-current">{{ !empty($isLeader) ? 'Add Officer' : 'Add New Member' }}</span>
         </div>
 
         <div class="card create-member-card">
-            <div class="church-form-header">
+            <div class="church-form-header" @if(!empty($isLeader)) style="background: linear-gradient(135deg, #2449d8, #5c7cfa);" @endif>
                 <div class="church-form-header-icon">
-                    <i class="mdi mdi-account-plus"></i>
+                    <i class="mdi {{ !empty($isLeader) ? 'mdi-account-tie' : 'mdi-account-plus' }}"></i>
                 </div>
                 <div>
-                    <h4 class="church-form-title mb-0">Add New Member</h4>
-                    <p class="church-form-subtitle mb-0">Fill in the details to register a new church member</p>
+                    <h4 class="church-form-title mb-0">{{ !empty($isLeader) ? 'Add Officer' : 'Add New Member' }}</h4>
+                    <p class="church-form-subtitle mb-0">{{ !empty($isLeader) ? 'Add a new officer to ' . $organization : 'Fill in the details to register a new church member' }}</p>
                 </div>
             </div>
 
             <div class="card-body create-member-body">
                 <form action="{{ url('members') }}" method="post" enctype="multipart/form-data" class="form-sample create-form">
                     {!! csrf_field()!!}
+
+                    {{-- Leader hidden fields --}}
+                    @if(!empty($isLeader))
+                    <input type="hidden" name="is_leader" value="1">
+                    <input type="hidden" name="organization" value="{{ $organization }}">
+                    @endif
+
                     <div class="create-form-scroll">
+
                         <h5 class="card-description"> Personal Info </h5>
                         
                         <!--PHOTO UPLOADING HERE-->
@@ -253,6 +267,29 @@
                         <div class="card p-3 border-0 shadow-sm">
                             @livewire('address-picker')
                         </div>
+
+                        {{-- ORGANIZATION INFO (only for leaders) --}}
+                        @if(!empty($isLeader))
+                        <h5 class="card-description mt-4" style="color:#2449d8;"> Organization Information </h5>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Organization</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" value="{{ $organization }}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Position</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="position" class="form-control" placeholder="e.g. President, Secretary" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
 
                         <h5 class="card-description mt-4"> Other Info </h5>
 
@@ -497,16 +534,16 @@
 
                             </div>
                     </div>
-                    
+
                     <br>
                     <!-- BUTTONS OUTSIDE SCROLL -->
                     <div class="create-form-footer d-flex justify-content-end me-4 py-3">
-                        <a href="{{ url('/members') }}" class="btn btn-outline-secondary me-2">
+                        <a href="{{ !empty($isLeader) ? url('/leaders-directory') : url('/members') }}" class="btn btn-outline-secondary me-2">
                             Cancel
                         </a>
 
                         <button type="submit" class="btn btn-outline-success">
-                            Proceed
+                            {{ !empty($isLeader) ? 'Save Officer' : 'Proceed' }}
                         </button>
                     </div>
 
