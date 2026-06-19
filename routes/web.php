@@ -8,6 +8,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\CertificateLogController;
 use App\Http\Controllers\DedicationCertificateController;
+use App\Http\Controllers\BaptismCertificateController;
 use App\Http\Controllers\LeadersDirectoryController;
 
 
@@ -22,7 +23,7 @@ Route::get('/certificates/baptism/search', [CertificateController::class, 'searc
 Route::get('/certificates/baptism/member/{id}', [CertificateController::class, 'baptismForm'])
     ->name('certificates.baptism.member');
 
-Route::post('/certificates/baptism/print', [CertificateController::class, 'printBaptism'])
+Route::post('/certificates/baptism/print', [BaptismCertificateController::class, 'print'])
     ->name('certificates.baptism.print');
 
 // Dedication Certificate routes
