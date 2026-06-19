@@ -36,10 +36,8 @@ return new class extends Migration
 
             $table->date('fellowship_date')->nullable();
 
-            // split date fields
-            $table->integer('baptism_day')->nullable();
-            $table->string('baptism_month')->nullable();
-            $table->integer('baptism_year')->nullable();
+            //date fields
+            $table->date('baptism_date')->nullable();
 
             $table->string('church_fellowship')->nullable();
 
