@@ -1,0 +1,278 @@
+// ============================================================
+// DEDICATION CERTIFICATE PRINT LAYOUT (A4 Portrait)
+// ============================================================
+
+@page {
+    size: A4 portrait;
+    margin: 0;
+}
+
+.ded-print-body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    font-family: "Times New Roman", serif;
+}
+
+.ded-page {
+    width: 210mm;
+    height: 297mm;
+    margin: auto;
+    padding: 10mm;
+    box-sizing: border-box;
+}
+
+.ded-outer-border {
+    width: 100%;
+    height: 100%;
+    border: 3px solid #2f6ea5;
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+.ded-inner-border {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #6fa3c7;
+    padding: 20px 30px 18px;
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+// Header
+.ded-header {
+    text-align: center;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.ded-logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 70px;
+}
+
+.ded-church-name {
+    font-size: 26px;
+    font-weight: bold;
+    color: #163d6b;
+    margin-top: 2px;
+}
+
+.ded-church-sub {
+    font-size: 11px;
+    line-height: 1.4;
+    margin-top: 2px;
+}
+
+// Title
+.ded-title {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 28px;
+    font-style: italic;
+    font-weight: bold;
+    color: #1d4e89;
+}
+
+// Body
+.ded-body {
+    flex: 1;
+    margin-top: 18px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.ded-intro {
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+// Name
+.ded-name-line {
+    border-bottom: 1px solid #000;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-bottom: 2px;
+    margin-top: 30px;
+}
+
+.ded-name-label {
+    text-align: center;
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+// Birth
+.ded-birth-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.ded-line {
+    display: inline-block;
+    border-bottom: 1px solid #000;
+    text-align: center;
+    font-weight: bold;
+    min-width: 100px;
+    padding: 0 4px;
+}
+
+.ded-birth-place {
+    flex: 1;
+    min-width: 0;
+}
+
+.ded-birth-date {
+    width: 200px;
+}
+
+// Parents
+.ded-parents {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 30px;
+}
+
+.ded-parent-box {
+    width: 40%;
+    text-align: center;
+}
+
+.ded-parent-line {
+    border-bottom: 1px solid #000;
+    padding-bottom: 2px;
+    font-weight: bold;
+}
+
+.ded-parent-label {
+    margin-top: 3px;
+    font-size: 12px;
+}
+
+.ded-parent-and {
+    width: 20%;
+    text-align: center;
+    margin-top: 4px;
+    font-size: 14px;
+}
+
+// Statement
+.ded-statement {
+    text-align: center;
+    margin-top: 28px;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.ded-church-italic {
+    text-align: center;
+    font-size: 22px;
+    font-style: italic;
+    font-weight: bold;
+    color: #163d6b;
+    margin-top: 8px;
+}
+
+// Location & Date
+.ded-location-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.ded-location-value {
+    flex: 1;
+}
+
+.ded-date-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.ded-date-day {
+    width: 80px;
+}
+
+.ded-date-month {
+    width: 180px;
+}
+
+.ded-date-year {
+    width: 80px;
+}
+
+// Signatures
+.ded-signatures {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+
+.ded-sig-left,
+.ded-sig-right {
+    width: 42%;
+    text-align: center;
+}
+
+.ded-sig-line {
+    border-bottom: 1px solid #000;
+    padding-bottom: 2px;
+    font-weight: bold;
+    min-height: 20px;
+}
+
+.ded-sig-label {
+    margin-top: 4px;
+    font-size: 12px;
+}
+
+// Witnesses
+.ded-witnesses {
+    margin-top: 40px;
+    width: 50%;
+}
+
+.ded-witness-line {
+    border-bottom: 1px solid #000;
+    padding-bottom: 2px;
+    font-weight: bold;
+    min-height: 20px;
+    margin-bottom: 14px;
+    width: 190px;
+}
+
+.ded-witness-label {
+    margin-top: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    width: 190px;
+    text-align: center;      
+}
+
+// Footer verse
+.ded-footer-verse {
+    position: absolute;
+    bottom: 12px;
+    left: 30px;
+    right: 30px;
+    font-size: 10px;
+    font-style: italic;
+    text-align: left;
+    border-top: 1px solid #000;
+    padding-top: 6px;
+    line-height: 1.4;
+}

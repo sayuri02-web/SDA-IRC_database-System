@@ -3,7 +3,21 @@
 @section('content')
 
 <div class="container mt-4">
+    <div class="church-breadcrumb mb-3">
 
+        <a href="{{ route('certificates.index') }}"
+        class="church-breadcrumb-link">
+            <i class="mdi mdi-file-document-outline me-1"></i>
+            Certifications
+        </a>
+
+        <i class="mdi mdi-chevron-right mx-1 church-breadcrumb-sep"></i>
+
+        <span class="church-breadcrumb-current">
+            Generate Baptism Certificate
+        </span>
+
+    </div>
     <div class="card shadow border-0">
 
         <div class="card-body p-4">

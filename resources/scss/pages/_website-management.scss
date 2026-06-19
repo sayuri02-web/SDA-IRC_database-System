@@ -1,0 +1,82 @@
+// ============================================================
+// WEBSITE MANAGEMENT
+// ============================================================
+
+.wm-page-wrapper { height: 100%; min-height: 0; overflow: hidden; display: flex; flex-direction: column; }
+.wm-page-card { flex: 1; min-height: 0; display: flex; flex-direction: column; border-radius: 20px !important; border: none !important; }
+.wm-page-body { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
+.wm-scroll-area { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding-right: 4px; }
+
+// Cards
+.wm-card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #edf0f5;
+    padding: 28px 24px;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all .3s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        border-color: transparent;
+    }
+}
+
+.wm-card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    margin-bottom: 16px;
+    transition: transform .3s ease;
+
+    .wm-card:hover & { transform: scale(1.08); }
+}
+
+.wm-card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1f36;
+    margin-bottom: 8px;
+}
+
+.wm-card-desc {
+    font-size: 13px;
+    color: #8898aa;
+    line-height: 1.5;
+    margin-bottom: 18px;
+    flex: 1;
+}
+
+.wm-manage-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1.5px solid #e2e8f0;
+    background: #fff;
+    color: #525f7f;
+    cursor: pointer;
+    transition: all .25s ease;
+
+    &:hover {
+        border-color: #2449d8;
+        color: #2449d8;
+        background: #eef4ff;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(36, 73, 216, 0.12);
+    }
+}

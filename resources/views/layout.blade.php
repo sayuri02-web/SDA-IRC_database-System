@@ -103,7 +103,21 @@
 
         <!-- TOPBAR -->
         <div class="topbar">
-            <h3>Church Record Management System</h3>
+            <div class="topbar-left">
+                <h4 class="topbar-title">Church Record Management System</h4>
+            </div>
+            <div class="topbar-right">
+                <div class="topbar-date">
+                    <i class="mdi mdi-calendar-outline"></i>
+                    <span>{{ date('l, M d, Y') }}</span>
+                </div>
+                <div class="topbar-user">
+                    <div class="topbar-avatar">
+                        <i class="mdi mdi-account"></i>
+                    </div>
+                    <span class="topbar-username">Admin</span>
+                </div>
+            </div>
         </div>
 
         <div class="content-wrapper">
@@ -111,6 +125,9 @@
         </div>
 
     </div>
+
+    {{-- Global Delete Confirmation Modal --}}
+    @include('components.delete-confirm-modal')
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -126,6 +143,45 @@ AOS.init({
     once: true,
     offset: 60
 });
+
+// Global delete confirmation handler
+(function() {
+    let deleteForm = null;
+    let deleteCallback = null;
+
+    document.addEventListener('click', function(e) {
+        const btn = e.target.closest('[data-delete-confirm]');
+        if (!btn) return;
+        e.preventDefault();
+
+        const title = btn.dataset.deleteTitle || 'Delete Record';
+        const msg = btn.dataset.deleteMsg || 'Are you sure? This action cannot be undone.';
+
+        document.getElementById('globalDeleteTitle').textContent = title;
+        document.getElementById('globalDeleteMsg').textContent = msg;
+
+        // If button is inside a form, store the form for submission
+        const form = btn.closest('form');
+        if (form) {
+            deleteForm = form;
+            deleteCallback = null;
+        } else {
+            deleteForm = null;
+            deleteCallback = btn.dataset.deleteCallback || null;
+        }
+
+        new bootstrap.Modal(document.getElementById('globalDeleteModal')).show();
+    });
+
+    document.getElementById('globalDeleteConfirmBtn').addEventListener('click', function() {
+        if (deleteForm) {
+            deleteForm.submit();
+        } else if (deleteCallback && window[deleteCallback]) {
+            window[deleteCallback]();
+        }
+        bootstrap.Modal.getInstance(document.getElementById('globalDeleteModal')).hide();
+    });
+})();
 </script>
 
     @stack('scripts')

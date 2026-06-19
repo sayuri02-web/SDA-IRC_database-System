@@ -72,7 +72,9 @@
                                         @method('DELETE')
                                         <button type="submit"
                                                 class="cert-action-btn cert-delete-btn"
-                                                onclick="return confirm('Delete this certificate template?')">
+                                                data-delete-confirm
+                                                data-delete-title="Delete Template"
+                                                data-delete-msg="Are you sure you want to delete this certificate template? This action cannot be undone.">
                                             <i class="mdi mdi-trash-can-outline me-1"></i> Delete
                                         </button>
                                     </form>
@@ -142,7 +144,15 @@
 
 @push('scripts')
 <script>
-    window.baptismSearchRoute = "{{ route('certificates.baptism.search') }}";
+    window.certSearchRoutes = {
+        'Baptism Certificate': "{{ route('certificates.baptism.search') }}",
+        'Dedication Certificate': "{{ route('certificates.dedication.search') }}"
+    };
+    window.certMemberRoutes = {
+        'Baptism Certificate': '/certificates/baptism/member/',
+        'Dedication Certificate': '/certificates/dedication/member/'
+    };
+    window.currentCertType = 'Baptism Certificate';
 </script>
 @endpush
 

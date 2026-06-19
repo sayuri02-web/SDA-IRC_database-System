@@ -10,6 +10,7 @@ export default defineConfig({
                 'resources/scss/app.scss',                          // SCSS architecture (CMS)
                 'resources/scss/website/app.scss',                  // Public website
                 'resources/scss/certificates/baptism_print.scss',   // Standalone print stylesheet
+                'resources/scss/certificates/dedication_print.scss', // Dedication certificate print
                 'resources/js/app.js',
             ],
             refresh: true,

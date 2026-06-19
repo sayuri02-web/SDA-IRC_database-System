@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\CertificateLogController;
+use App\Http\Controllers\DedicationCertificateController;
 use App\Http\Controllers\LeadersDirectoryController;
 
 
@@ -23,6 +24,16 @@ Route::get('/certificates/baptism/member/{id}', [CertificateController::class, '
 
 Route::post('/certificates/baptism/print', [CertificateController::class, 'printBaptism'])
     ->name('certificates.baptism.print');
+
+// Dedication Certificate routes
+Route::get('/certificates/dedication/search', [DedicationCertificateController::class, 'search'])
+    ->name('certificates.dedication.search');
+Route::get('/certificates/dedication/member/{id}', [DedicationCertificateController::class, 'form'])
+    ->name('certificates.dedication.member');
+Route::post('/certificates/dedication/print', [DedicationCertificateController::class, 'print'])
+    ->name('certificates.dedication.print');
+Route::get('/certificates/dedication/history', [DedicationCertificateController::class, 'history'])
+    ->name('certificates.dedication.history');
 
 Route::get('/', [DashboardController::class, 'index']);
 
@@ -46,6 +57,9 @@ Route::get('/members/{id}/json', [MemberController::class, 'showJson']);
 | RESOURCE ROUTE
 |-------------------------------------------------------------------------- 
 */
+Route::get('/website-management', function () {
+    return view('website-management.index');
+});
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');

@@ -17,3 +17,52 @@ body {
     background: $color-bg;
     font-family: $font-family;
 }
+
+// ============================================================
+// GLOBAL FORM FOCUS STYLES (overrides Bootstrap blue)
+// ============================================================
+
+.form-control:focus,
+.form-select:focus,
+textarea.form-control:focus,
+input[type="date"]:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus {
+    border-color: $color-primary !important;
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.12) !important;
+    outline: none !important;
+}
+
+// File inputs
+.form-control[type="file"]:focus {
+    border-color: $color-primary !important;
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.12) !important;
+}
+
+// Checkbox & radio focus
+.form-check-input:focus {
+    border-color: $color-primary !important;
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.12) !important;
+}
+
+// Checkbox & radio checked state
+.form-check-input:checked {
+    background-color: $color-primary !important;
+    border-color: $color-primary !important;
+}
+
+// Button focus ring
+.btn:focus,
+.btn:focus-visible {
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.15) !important;
+}
+
+// Remove default outline on all focused interactive elements
+*:focus-visible {
+    outline: none;
+}

@@ -138,7 +138,9 @@
                                         @method('DELETE')
                                         <button type="submit"
                                                 class="church-action-btn church-delete-btn"
-                                                onclick="return confirm('Delete this church?')">
+                                                data-delete-confirm
+                                                data-delete-title="Delete Church"
+                                                data-delete-msg="Are you sure you want to delete this church? This action cannot be undone.">
                                             <i class="mdi mdi-trash-can-outline me-1"></i> Delete
                                         </button>
                                     </form>

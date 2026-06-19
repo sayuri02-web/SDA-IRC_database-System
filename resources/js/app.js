@@ -7,3 +7,4 @@ import './church/index';
 
 // BAPTISM FIELD
 import './certificates/baptism';
+import './certificates/dedication';

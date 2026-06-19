@@ -198,7 +198,9 @@
 
                                         <button type="submit"
                                             class="btn btn-outline-danger btn-sm"
-                                            onclick="return confirm('confirm delete?')">
+                                            data-delete-confirm
+                                            data-delete-title="Delete Member"
+                                            data-delete-msg="Are you sure you want to delete this member? This action cannot be undone.">
 
                                             <i class="fa fa-trash-o"></i> Delete
                                         </button>

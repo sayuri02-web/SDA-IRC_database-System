@@ -311,21 +311,29 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Delete task
+    // Delete task (uses global delete modal)
+    let taskDeleteId = null;
     taskList.addEventListener('click', function(e) {
         const del = e.target.closest('.dash-task-delete');
         if (!del) return;
-        if (!confirm('Delete this task?')) return;
-        const id = del.dataset.id;
-
-        fetch('/task/delete/' + id, {
-            method: 'DELETE',
-            headers: { 'X-CSRF-TOKEN': csrfToken }
-        })
-        .then(r => r.json())
-        .then(data => {
-            if (data.success) location.reload();
+        taskDeleteId = del.dataset.id;
+        document.getElementById('globalDeleteTitle').textContent = 'Delete Task';
+        document.getElementById('globalDeleteMsg').textContent = 'Are you sure you want to delete this task? This action cannot be undone.';
+        window._dashTaskDeleteFn = function() {
+            fetch('/task/delete/' + taskDeleteId, {
+                method: 'DELETE',
+                headers: { 'X-CSRF-TOKEN': csrfToken }
+            }).then(r => r.json()).then(d => { if(d.success) location.reload(); });
+        };
+        // Override global confirm to use callback
+        const confirmBtn = document.getElementById('globalDeleteConfirmBtn');
+        const newBtn = confirmBtn.cloneNode(true);
+        confirmBtn.parentNode.replaceChild(newBtn, confirmBtn);
+        newBtn.addEventListener('click', function() {
+            window._dashTaskDeleteFn();
+            bootstrap.Modal.getInstance(document.getElementById('globalDeleteModal')).hide();
         });
+        new bootstrap.Modal(document.getElementById('globalDeleteModal')).show();
     });
 
     // ========== UPDATE STATUS MODAL ==========
