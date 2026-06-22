@@ -92,7 +92,7 @@
                     <div class="dash-panel dash-panel-activities">
                         <div class="dash-panel-header">
                             <h5 class="dash-panel-title"><i class="mdi mdi-history me-2"></i>Recent Activities</h5>
-                            <span class="dash-panel-badge">Latest 20</span>
+                            <span class="dash-panel-badge">{{ data.recentActivities?.length || 0 }} Activities</span>
                         </div>
                         <div class="dash-activity-list">
                             <div v-if="!data.recentActivities?.length" class="dash-activity-empty">
@@ -177,7 +177,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -207,7 +206,7 @@ export default {
     computed: {
         csrfToken() {
             return document.querySelector('meta[name="csrf-token"]')?.content || '';
-        }
+        },
     },
     async mounted() {
         try {
@@ -364,7 +363,7 @@ export default {
 
 /* Vue Modal Overlay */
 .vue-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center; z-index: 1060; animation: fadeIn .2s; }
-.vue-modal-content { width: 100%; max-width: 420px; border-radius: 18px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.15); animation: popIn .3s cubic-bezier(0.175,0.885,0.32,1.2); }
+.vue-modal-content { width: 100%; max-width: 420px; border-radius: 18px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.15); animation: popIn .3s cubic-bezier(0.175,0.885,0.32,1.2); background: #fff; }
 .vue-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px 0; }
 .vue-modal-body { padding: 16px 20px 20px; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }

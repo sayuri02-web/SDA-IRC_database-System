@@ -8,7 +8,7 @@
     background: $color-bg;
     height: 100vh;
     @include flex-col;
-    overflow: hidden;
+    overflow: visible;
 
     @include tablet { margin-left: 0; }
 }
@@ -19,6 +19,8 @@
     @include flex-col;
     overflow-y: auto;
     overflow-x: hidden;
+    position: relative;
+    z-index: 1;
 }
 
 .topbar {
@@ -34,6 +36,9 @@
     align-items: center;
     justify-content: space-between;
     gap: 16px;
+    position: relative;
+    z-index: 100;
+    overflow: visible;
 }
 
 .topbar-left { display: flex; align-items: center; gap: 12px; }
@@ -103,4 +108,128 @@
     .topbar-date { display: none; }
     .topbar-username { display: none; }
     .topbar-title { font-size: 14px; }
+}
+
+// ============================================================
+// NOTIFICATIONS DROPDOWN
+// ============================================================
+
+.topbar-notification {
+    position: relative;
+
+    .btn {
+        background: transparent;
+        border: none;
+        padding: 6px 10px;
+        border-radius: 50%;
+        transition: all 0.25s ease;
+        line-height: 1;
+
+        &:hover {
+            background: rgba($color-primary, 0.08);
+        }
+
+        &:focus {
+            box-shadow: none;
+        }
+
+        i {
+            color: $color-dark;
+            font-size: 22px;
+        }
+
+        .badge {
+            font-size: 10px;
+            padding: 3px 5px;
+            transform: translate(-50%, -20%) !important;
+        }
+    }
+}
+
+.notification-dropdown {
+    position: absolute !important;
+    top: 100% !important;
+    right: 0 !important;
+    left: auto !important;
+    transform: none !important;
+    min-width: 320px;
+    max-width: 360px;
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid rgba($color-border, 0.6);
+    border-radius: 14px !important;
+    padding: 0 !important;
+    margin-top: 8px !important;
+    z-index: 1080 !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06) !important;
+    animation: notifSlideIn 0.2s ease-out;
+    background: $color-white;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba($color-muted, 0.3);
+        border-radius: 10px;
+    }
+}
+
+@keyframes notifSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.notification-header {
+    padding: 14px 18px;
+    font-size: 14px;
+    font-weight: 700;
+    color: $color-dark;
+    border-bottom: 1px solid $color-border-light;
+    position: sticky;
+    top: 0;
+    background: $color-white;
+    border-radius: 14px 14px 0 0;
+    z-index: 1;
+}
+
+.notification-item {
+    padding: 12px 18px !important;
+    border-bottom: 1px solid rgba($color-border-light, 0.5);
+    transition: background 0.2s ease;
+    white-space: normal !important;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    &:hover {
+        background: rgba($color-primary, 0.04) !important;
+    }
+
+    .notification-title {
+        font-size: 13px;
+        font-weight: 500;
+        color: $color-dark;
+        margin-bottom: 4px;
+        line-height: 1.4;
+    }
+
+    small {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 576px) {
+    .notification-dropdown {
+        min-width: 280px;
+        max-width: calc(100vw - 40px);
+        right: -10px !important;
+    }
 }

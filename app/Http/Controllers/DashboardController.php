@@ -152,12 +152,22 @@ class DashboardController extends Controller
                 'month' => CertificateLog::whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->count(),
             ],
             'certTrend' => $this->getCertTrend($now),
-            'recentActivities' => ActivityLog::latest()->take(20)->get()->map(fn($a) => [
+            'recentActivities' => ActivityLog::where(
+                'created_at',
+                '>=',
+                now()->subHours(24)
+            )
+            ->latest()
+            ->take(20)
+            ->get()
+            ->map(fn($a) => [
                 'user' => $a->user_name,
                 'description' => $a->description,
                 'module' => $a->module,
                 'time' => $a->created_at->diffForHumans(),
+                'created_at' => $a->created_at->toDateTimeString(),
             ]),
+
             'tasks' => Task::latest()->get()->map(fn($t) => [
                 'id' => $t->id,
                 'name' => $t->name,

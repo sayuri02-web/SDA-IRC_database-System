@@ -187,6 +187,14 @@ class MemberController extends Controller
             $input['officiating_minister'] = 'N/A';
         }
 
+        // Preserve existing address values if not provided (Livewire sends null when unchanged)
+        $addressFields = ['region', 'province', 'city', 'barangay', 'street'];
+        foreach ($addressFields as $field) {
+            if (!isset($input[$field]) || $input[$field] === null || $input[$field] === '') {
+                unset($input[$field]);
+            }
+        }
+
         $member->update($input);
 
         ActivityLog::log('Members', 'Updated', 'Updated member: ' . $member->first_name . ' ' . $member->last_name, $member->id);
