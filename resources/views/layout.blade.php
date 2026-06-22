@@ -89,7 +89,10 @@
             </li>
 
             <li>
-                <a href="{{ url('/logout') }}">
+                <form method="POST" action="{{ url('/logout') }}" id="logout-form" style="display:none;">
+                    @csrf
+                </form>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="mdi mdi-logout"></i>
                     Logout
                 </a>

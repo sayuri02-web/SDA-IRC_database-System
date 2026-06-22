@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ChurchController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\DashboardController;
@@ -65,6 +66,8 @@ Route::get('/website-management', function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
 
+Route::get('/api/dashboard-data', [DashboardController::class, 'apiData']);
+
 Route::resource('/members', MemberController::class);
 
 
@@ -75,6 +78,14 @@ Route::get('/task/dates', [TaskController::class, 'getDates']);
 Route::get('/task/by-date', [TaskController::class, 'getByDate']);
 Route::delete('/task/delete/{id}', [TaskController::class, 'destroy']);
 
+Route::post('/logout', function (Illuminate\Http\Request $request) {
+    Auth::logout();
+
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect()->route('website.home');
+})->name('logout');
 
 /*
 |--------------------------------------------------------------------------

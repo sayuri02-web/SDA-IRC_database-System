@@ -123,4 +123,81 @@ class DashboardController extends Controller
             'certsGeneratedToday'
         ));
     }
+
+    /**
+     * API endpoint for Vue dashboard
+     */
+    public function apiData()
+    {
+        $now = Carbon::now();
+
+        return response()->json([
+            'stats' => [
+                ['label' => 'Total Members', 'value' => Member::count(), 'icon' => 'mdi-account-group', 'color' => '#667eea'],
+                ['label' => 'Churches', 'value' => Church::count(), 'icon' => 'mdi-home-group', 'color' => '#11998e'],
+                ['label' => 'Certificates', 'value' => CertificateLog::count(), 'icon' => 'mdi-certificate', 'color' => '#f093fb'],
+                ['label' => 'Templates', 'value' => Certificate::count(), 'icon' => 'mdi-file-document-multiple', 'color' => '#7f53ac'],
+                ['label' => 'New This Month', 'value' => Member::whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->count(), 'icon' => 'mdi-account-plus', 'color' => '#4facfe'],
+                ['label' => 'Activities Today', 'value' => Task::whereDate('due_date', $now->toDateString())->count(), 'icon' => 'mdi-lightning-bolt', 'color' => '#fa709a'],
+            ],
+            'memberGrowth' => $this->getMemberGrowth($now),
+            'membershipStatus' => [
+                'baptized' => Member::where('membership_status', 'baptized')->count(),
+                'dedicated' => Member::where('membership_status', 'dedicated')->count(),
+                'na' => Member::where('membership_status', 'na')->count(),
+            ],
+            'certStats' => [
+                'today' => CertificateLog::whereDate('created_at', $now->toDateString())->count(),
+                'week' => CertificateLog::where('created_at', '>=', $now->startOfWeek())->count(),
+                'month' => CertificateLog::whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->count(),
+            ],
+            'certTrend' => $this->getCertTrend($now),
+            'recentActivities' => ActivityLog::latest()->take(20)->get()->map(fn($a) => [
+                'user' => $a->user_name,
+                'description' => $a->description,
+                'module' => $a->module,
+                'time' => $a->created_at->diffForHumans(),
+            ]),
+            'tasks' => Task::latest()->get()->map(fn($t) => [
+                'id' => $t->id,
+                'name' => $t->name,
+                'status' => $t->status,
+                'completed' => $t->completed,
+                'due_date' => $t->due_date?->format('M d, Y'),
+            ]),
+        ]);
+    }
+
+    private function getMemberGrowth($now)
+    {
+        $growth = Member::select(DB::raw("DATE_FORMAT(created_at, '%Y-%m') as month"), DB::raw('COUNT(*) as count'))
+            ->where('created_at', '>=', $now->copy()->subMonths(11)->startOfMonth())
+            ->groupBy('month')->orderBy('month')->pluck('count', 'month')->toArray();
+
+        $labels = []; $data = [];
+        for ($i = 11; $i >= 0; $i--) {
+            $key = $now->copy()->subMonths($i)->format('Y-m');
+            $labels[] = $now->copy()->subMonths($i)->format('M Y');
+            $data[] = $growth[$key] ?? 0;
+        }
+        return ['labels' => $labels, 'data' => $data];
+    }
+
+    private function getCertTrend($now)
+    {
+        $trend = CertificateLog::select(DB::raw("DATE_FORMAT(created_at, '%Y-%m') as month"), DB::raw('COUNT(*) as count'))
+            ->where('created_at', '>=', $now->copy()->subMonths(5)->startOfMonth())
+            ->groupBy('month')->orderBy('month')->pluck('count', 'month')->toArray();
+
+        $labels = []; $data = [];
+        for ($i = 5; $i >= 0; $i--) {
+            $key = $now->copy()->subMonths($i)->format('Y-m');
+            $labels[] = $now->copy()->subMonths($i)->format('M');
+            $data[] = $trend[$key] ?? 0;
+        }
+        return ['labels' => $labels, 'data' => $data];
+    }
 }
+
+// Note: apiData method is appended below the class closing brace.
+// It needs to be INSIDE the class. Let me fix this via a proper edit.

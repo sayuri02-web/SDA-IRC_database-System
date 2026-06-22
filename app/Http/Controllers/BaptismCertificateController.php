@@ -44,9 +44,10 @@ class BaptismCertificateController extends Controller
 
             'fellowship_date' => $request->fellowship_date,
 
-            'baptism_day' => $request->baptism_day,
-            'baptism_month' => $request->baptism_month,
-            'baptism_year' => $request->baptism_year,
+            // Combine day/month/year into proper date
+            'baptism_date' => ($request->baptism_year && $request->baptism_month && $request->baptism_day)
+                ? \Carbon\Carbon::parse($request->baptism_day . ' ' . $request->baptism_month . ' ' . $request->baptism_year)->toDateString()
+                : null,
 
             'church_fellowship' => $request->church_fellowship,
 

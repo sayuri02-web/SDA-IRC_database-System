@@ -20,9 +20,7 @@ class BaptismCertificate extends Model
         'chairman',
         'secretary',
         'fellowship_date',
-        'baptism_day',
-        'baptism_month',
-        'baptism_year',
+        'baptism_date',
         'church_fellowship',
         'doc_no',
         'page_no',
@@ -33,6 +31,7 @@ class BaptismCertificate extends Model
     protected $casts = [
         'birth_date' => 'date',
         'fellowship_date' => 'date',
+        'baptism_date' => 'date',
     ];
 
     public function member()
