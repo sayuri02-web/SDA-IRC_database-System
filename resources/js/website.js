@@ -5,4 +5,7 @@ const app = createApp({
     components: { LoginModal }
 });
 
-app.mount('#website-app');
+// Mount when DOM is ready
+if (document.getElementById('website-app')) {
+    app.mount('#website-app');
+}

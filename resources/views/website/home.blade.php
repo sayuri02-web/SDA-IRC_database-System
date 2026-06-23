@@ -11,32 +11,66 @@
         <div class="ws-hero-content" data-aos="fade-up" data-aos-duration="1000">
             <span class="ws-hero-badge"><i class="mdi mdi-home me-1"></i>Seventh-day Adventist Church</span>
             <h1 class="ws-hero-title">Welcome to Seventh-day Adventist<br>Inter-Regional Conference</h1>
+            <div class="ws-hero-accent"></div>
             <p class="ws-hero-sub">Growing in Faith. Serving the Community. Sharing God's Love with the World.</p>
             <div class="ws-hero-btns">
-                <a href="{{ route('website.events') }}" class="ws-btn ws-btn-primary"><i class="mdi mdi-calendar-heart me-2"></i>Join Us This Sabbath</a>
+                <a href="{{ route('website.events') }}" class="ws-btn-hero-primary"><i class="mdi mdi-calendar-heart"></i>Join Us This Sabbath <i class="mdi mdi-arrow-right"></i></a>
             </div>
         </div>
         <div class="ws-hero-scroll" data-aos="fade-up" data-aos-delay="600">
             <i class="mdi mdi-chevron-double-down"></i>
         </div>
     </div>
-    {{-- SERVICE TIMES embedded at bottom of hero --}}
+    {{-- SERVICE TIMES — Glassmorphism Cards --}}
     <div class="ws-hero-services">
         <div class="container">
             <div class="ws-hero-services-inner" data-aos="fade-up" data-aos-delay="400">
-                <div class="ws-hero-service">
-                    <i class="mdi mdi-book-open-variant"></i>
-                    <div><strong>Sabbath School</strong><span>Saturday, 8:00 AM</span></div>
+                <div class="ws-service-card">
+                    <div class="ws-service-icon-wrap">
+                        <i class="mdi mdi-book-open-variant"></i>
+                    </div>
+                    <h4 class="ws-service-title">Sabbath School</h4>
+                    <div class="ws-service-divider"></div>
+                    <div class="ws-service-detail">
+                        <i class="mdi mdi-calendar-outline"></i>
+                        <span>Saturday</span>
+                    </div>
+                    <div class="ws-service-detail">
+                        <i class="mdi mdi-clock-outline"></i>
+                        <span>8:00 AM</span>
+                    </div>
                 </div>
-                <div class="ws-hero-service-divider"></div>
-                <div class="ws-hero-service">
-                    <i class="mdi mdi-home"></i>
-                    <div><strong>Divine Worship</strong><span>Saturday, 10:00 AM</span></div>
+
+                <div class="ws-service-card">
+                    <div class="ws-service-icon-wrap">
+                        <i class="mdi mdi-home"></i>
+                    </div>
+                    <h4 class="ws-service-title">Divine Worship</h4>
+                    <div class="ws-service-divider"></div>
+                    <div class="ws-service-detail">
+                        <i class="mdi mdi-calendar-outline"></i>
+                        <span>Saturday</span>
+                    </div>
+                    <div class="ws-service-detail">
+                        <i class="mdi mdi-clock-outline"></i>
+                        <span>10:00 AM</span>
+                    </div>
                 </div>
-                <div class="ws-hero-service-divider"></div>
-                <div class="ws-hero-service">
-                    <i class="mdi mdi-hands-pray"></i>
-                    <div><strong>Sundown Worship</strong><span>Saturday, 5:30 PM</span></div>
+
+                <div class="ws-service-card">
+                    <div class="ws-service-icon-wrap">
+                        <i class="mdi mdi-hands-pray"></i>
+                    </div>
+                    <h4 class="ws-service-title">Sundown Worship</h4>
+                    <div class="ws-service-divider"></div>
+                    <div class="ws-service-detail">
+                        <i class="mdi mdi-calendar-outline"></i>
+                        <span>Saturday</span>
+                    </div>
+                    <div class="ws-service-detail">
+                        <i class="mdi mdi-clock-outline"></i>
+                        <span>5:30 PM</span>
+                    </div>
                 </div>
             </div>
         </div>

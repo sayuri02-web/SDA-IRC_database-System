@@ -15,7 +15,7 @@
                 <div class="ws-contact-item"><i class="mdi mdi-facebook"></i><div><strong>Facebook</strong><p>facebook.com/sdairc</p></div></div>
 
                 <h5 class="mt-4 mb-3">Service Schedule</h5>
-                <p><strong>Sabbath School:</strong> 9:00 AM<br><strong>Divine Service:</strong> 11:00 AM<br><strong>AY Program:</strong> 3:00 PM<br><strong>Prayer Meeting:</strong> Wed 6:30 PM</p>
+                <p><strong>Sabbath School:</strong> 8:00 AM<br><strong>Divine Service:</strong> 10:00 AM<br><strong>AY Program:</strong> 2:00 PM<br><strong>Sundown Worship:</strong> 5:30 PM</p>
             </div>
             <div class="col-md-7" data-aos="fade-left">
                 <div class="ws-map-placeholder">

@@ -25,8 +25,10 @@
                     <img src="{{ asset('assets/images/logo.jpg') }}" alt="Logo" class="ws-brand-logo">
                     <span>SDA-IRC Church</span>
                 </a>
-                <button class="ws-nav-toggle" id="navToggle">
-                    <i class="mdi mdi-menu"></i>
+                <button class="ws-nav-toggle" id="navToggle" aria-label="Toggle menu">
+                    <span class="ws-toggle-bar"></span>
+                    <span class="ws-toggle-bar"></span>
+                    <span class="ws-toggle-bar"></span>
                 </button>
                 <ul class="ws-nav-links" id="navLinks">
                     <li><a href="{{ route('website.home') }}" class="{{ request()->routeIs('website.home') ? 'active' : '' }}">Home</a></li>
@@ -39,6 +41,7 @@
                     <li><a href="{{ route('website.contact') }}" class="{{ request()->routeIs('website.contact') ? 'active' : '' }}">Contact</a></li>
                     <li><a href="#" class="ws-login-btn" onclick="event.preventDefault(); window.dispatchEvent(new Event('open-login-modal'));"><i class="mdi mdi-login me-1"></i>Login</a></li>
                 </ul>
+                <div class="ws-nav-backdrop" id="navBackdrop"></div>
             </div>
         </div>
     </nav>
@@ -90,9 +93,53 @@
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true, offset: 50 });
-        document.getElementById('navToggle').addEventListener('click', function() {
-            document.getElementById('navLinks').classList.toggle('show');
-        });
+
+        // Mobile navigation
+        (function() {
+            const toggle = document.getElementById('navToggle');
+            const links = document.getElementById('navLinks');
+            const backdrop = document.getElementById('navBackdrop');
+
+            function openNav() {
+                links.classList.add('show');
+                backdrop.classList.add('show');
+                toggle.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeNav() {
+                links.classList.remove('show');
+                backdrop.classList.remove('show');
+                toggle.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            toggle.addEventListener('click', function() {
+                if (links.classList.contains('show')) {
+                    closeNav();
+                } else {
+                    openNav();
+                }
+            });
+
+            backdrop.addEventListener('click', closeNav);
+
+            // Close on link click (mobile)
+            links.querySelectorAll('a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 992) {
+                        closeNav();
+                    }
+                });
+            });
+
+            // Close on resize to desktop
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 992) {
+                    closeNav();
+                }
+            });
+        })();
     </script>
 </body>
 </html>
