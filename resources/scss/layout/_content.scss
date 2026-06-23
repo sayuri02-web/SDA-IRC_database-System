@@ -19,8 +19,12 @@
     @include flex-col;
     overflow-y: auto;
     overflow-x: hidden;
-    position: relative;
-    z-index: 1;
+
+    // Ensure Bootstrap modals inside content are not clipped
+    .modal {
+        position: fixed;
+        overflow: visible;
+    }
 }
 
 .topbar {
@@ -37,7 +41,7 @@
     justify-content: space-between;
     gap: 16px;
     position: relative;
-    z-index: 100;
+    z-index: 50;
     overflow: visible;
 }
 
@@ -160,7 +164,7 @@
     border-radius: 14px !important;
     padding: 0 !important;
     margin-top: 8px !important;
-    z-index: 1080 !important;
+    z-index: 1000 !important;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06) !important;
     animation: notifSlideIn 0.2s ease-out;
     background: $color-white;

@@ -113,6 +113,17 @@ export default {
     mounted() {
         // Listen for global open event
         window.addEventListener('open-login-modal', () => this.open());
+
+        // ESC key to close
+        document.addEventListener('keydown', this._handleEsc = (e) => {
+            if (e.key === 'Escape' && this.show) {
+                this.show = false;
+            }
+        });
+    },
+    beforeUnmount() {
+        window.removeEventListener('open-login-modal', () => this.open());
+        document.removeEventListener('keydown', this._handleEsc);
     }
 };
 </script>

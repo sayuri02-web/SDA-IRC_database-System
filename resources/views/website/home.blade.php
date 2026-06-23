@@ -10,7 +10,7 @@
     <div class="container position-relative">
         <div class="ws-hero-content" data-aos="fade-up" data-aos-duration="1000">
             <span class="ws-hero-badge"><i class="mdi mdi-home me-1"></i>Seventh-day Adventist Church</span>
-            <h1 class="ws-hero-title">Welcome to SDA<br>Inter-Regional Conference</h1>
+            <h1 class="ws-hero-title">Welcome to Seventh-day Adventist<br>Inter-Regional Conference</h1>
             <p class="ws-hero-sub">Growing in Faith. Serving the Community. Sharing God's Love with the World.</p>
             <div class="ws-hero-btns">
                 <a href="{{ route('website.events') }}" class="ws-btn ws-btn-primary"><i class="mdi mdi-calendar-heart me-2"></i>Join Us This Sabbath</a>

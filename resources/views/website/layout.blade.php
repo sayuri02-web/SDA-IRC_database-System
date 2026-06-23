@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'SDA Church')</title>
 
     <!-- Bootstrap 5 -->
@@ -11,8 +12,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
     <!-- AOS -->
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
-    <!-- SCSS -->
-    @vite('resources/scss/website/app.scss')
+    <!-- SCSS + Vue -->
+    @vite(['resources/scss/website/app.scss', 'resources/js/website.js'])
 </head>
 <body>
 
@@ -36,7 +37,7 @@
                     <li><a href="{{ route('website.announcements') }}" class="{{ request()->routeIs('website.announcements') ? 'active' : '' }}">Announcements</a></li>
                     <li><a href="{{ route('website.gallery') }}" class="{{ request()->routeIs('website.gallery') ? 'active' : '' }}">Gallery</a></li>
                     <li><a href="{{ route('website.contact') }}" class="{{ request()->routeIs('website.contact') ? 'active' : '' }}">Contact</a></li>
-                    <li><a href="{{ url('/dashboard') }}" class="ws-login-btn"><i class="mdi mdi-login me-1"></i>Login</a></li>
+                    <li><a href="#" class="ws-login-btn" onclick="event.preventDefault(); window.dispatchEvent(new Event('open-login-modal'));"><i class="mdi mdi-login me-1"></i>Login</a></li>
                 </ul>
             </div>
         </div>
@@ -78,6 +79,11 @@
             </div>
         </div>
     </footer>
+
+    <!-- Vue Login Modal Mount -->
+    <div id="website-app">
+        <login-modal></login-modal>
+    </div>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

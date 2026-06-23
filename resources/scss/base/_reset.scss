@@ -66,3 +66,47 @@ input[type="url"]:focus {
 *:focus-visible {
     outline: none;
 }
+
+// ============================================================
+// GLOBAL MODAL STACKING (ensures modals are never clipped)
+// ============================================================
+
+// Bootstrap modals use position: fixed and z-index 1055.
+// Ensure they are never trapped by parent overflow/stacking contexts.
+.modal {
+    z-index: 1055 !important;
+    position: fixed !important;
+}
+
+.modal-backdrop {
+    z-index: 1050 !important;
+}
+
+// When modal is open, prevent topbar from overlaying the modal
+body.modal-open .topbar {
+    z-index: 1 !important;
+}
+
+// Ensure Vue custom modals (Dashboard) also stack above topbar
+.vue-modal-overlay {
+    z-index: 1060 !important;
+}
+
+// ============================================================
+// GLOBAL MODAL ANIMATIONS (smooth pop-in for all Bootstrap modals)
+// ============================================================
+
+.modal-backdrop.show {
+    opacity: 0.5 !important;
+}
+
+.modal.fade .modal-dialog {
+    transform: scale(0.9) translateY(20px);
+    opacity: 0;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.2), opacity 0.2s ease !important;
+}
+
+.modal.show .modal-dialog {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
