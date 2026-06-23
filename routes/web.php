@@ -10,6 +10,7 @@ use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\CertificateLogController;
 use App\Http\Controllers\DedicationCertificateController;
 use App\Http\Controllers\BaptismCertificateController;
+use App\Http\Controllers\MembershipCertificateController;
 use App\Http\Controllers\LeadersDirectoryController;
 
 
@@ -36,6 +37,14 @@ Route::post('/certificates/dedication/print', [DedicationCertificateController::
     ->name('certificates.dedication.print');
 Route::get('/certificates/dedication/history', [DedicationCertificateController::class, 'history'])
     ->name('certificates.dedication.history');
+
+// Membership Certificate routes
+Route::get('/certificates/membership/search', [MembershipCertificateController::class, 'search'])
+    ->name('certificates.membership.search');
+Route::get('/certificates/membership/member/{id}', [MembershipCertificateController::class, 'form'])
+    ->name('certificates.membership.member');
+Route::post('/certificates/membership/print', [MembershipCertificateController::class, 'print'])
+    ->name('certificates.membership.print');
 
 Route::get('/', [DashboardController::class, 'index']);
 
