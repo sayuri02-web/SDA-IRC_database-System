@@ -15,8 +15,7 @@ $(document).ready(function(){
         }
 
         // Determine search route based on certificate type
-        let searchRoute = window.certSearchRoutes[window.currentCertType]
-            || window.certSearchRoutes['Baptism Certificate'];
+        let searchRoute = resolveRoute(window.certSearchRoutes, window.currentCertType);
 
         $.ajax({
             url: searchRoute,
@@ -63,12 +62,35 @@ $(document).ready(function(){
 
 });
 
+// Resolve route with fuzzy matching (handles exact match, then partial keyword match)
+function resolveRoute(routeMap, certType) {
+    if (!certType) return Object.values(routeMap)[0];
+
+    // Exact match first
+    if (routeMap[certType]) return routeMap[certType];
+
+    // Case-insensitive exact match
+    let lowerType = certType.toLowerCase();
+    for (let key in routeMap) {
+        if (key.toLowerCase() === lowerType) return routeMap[key];
+    }
+
+    // Partial keyword match (e.g. "Counseling" matches "Counseling Certificate")
+    for (let key in routeMap) {
+        if (key.toLowerCase().includes(lowerType) || lowerType.includes(key.toLowerCase().replace(' certificate', ''))) {
+            return routeMap[key];
+        }
+    }
+
+    // Final fallback: first route in the map
+    return Object.values(routeMap)[0];
+}
+
 // Redirect to correct certificate form based on type
 $(document).on('click', '.select-member', function(){
     let memberId = $(this).data('id');
 
-    let memberRoute = window.certMemberRoutes[window.currentCertType]
-        || window.certMemberRoutes['Baptism Certificate'];
+    let memberRoute = resolveRoute(window.certMemberRoutes, window.currentCertType);
 
     window.location.href = memberRoute + memberId;
 });

@@ -19,7 +19,7 @@
                 <div class="mem-church-sub">
                     <span class="mem-sub-red">Inter-Regional Conference in the Philippines Inc.</span><br>
                     SEC Reg. No. D2000-00116<br>
-                    Santol St., Sto. Niño, Buhangin, Davao City
+                    Santol St., Sto. Niño, Buhangin, Davao City <br>
                 </div>
             </div>
         </div>

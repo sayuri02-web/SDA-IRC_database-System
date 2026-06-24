@@ -18,7 +18,7 @@
                 <div class="ded-church-sub">
                     Inter-Regional Conference in the Philippines, Inc.<br>
                     SEC. Reg. No. D2000-00116<br>
-                    {{ $request->church_location ?? 'Davao City, Philippines' }}
+                    Santol St., Sto. Niño, Buhangin, Davai City <br>
                 </div>
             </div>
 
