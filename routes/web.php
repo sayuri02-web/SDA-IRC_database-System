@@ -13,6 +13,7 @@ use App\Http\Controllers\BaptismCertificateController;
 use App\Http\Controllers\MembershipCertificateController;
 use App\Http\Controllers\CounselingCertificateController;
 use App\Http\Controllers\StudentCertificatesController;
+use App\Http\Controllers\GoodMoralCertificatesController;
 use App\Http\Controllers\LeadersDirectoryController;
 
 
@@ -63,6 +64,14 @@ Route::get('/certificates/student/member/{id}', [StudentCertificatesController::
     ->name('certificates.student.member');
 Route::post('/certificates/student/print', [StudentCertificatesController::class, 'print'])
     ->name('certificates.student.print');
+
+// Good Moral Certificate routes
+Route::get('/certificates/goodmoral/search', [GoodMoralCertificatesController::class, 'search'])
+    ->name('certificates.goodmoral.search');
+Route::get('/certificates/goodmoral/member/{id}', [GoodMoralCertificatesController::class, 'form'])
+    ->name('certificates.goodmoral.member');
+Route::post('/certificates/goodmoral/print', [GoodMoralCertificatesController::class, 'print'])
+    ->name('certificates.goodmoral.print');
 
 Route::get('/', [DashboardController::class, 'index']);
 
