@@ -148,13 +148,15 @@
         'Baptism Certificate': "{{ route('certificates.baptism.search') }}",
         'Dedication Certificate': "{{ route('certificates.dedication.search') }}",
         'Membership Certificate': "{{ route('certificates.membership.search') }}",
-        'Counseling Certificate': "{{ route('certificates.counseling.search') }}"
+        'Counseling Certificate': "{{ route('certificates.counseling.search') }}",
+        'Student Certificate': "{{ route('certificates.student.search') }}"
     };
     window.certMemberRoutes = {
         'Baptism Certificate': '/certificates/baptism/member/',
         'Dedication Certificate': '/certificates/dedication/member/',
         'Membership Certificate': '/certificates/membership/member/',
-        'Counseling Certificate': '/certificates/counseling/member/'
+        'Counseling Certificate': '/certificates/counseling/member/',
+        'Student Certificate': '/certificates/student/member/'
     };
     window.currentCertType = 'Baptism Certificate';
 </script>

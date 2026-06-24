@@ -14,6 +14,7 @@ export default defineConfig({
                 'resources/scss/certificates/dedication_print.scss', // Dedication certificate print
                 'resources/scss/certificates/membership_print.scss', // Membership certificate print
                 'resources/scss/certificates/counseling_print.scss', // Counseling certificate print
+                'resources/scss/certificates/studentcert.scss',      // Student certificate print
                 'resources/js/app.js',
                 'resources/js/dashboard.js',                        // Vue Dashboard
                 'resources/js/website.js',                          // Vue Website (Login Modal)
