@@ -14,6 +14,7 @@ use App\Http\Controllers\MembershipCertificateController;
 use App\Http\Controllers\CounselingCertificateController;
 use App\Http\Controllers\StudentCertificatesController;
 use App\Http\Controllers\GoodMoralCertificatesController;
+use App\Http\Controllers\MembersAffiliateCertificateController;
 use App\Http\Controllers\LeadersDirectoryController;
 
 
@@ -72,6 +73,14 @@ Route::get('/certificates/goodmoral/member/{id}', [GoodMoralCertificatesControll
     ->name('certificates.goodmoral.member');
 Route::post('/certificates/goodmoral/print', [GoodMoralCertificatesController::class, 'print'])
     ->name('certificates.goodmoral.print');
+
+// Members Affiliate Certificate routes
+Route::get('/certificates/affiliate/search', [MembersAffiliateCertificateController::class, 'search'])
+    ->name('certificates.affiliate.search');
+Route::get('/certificates/affiliate/member/{id}', [MembersAffiliateCertificateController::class, 'form'])
+    ->name('certificates.affiliate.member');
+Route::post('/certificates/affiliate/print', [MembersAffiliateCertificateController::class, 'print'])
+    ->name('certificates.affiliate.print');
 
 Route::get('/', [DashboardController::class, 'index']);
 

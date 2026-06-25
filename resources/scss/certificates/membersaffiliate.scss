@@ -1,0 +1,257 @@
+// ============================================================
+// MEMBERS AFFILIATE CERTIFICATE — Print Stylesheet
+// ============================================================
+
+@page {
+    size: A4 portrait;
+    margin: 0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+.aff-print-body {
+    font-family: 'Times New Roman', Times, serif;
+    background: #fff;
+    color: #1a1a1a;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+.aff-page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 40px 50px;
+    position: relative;
+    background: #fff;
+}
+
+// ---- LOGO WATERMARK OVERLAY ----
+.aff-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 70%;
+    pointer-events: none;
+    z-index: 0;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        opacity: 0.08;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+}
+
+.aff-content {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+// ---- HEADER ----
+.aff-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 40px;
+    padding: 18px 24px;
+    border-bottom: 2px solid #1a1a1a;
+}
+
+.aff-logo {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.aff-header-text {
+    flex: 1;
+    text-align: center;
+    margin-right: 120px
+}
+
+.aff-church-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+}
+
+.aff-church-sub {
+    font-size: 13px;
+    color: #333;
+    line-height: 1.7;
+    font-weight: 600;
+}
+
+.aff-sub-red {
+    color: #cc0000;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+// ---- TITLE ----
+.aff-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 40px;
+    color: #1a1a1a;
+    font-style: italic;
+}
+
+// ---- BODY ----
+.aff-body {
+    padding: 0 10px;
+    margin-bottom: 30px;
+}
+
+.aff-line {
+    font-size: 16px;
+    line-height: 2.2;
+    margin-bottom: 10px;
+    text-align: justify;
+}
+
+// ---- FIXED-WIDTH UNDERLINE FIELDS ----
+.aff-field {
+    display: inline-block;
+    border-bottom: 1px solid #1a1a1a;
+    text-align: center;
+    font-weight: 500;
+    vertical-align: baseline;
+    margin: 0 3px;
+    min-height: 18px;
+    line-height: 1;
+    padding-bottom: 1px;
+}
+
+// Field widths by type (fixed regardless of content)
+.aff-field-name      { width: 240px; }
+.aff-field-day       { width: 40px; }
+.aff-field-month     { width: 110px; }
+.aff-field-year      { width: 50px; }
+.aff-field-location  { width: 200px; }
+.aff-field-certno    { width: 140px; }
+.aff-field-issuedat  { width: 180px; }
+
+// ---- APPLICANT SIGNATURE ----
+.aff-applicant-sig {
+    text-align: right;
+    padding: 0 10px;
+    margin-bottom: 40px;
+    margin-top: 30px;
+}
+
+.aff-sig-line-long {
+    width: 200px;
+    border-bottom: 1px solid #1a1a1a;
+    margin-left: auto;
+    margin-bottom: 4px;
+}
+
+.aff-sig-label-right {
+    font-size: 12px;
+    color: #333;
+    text-align: center;
+    width: 200px;
+    margin-left: auto;
+}
+
+// ---- DUAL SIGNATURES (Recommended & Noted) ----
+.aff-dual-sig {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    margin-bottom: 50px;
+}
+
+.aff-sig-block {
+    width: 180px;
+}
+
+.aff-sig-col {
+    width: 45%;
+}
+
+.aff-sig-prefix {
+    font-size: 13px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.aff-sig-line-med {
+    width: 180px;
+    border-bottom: 1px solid #1a1a1a;
+    margin-bottom: 4px;
+
+}
+
+.aff-sig-name,
+.aff-sig-title {
+    text-align: center;
+}
+
+.aff-sig-name {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 2px;
+    text-align: center;
+}
+
+.aff-sig-title {
+    font-size: 13px;
+    color: #333;
+   
+    text-align: center
+}
+
+// ---- APPROVED SIGNATURE ----
+.aff-approved-sig {
+    padding: 0 10px;
+}
+
+// ---- PRINT SPECIFIC ----
+@media print {
+    .aff-page {
+        width: 100%;
+        min-height: auto;
+        padding: 30px 40px;
+    }
+
+    .aff-watermark {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+
+        img {
+            opacity: 0.07 !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
+        }
+    }
+}
+
+// Screen preview styling
+@media screen {
+    body {
+        background: #e0e0e0;
+        padding: 20px;
+    }
+
+    .aff-page {
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+        border-radius: 4px;
+    }
+}

@@ -150,7 +150,8 @@
         'Membership Certificate': "{{ route('certificates.membership.search') }}",
         'Counseling Certificate': "{{ route('certificates.counseling.search') }}",
         'Student Certificate': "{{ route('certificates.student.search') }}",
-        'Good Moral Certificate': "{{ route('certificates.goodmoral.search') }}"
+        'Good Moral Certificate': "{{ route('certificates.goodmoral.search') }}",
+        'Members Affiliate Certificate': "{{ route('certificates.affiliate.search') }}"
     };
     window.certMemberRoutes = {
         'Baptism Certificate': '/certificates/baptism/member/',
@@ -158,7 +159,8 @@
         'Membership Certificate': '/certificates/membership/member/',
         'Counseling Certificate': '/certificates/counseling/member/',
         'Student Certificate': '/certificates/student/member/',
-        'Good Moral Certificate': '/certificates/goodmoral/member/'
+        'Good Moral Certificate': '/certificates/goodmoral/member/',
+        'Members Affiliate Certificate': '/certificates/affiliate/member/'
     };
     window.currentCertType = 'Baptism Certificate';
 </script>

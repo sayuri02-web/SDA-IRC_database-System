@@ -62,7 +62,7 @@ $(document).ready(function(){
 
 });
 
-// Resolve route with fuzzy matching (handles exact match, then partial keyword match)
+// Resolve route with matching (handles exact match, then best partial match)
 function resolveRoute(routeMap, certType) {
     if (!certType) return Object.values(routeMap)[0];
 
@@ -70,17 +70,47 @@ function resolveRoute(routeMap, certType) {
     if (routeMap[certType]) return routeMap[certType];
 
     // Case-insensitive exact match
-    let lowerType = certType.toLowerCase();
+    let lowerType = certType.toLowerCase().trim();
     for (let key in routeMap) {
         if (key.toLowerCase() === lowerType) return routeMap[key];
     }
 
-    // Partial keyword match (e.g. "Counseling" matches "Counseling Certificate")
+    // Best partial match — find the key with the longest overlap
+    // Score each key by how many words match
+    let bestMatch = null;
+    let bestScore = 0;
+
+    let typeWords = lowerType.replace(/certificate/gi, '').trim().split(/\s+/);
+
     for (let key in routeMap) {
-        if (key.toLowerCase().includes(lowerType) || lowerType.includes(key.toLowerCase().replace(' certificate', ''))) {
-            return routeMap[key];
+        let keyWords = key.toLowerCase().replace(/certificate/gi, '').trim().split(/\s+/);
+
+        // Count matching words
+        let score = 0;
+        for (let word of typeWords) {
+            if (word.length < 3) continue; // skip short words
+            for (let kw of keyWords) {
+                if (kw === word || kw.includes(word) || word.includes(kw)) {
+                    score++;
+                    break;
+                }
+            }
+        }
+
+        // Penalize if key has words NOT in type (prevents "membership" matching "members affiliate")
+        for (let kw of keyWords) {
+            if (kw.length < 3) continue;
+            let found = typeWords.some(tw => tw === kw || tw.includes(kw) || kw.includes(tw));
+            if (!found) score -= 0.5;
+        }
+
+        if (score > bestScore) {
+            bestScore = score;
+            bestMatch = routeMap[key];
         }
     }
+
+    if (bestMatch && bestScore > 0) return bestMatch;
 
     // Final fallback: first route in the map
     return Object.values(routeMap)[0];

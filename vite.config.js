@@ -16,6 +16,7 @@ export default defineConfig({
                 'resources/scss/certificates/counseling_print.scss', // Counseling certificate print
                 'resources/scss/certificates/studentcert.scss',      // Student certificate print
                 'resources/scss/certificates/goodmoralcert.scss',    // Good Moral certificate print
+                'resources/scss/certificates/membersaffiliate.scss', // Members Affiliate certificate print
                 'resources/js/app.js',
                 'resources/js/dashboard.js',                        // Vue Dashboard
                 'resources/js/website.js',                          // Vue Website (Login Modal)
