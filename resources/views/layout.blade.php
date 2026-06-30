@@ -179,6 +179,18 @@
     {{-- Global Delete Confirmation Modal --}}
     @include('components.delete-confirm-modal')
 
+    {{-- Global Toast Notification Container --}}
+    <div id="toast-app"></div>
+
+    {{-- Laravel Flash Data Bridge --}}
+    <div id="laravel-flash-data" class="d-none"
+        data-success="{{ session('success') }}"
+        data-error="{{ session('error') }}"
+        data-warning="{{ session('warning') }}"
+        data-info="{{ session('info') }}"
+        data-flash-message="{{ session('flash_message') }}"
+    ></div>
+
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 

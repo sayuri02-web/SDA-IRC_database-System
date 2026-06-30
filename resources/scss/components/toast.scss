@@ -1,0 +1,252 @@
+// ============================================================
+// TOAST NOTIFICATION SYSTEM
+// ============================================================
+
+.kiro-toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 380px;
+    width: calc(100vw - 40px);
+    pointer-events: none;
+}
+
+// ---- SINGLE TOAST ----
+.kiro-toast {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10), 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    pointer-events: auto;
+    animation: kiroToastIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+
+    &.kiro-toast-leaving {
+        animation: kiroToastOut 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
+    }
+}
+
+// ---- ICON ----
+.kiro-toast-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+}
+
+// ---- BODY ----
+.kiro-toast-body {
+    flex: 1;
+    min-width: 0;
+    padding-top: 4px;
+}
+
+.kiro-toast-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1f36;
+    line-height: 1.3;
+    margin-bottom: 2px;
+}
+
+.kiro-toast-message {
+    font-size: 13px;
+    font-weight: 400;
+    color: #525f7f;
+    line-height: 1.4;
+}
+
+// ---- CLOSE BUTTON ----
+.kiro-toast-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: #8898aa;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    padding: 0;
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.05);
+        color: #1a1f36;
+    }
+
+    &:focus-visible {
+        outline: 2px solid #28a745;
+        outline-offset: 1px;
+    }
+}
+
+// ---- PROGRESS BAR ----
+.kiro-toast-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.kiro-toast-progress-bar {
+    height: 100%;
+    border-radius: 0 0 0 3px;
+    transition: width 0.1s linear;
+}
+
+// ============================================================
+// TYPE VARIANTS
+// ============================================================
+
+.kiro-toast-success {
+    border-left: 3px solid #28a745;
+
+    .kiro-toast-icon {
+        background: #e9fff3;
+        color: #28a745;
+    }
+
+    .kiro-toast-progress-bar {
+        background: #28a745;
+    }
+}
+
+.kiro-toast-error {
+    border-left: 3px solid #e53935;
+
+    .kiro-toast-icon {
+        background: #fff0f0;
+        color: #e53935;
+    }
+
+    .kiro-toast-progress-bar {
+        background: #e53935;
+    }
+}
+
+.kiro-toast-warning {
+    border-left: 3px solid #ff8a00;
+
+    .kiro-toast-icon {
+        background: #fff4e8;
+        color: #ff8a00;
+    }
+
+    .kiro-toast-progress-bar {
+        background: #ff8a00;
+    }
+}
+
+.kiro-toast-info {
+    border-left: 3px solid #2449d8;
+
+    .kiro-toast-icon {
+        background: #eef4ff;
+        color: #2449d8;
+    }
+
+    .kiro-toast-progress-bar {
+        background: #2449d8;
+    }
+}
+
+// ============================================================
+// ANIMATIONS
+// ============================================================
+
+@keyframes kiroToastIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes kiroToastOut {
+    from {
+        opacity: 1;
+        transform: translateX(0) translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(30px) translateY(-10px);
+    }
+}
+
+// Vue TransitionGroup list animations
+.kiro-toast-list-enter-active {
+    animation: kiroToastIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.kiro-toast-list-leave-active {
+    animation: kiroToastOut 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
+    position: absolute;
+    width: 100%;
+}
+
+.kiro-toast-list-move {
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+// ============================================================
+// RESPONSIVE
+// ============================================================
+
+@media (max-width: 576px) {
+    .kiro-toast-container {
+        top: 12px;
+        right: 12px;
+        left: 12px;
+        max-width: 100%;
+        width: auto;
+    }
+
+    .kiro-toast {
+        padding: 12px 14px;
+        border-radius: 10px;
+    }
+
+    .kiro-toast-title {
+        font-size: 13px;
+    }
+
+    .kiro-toast-message {
+        font-size: 12px;
+    }
+
+    .kiro-toast-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .kiro-toast-container {
+        max-width: 340px;
+    }
+}
