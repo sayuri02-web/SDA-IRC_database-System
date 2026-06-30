@@ -31,7 +31,7 @@
 
         h4 {
             margin-top: 12px;
-            font-size: 24px;
+            font-size: $font-size-lg;
             font-weight: $font-weight-bold;
         }
     }
@@ -53,7 +53,8 @@
                 border-radius: $radius-md;
                 margin: 0 12px;
                 transition: 0.3s;
-                font-size: 16px;
+                font-size: $font-size-base;
+                font-weight: $font-weight-medium;
 
                 &:hover {
                     background: rgba(255, 255, 255, 0.1);
@@ -63,6 +64,7 @@
                 &.active {
                     background: $sidebar-active;
                     color: white;
+                    font-weight: $font-weight-semi;
                 }
 
                 i { font-size: 20px; }

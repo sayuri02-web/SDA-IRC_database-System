@@ -48,8 +48,8 @@
 .topbar-left { display: flex; align-items: center; gap: 12px; }
 
 .topbar-title {
-    font-size: 16px;
-    font-weight: 700;
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
     color: $color-dark;
     margin: 0;
     letter-spacing: -0.2px;
@@ -65,9 +65,9 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 13px;
+    font-size: $font-size-caption;
     color: $color-muted;
-    font-weight: 500;
+    font-weight: $font-weight-medium;
     i { font-size: 16px; color: $color-primary; }
 }
 
@@ -103,8 +103,8 @@
 }
 
 .topbar-username {
-    font-size: 13px;
-    font-weight: 600;
+    font-size: $font-size-caption;
+    font-weight: $font-weight-semi;
     color: $color-dark;
 }
 
@@ -192,8 +192,8 @@
 
 .notification-header {
     padding: 14px 18px;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
     color: $color-dark;
     border-bottom: 1px solid $color-border-light;
     position: sticky;
@@ -218,15 +218,15 @@
     }
 
     .notification-title {
-        font-size: 13px;
-        font-weight: 500;
+        font-size: $font-size-caption;
+        font-weight: $font-weight-medium;
         color: $color-dark;
         margin-bottom: 4px;
         line-height: 1.4;
     }
 
     small {
-        font-size: 11px;
+        font-size: $font-size-tiny;
     }
 }
 

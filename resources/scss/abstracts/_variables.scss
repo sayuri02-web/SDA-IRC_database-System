@@ -37,19 +37,30 @@ $sidebar-width:       240px;
 $sidebar-active:      #2449d8;
 
 // ---- TYPOGRAPHY ----
-$font-family:         'Segoe UI', sans-serif;
-$font-size-xs:        11px;
-$font-size-sm:        12px;
-$font-size-base:      14px;
-$font-size-md:        15px;
-$font-size-lg:        18px;
-$font-size-xl:        20px;
-$font-size-xxl:       26px;
+$font-family:         'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
+// Type scale
+$font-size-tiny:      12px;
+$font-size-caption:   13px;
+$font-size-xs:        13px;
+$font-size-sm:        14px;
+$font-size-base:      15px;
+$font-size-md:        16px;
+$font-size-lg:        20px;
+$font-size-xl:        24px;
+$font-size-xxl:       30px;
+$font-size-display:   36px;
+
+$font-weight-regular: 400;
 $font-weight-medium:  500;
 $font-weight-semi:    600;
 $font-weight-bold:    700;
 $font-weight-black:   800;
+
+// Line heights
+$line-height-tight:   1.2;
+$line-height-base:    1.5;
+$line-height-relaxed: 1.7;
 
 // ---- BORDER RADIUS ----
 $radius-sm:           8px;

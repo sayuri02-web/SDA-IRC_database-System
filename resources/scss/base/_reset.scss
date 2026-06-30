@@ -16,6 +16,109 @@ html, body {
 body {
     background: $color-bg;
     font-family: $font-family;
+    font-size: $font-size-base;
+    font-weight: $font-weight-regular;
+    line-height: $line-height-base;
+    color: $color-text;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+// ============================================================
+// GLOBAL TYPOGRAPHY UTILITIES
+// ============================================================
+
+h1, h2, h3, h4, h5, h6 {
+    color: $color-dark;
+    line-height: $line-height-tight;
+}
+
+h1 { font-size: $font-size-display; font-weight: $font-weight-bold; }
+h2 { font-size: $font-size-xxl; font-weight: $font-weight-bold; }
+h3 { font-size: $font-size-xl; font-weight: $font-weight-bold; }
+h4 { font-size: $font-size-lg; font-weight: $font-weight-semi; }
+h5 { font-size: $font-size-md; font-weight: $font-weight-semi; }
+h6 { font-size: $font-size-base; font-weight: $font-weight-semi; }
+
+// ============================================================
+// GLOBAL FORM TYPOGRAPHY & FOCUS STYLES
+// ============================================================
+
+.form-label {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-dark;
+    margin-bottom: 6px;
+}
+
+.form-control,
+.form-select {
+    font-size: $font-size-base;
+    font-weight: $font-weight-regular;
+    border-radius: $radius-md;
+    height: 42px;
+}
+
+textarea.form-control {
+    height: auto;
+}
+
+.form-text {
+    font-size: $font-size-caption;
+    color: $color-muted;
+}
+
+// ============================================================
+// GLOBAL BUTTON TYPOGRAPHY
+// ============================================================
+
+.btn {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semi;
+    border-radius: $radius-md;
+    height: 42px;
+    padding: 0 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: $transition-base;
+}
+
+.btn-sm {
+    font-size: $font-size-caption;
+    font-weight: $font-weight-semi;
+    height: 34px;
+    padding: 0 14px;
+}
+
+.btn-lg {
+    font-size: $font-size-md;
+    font-weight: $font-weight-semi;
+    height: 48px;
+    padding: 0 24px;
+}
+
+// ============================================================
+// GLOBAL TABLE TYPOGRAPHY
+// ============================================================
+
+.table {
+    font-size: $font-size-sm;
+
+    thead th {
+        font-size: $font-size-sm;
+        font-weight: $font-weight-semi;
+        color: $color-muted;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+    }
+
+    tbody td {
+        font-size: $font-size-sm;
+        font-weight: $font-weight-regular;
+        color: $color-text;
+    }
 }
 
 // ============================================================
