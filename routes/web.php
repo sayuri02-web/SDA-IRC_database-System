@@ -16,6 +16,7 @@ use App\Http\Controllers\StudentCertificatesController;
 use App\Http\Controllers\GoodMoralCertificatesController;
 use App\Http\Controllers\MembersAffiliateCertificateController;
 use App\Http\Controllers\LeadersDirectoryController;
+use App\Http\Controllers\WebsiteManagementController;
 
 
 Route::get('/certificate-logs', [CertificateLogController::class, 'index']);
@@ -82,6 +83,12 @@ Route::get('/certificates/affiliate/member/{id}', [MembersAffiliateCertificateCo
 Route::post('/certificates/affiliate/print', [MembersAffiliateCertificateController::class, 'print'])
     ->name('certificates.affiliate.print');
 
+//Pastor Message routes
+Route::get(
+    '/website-management/pastors',
+    [WebsiteManagementController::class, 'pastors']
+)->name('website-management.pastors');
+
 Route::get('/', [DashboardController::class, 'index']);
 
 // TEMPORARY: run migrations via browser (DELETE AFTER USE)
@@ -104,9 +111,28 @@ Route::get('/members/{id}/json', [MemberController::class, 'showJson']);
 | RESOURCE ROUTE
 |-------------------------------------------------------------------------- 
 */
-Route::get('/website-management', function () {
-    return view('website-management.index');
-});
+Route::prefix('website-management')
+    ->name('website-management.')
+    ->group(function () {
+
+        Route::get('/', [WebsiteManagementController::class, 'index'])
+            ->name('index');
+
+        Route::get('/pastor-message', [WebsiteManagementController::class, 'pastorMessage'])
+            ->name('pastor-message');
+
+        Route::post('/pastor-message', [WebsiteManagementController::class, 'savePastorMessage'])
+            ->name('pastor-message.save');
+
+        Route::get('/events', [WebsiteManagementController::class, 'events-announcements'])
+            ->name('events-announcements');
+
+        Route::get('/ministries', [WebsiteManagementController::class, 'ministries'])
+            ->name('ministries');
+
+        Route::get('/gallery', [WebsiteManagementController::class, 'gallery'])
+            ->name('gallery');
+    });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
@@ -142,3 +168,4 @@ Route::post('/leaders-directory/organization', [LeadersDirectoryController::clas
 Route::delete('/leaders-directory/organization/{id}', [LeadersDirectoryController::class, 'destroyOrganization'])->name('leaders-directory.destroy-org');
 Route::delete('/leaders-directory/member/{id}', [LeadersDirectoryController::class, 'destroyMember'])->name('leaders-directory.destroy-member');
 Route::put('/leaders-directory/member/{id}', [LeadersDirectoryController::class, 'updateMember'])->name('leaders-directory.update-member');
+Route::get('/leaders-directory/search', [LeadersDirectoryController::class, 'search'])->name('leaders-directory.search');

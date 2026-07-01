@@ -69,4 +69,36 @@ class LeadersDirectoryController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+    // Search members by name or position
+    public function search(Request $request)
+    {
+        $search = $request->get('search');
+
+        $leaders = Member::query()
+            ->where('is_leader', true)
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('first_name', 'like', "%{$search}%")
+                      ->orWhere('middle_initial', 'like', "%{$search}%")
+                      ->orWhere('last_name', 'like', "%{$search}%")
+                      ->orWhere('position', 'like', "%{$search}%");
+                });
+            })
+            ->orderBy('last_name')
+            ->get();
+
+        return response()->json(
+            $leaders->map(function ($leader) {
+                return [
+                    'id' => $leader->id,
+                    'name' => $leader->full_name,
+                    'position' => $leader->position,
+                    'organization' => $leader->organization,
+                    'photo' => $leader->photo,
+                    'church' => optional($leader->church)->church_name,
+                ];
+            })
+        );
+    }
 }

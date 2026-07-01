@@ -12,12 +12,24 @@ import './certificates/dedication';
 // GLOBAL TOAST NOTIFICATION SYSTEM
 import { createApp } from 'vue';
 import ToastContainer from './components/ui/toastcontainer.vue';
+import PastorSelectorModal from './components/PastorSelectorModal.vue';
 import './composables/useToast.js';
 
+// Mount Toast System
 const toastEl = document.getElementById('toast-app');
 if (toastEl) {
     const toastApp = createApp(ToastContainer);
     toastApp.mount('#toast-app');
+}
+
+// Mount Pastor Selector Modal (only on pages that have the mount point)
+const pastorModalEl = document.getElementById('pastor-modal-app');
+if (pastorModalEl) {
+    const pastorApp = createApp({
+        components: { PastorSelectorModal },
+        template: '<PastorSelectorModal />'
+    });
+    pastorApp.mount('#pastor-modal-app');
 }
 
 // Read Laravel session flash messages and display as toasts

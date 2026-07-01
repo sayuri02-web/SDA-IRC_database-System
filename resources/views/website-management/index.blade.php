@@ -35,9 +35,23 @@
                             </div>
                             <h5 class="wm-card-title">Pastor's Message</h5>
                             <p class="wm-card-desc">Manage the pastor's featured message for the website.</p>
-                            <button class="wm-manage-btn" data-bs-toggle="modal" data-bs-target="#pastorMessageModal">
-                                <i class="mdi mdi-pencil-outline me-1"></i> Manage
-                            </button>
+                            <div class="wm-card-status">
+                                <span class="wm-status-label">Current Status</span>
+                                @if($cardStatuses['pastor']['status'] === 'published')
+                                    <span class="wm-status-badge wm-status-published">● Published</span>
+                                @elseif($cardStatuses['pastor']['status'] === 'draft')
+                                    <span class="wm-status-badge wm-status-draft">● Draft</span>
+                                @else
+                                    <span class="wm-status-badge wm-status-not-published">● Not Published</span>
+                                @endif
+                                <span class="wm-status-label">Last Updated</span>
+                                <span class="wm-status-date">{{ $cardStatuses['pastor']['updated_at'] ? $cardStatuses['pastor']['updated_at']->format('F d, Y') : '—' }}</span>
+                            </div>
+                            <a href="{{ route('website-management.pastor-message') }}"
+                                class="wm-manage-btn">
+                                    <i class="mdi mdi-pencil-outline me-1"></i>
+                                    Manage
+                            </a>
                         </div>
                     </div>
 
@@ -49,9 +63,22 @@
                             </div>
                             <h5 class="wm-card-title">Events & Announcements</h5>
                             <p class="wm-card-desc">Manage church events and announcements.</p>
-                            <button class="wm-manage-btn" data-bs-toggle="modal" data-bs-target="#eventsModal">
+                            <div class="wm-card-status">
+                                <span class="wm-status-label">Current Status</span>
+                                @if($cardStatuses['events']['status'] === 'published')
+                                    <span class="wm-status-badge wm-status-published">● Published</span>
+                                @elseif($cardStatuses['events']['status'] === 'draft')
+                                    <span class="wm-status-badge wm-status-draft">● Draft</span>
+                                @else
+                                    <span class="wm-status-badge wm-status-not-published">● Not Published</span>
+                                @endif
+                                <span class="wm-status-label">Last Updated</span>
+                                <span class="wm-status-date">{{ $cardStatuses['events']['updated_at'] ? $cardStatuses['events']['updated_at']->format('F d, Y') : '—' }}</span>
+                            </div>
+                            <a href="{{ route('website-management.events-announcements') }}"
+                               class="wm-manage-btn">
                                 <i class="mdi mdi-pencil-outline me-1"></i> Manage
-                            </button>
+                            </a>
                         </div>
                     </div>
 
@@ -63,9 +90,23 @@
                             </div>
                             <h5 class="wm-card-title">Ministries</h5>
                             <p class="wm-card-desc">Manage church ministries and descriptions.</p>
-                            <button class="wm-manage-btn" data-bs-toggle="modal" data-bs-target="#ministriesModal">
-                                <i class="mdi mdi-pencil-outline me-1"></i> Manage
-                            </button>
+                            <div class="wm-card-status">
+                                <span class="wm-status-label">Current Status</span>
+                                @if($cardStatuses['ministries']['status'] === 'published')
+                                    <span class="wm-status-badge wm-status-published">● Published</span>
+                                @elseif($cardStatuses['ministries']['status'] === 'draft')
+                                    <span class="wm-status-badge wm-status-draft">● Draft</span>
+                                @else
+                                    <span class="wm-status-badge wm-status-not-published">● Not Published</span>
+                                @endif
+                                <span class="wm-status-label">Last Updated</span>
+                                <span class="wm-status-date">{{ $cardStatuses['ministries']['updated_at'] ? $cardStatuses['ministries']['updated_at']->format('F d, Y') : '—' }}</span>
+                            </div>
+                            <a href="{{ route('website-management.ministries') }}"
+                                class="wm-manage-btn">
+                                    <i class="mdi mdi-pencil-outline me-1"></i>
+                                    Manage
+                            </a>
                         </div>
                     </div>
 
@@ -77,9 +118,22 @@
                             </div>
                             <h5 class="wm-card-title">Gallery</h5>
                             <p class="wm-card-desc">Manage website photos and gallery albums.</p>
-                            <button class="wm-manage-btn" data-bs-toggle="modal" data-bs-target="#galleryModal">
+                            <div class="wm-card-status">
+                                <span class="wm-status-label">Current Status</span>
+                                @if($cardStatuses['gallery']['status'] === 'published')
+                                    <span class="wm-status-badge wm-status-published">● Published</span>
+                                @elseif($cardStatuses['gallery']['status'] === 'draft')
+                                    <span class="wm-status-badge wm-status-draft">● Draft</span>
+                                @else
+                                    <span class="wm-status-badge wm-status-not-published">● Not Published</span>
+                                @endif
+                                <span class="wm-status-label">Last Updated</span>
+                                <span class="wm-status-date">{{ $cardStatuses['gallery']['updated_at'] ? $cardStatuses['gallery']['updated_at']->format('F d, Y') : '—' }}</span>
+                            </div>
+                            <a href="{{ route('website-management.gallery') }}"
+                               class="wm-manage-btn">
                                 <i class="mdi mdi-pencil-outline me-1"></i> Manage
-                            </button>
+                            </a>
                         </div>
                     </div>
 
