@@ -7,25 +7,26 @@
 <section class="ws-section">
     <div class="container">
         <div class="row g-4">
-            @php
-            $events = [
-                ['title' => 'Sabbath Worship', 'date' => 'Every Saturday', 'desc' => 'Weekly divine worship service for all members and visitors.', 'time' => '9:00 AM - 12:00 PM'],
-                ['title' => 'Youth Camp 2026', 'date' => 'Jun 28 - Jul 2, 2026', 'desc' => 'Annual youth camping and spiritual retreat.', 'time' => 'Full Day'],
-                ['title' => 'Evangelistic Crusade', 'date' => 'Jul 12 - 26, 2026', 'desc' => 'Two-week evangelistic outreach program.', 'time' => '6:00 PM Nightly'],
-                ['title' => 'Community Outreach', 'date' => 'Jul 5, 2026', 'desc' => 'Community feeding program and health education.', 'time' => '7:00 AM - 12:00 PM'],
-                ['title' => 'Family Retreat', 'date' => 'Aug 15 - 17, 2026', 'desc' => 'Weekend retreat for families with workshops and bonding activities.', 'time' => 'Full Weekend'],
-            ];
-            @endphp
-            @foreach($events as $e)
+            @forelse($events as $e)
             <div class="col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                 <div class="ws-event-card ws-event-card-lg">
-                    <div class="ws-event-date"><i class="mdi mdi-calendar"></i> {{ $e['date'] }}</div>
-                    <h4 class="ws-event-title">{{ $e['title'] }}</h4>
-                    <p class="ws-event-desc">{{ $e['desc'] }}</p>
-                    <span class="ws-event-time"><i class="mdi mdi-clock-outline me-1"></i>{{ $e['time'] }}</span>
+                    <div class="ws-event-date"><i class="mdi mdi-calendar"></i> {{ $e->event_date ? $e->event_date->format('M d, Y') : '—' }}</div>
+                    <h4 class="ws-event-title">{{ $e->title }}</h4>
+                    <p class="ws-event-desc">{{ $e->description }}</p>
+                    @if($e->event_time)
+                    <span class="ws-event-time"><i class="mdi mdi-clock-outline me-1"></i>{{ $e->event_time }}</span>
+                    @endif
+                    @if($e->location)
+                    <span class="ws-event-time" style="margin-left:12px;"><i class="mdi mdi-map-marker-outline me-1"></i>{{ $e->location }}</span>
+                    @endif
                 </div>
             </div>
-            @endforeach
+            @empty
+            <div class="col-12 text-center py-5">
+                <i class="mdi mdi-calendar-blank-outline" style="font-size:48px; color:#d0d5dc;"></i>
+                <p class="text-muted mt-3">No events available at this time. Check back soon!</p>
+            </div>
+            @endforelse
         </div>
     </div>
 </section>

@@ -32,6 +32,19 @@ if (pastorModalEl) {
     pastorApp.mount('#pastor-modal-app');
 }
 
+// Mount Events & Announcements Modals (Website Management page)
+import EventsModal from './components/website-management/EventsModal.vue';
+import AnnouncementsModal from './components/website-management/AnnouncementMoodal.vue';
+
+const wmModalsEl = document.getElementById('wm-modals-app');
+if (wmModalsEl) {
+    const wmApp = createApp({
+        components: { EventsModal, AnnouncementsModal },
+        template: '<EventsModal /><AnnouncementsModal />'
+    });
+    wmApp.mount('#wm-modals-app');
+}
+
 // Read Laravel session flash messages and display as toasts
 document.addEventListener('DOMContentLoaded', function() {
     // Wait for Vue to mount the toast container

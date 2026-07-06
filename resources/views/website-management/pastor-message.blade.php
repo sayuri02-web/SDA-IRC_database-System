@@ -28,7 +28,7 @@
 
             {{-- SCROLLABLE CONTENT --}}
             <div class="pm-scroll-area">
-            <form method="POST" action="{{ route('website-management.pastor-message.save') }}">
+            <form id="pastorMessageForm" method="POST" action="{{ route('website-management.pastor-message.save') }}">
                 @csrf
                 <input type="hidden" id="pastorMemberId" name="member_id" value="{{ $pastorMessage->member_id ?? '' }}">
 
@@ -189,7 +189,7 @@
 
 @push('scripts')
 <script>
-let selectedOrganization = '';
+let selectedOrganization = @json($pastorMessage?->member?->organization ?? '');
 document.addEventListener('DOMContentLoaded', function() {
 
     const nameInput = document.getElementById('pastorName');
@@ -202,6 +202,43 @@ document.addEventListener('DOMContentLoaded', function() {
     const previewTitle = document.getElementById('previewTitle');
     const previewPhoto = document.getElementById('previewPhoto');
     const previewPhotoIcon = document.getElementById('previewPhotoIcon');
+    const form = document.getElementById('pastorMessageForm');
+
+    form.addEventListener('submit', async function (e) {
+
+        e.preventDefault();
+
+        const formData = new FormData(form);
+
+        const response = await fetch(form.action, {
+
+            method: 'POST',
+
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                'Accept': 'application/json'
+            },
+
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if(result.success){
+
+            setStatus('published');
+
+            document.getElementById('statusDate').textContent =
+                result.updated_at;
+
+            if(window.toast){
+                window.toast.success(
+                    'Success',
+                    'Pastor message saved successfully.'
+                );
+            }
+        }
+    });
 
     let isPublished = false;
 
@@ -303,6 +340,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (nameInput) nameInput.value = pastor.name || '';
         if (positionInput) positionInput.value = pastor.position || '';
 
+        selectedOrganization = pastor.organization || '';
+
         // Set the hidden member_id for form submission
         var memberIdInput = document.getElementById('pastorMemberId');
         if (memberIdInput) memberIdInput.value = pastor.id || '';
@@ -322,7 +361,9 @@ document.addEventListener('DOMContentLoaded', function() {
             window.toast.success('Pastor Selected', (pastor.name || 'Leader') + ' has been selected.');
         }
     });
+    updatePreview();
 });
+
 </script>
 @endpush
 

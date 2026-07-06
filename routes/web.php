@@ -124,8 +124,22 @@ Route::prefix('website-management')
         Route::post('/pastor-message', [WebsiteManagementController::class, 'savePastorMessage'])
             ->name('pastor-message.save');
 
-        Route::get('/events', [WebsiteManagementController::class, 'events-announcements'])
+        Route::get('/events-announcements', [WebsiteManagementController::class, 'eventsAnnouncements'])
             ->name('events-announcements');
+
+        // Events API
+        Route::get('/events/list', [WebsiteManagementController::class, 'getEvents'])->name('events.list');
+        Route::post('/events', [WebsiteManagementController::class, 'storeEvent'])->name('events.store');
+        Route::put('/events/{id}', [WebsiteManagementController::class, 'updateEvent'])->name('events.update');
+        Route::delete('/events/{id}', [WebsiteManagementController::class, 'destroyEvent'])->name('events.destroy');
+        Route::post('/events/{id}/toggle', [WebsiteManagementController::class, 'toggleEvent'])->name('events.toggle');
+
+        // Announcements API
+        Route::get('/announcements/list', [WebsiteManagementController::class, 'getAnnouncements'])->name('announcements.list');
+        Route::post('/announcements', [WebsiteManagementController::class, 'storeAnnouncement'])->name('announcements.store');
+        Route::put('/announcements/{id}', [WebsiteManagementController::class, 'updateAnnouncement'])->name('announcements.update');
+        Route::delete('/announcements/{id}', [WebsiteManagementController::class, 'destroyAnnouncement'])->name('announcements.destroy');
+        Route::post('/announcements/{id}/toggle', [WebsiteManagementController::class, 'toggleAnnouncement'])->name('announcements.toggle');
 
         Route::get('/ministries', [WebsiteManagementController::class, 'ministries'])
             ->name('ministries');

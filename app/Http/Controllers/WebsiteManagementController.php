@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Member;
 use App\Models\PastorMessage;
+use App\Models\Event;
+use App\Models\Announcement;
 use Illuminate\Http\Request;
 
 class WebsiteManagementController extends Controller
@@ -12,14 +14,22 @@ class WebsiteManagementController extends Controller
     {
         $pastorMessage = PastorMessage::latest()->first();
 
+        $latestEvent = Event::latest('updated_at')->first();
+        $latestAnnouncement = Announcement::latest('updated_at')->first();
+        $latestEA = $latestEvent && $latestAnnouncement
+            ? ($latestEvent->updated_at > $latestAnnouncement->updated_at ? $latestEvent : $latestAnnouncement)
+            : ($latestEvent ?? $latestAnnouncement);
+
         $cardStatuses = [
             'pastor' => [
                 'status' => $pastorMessage ? 'published' : 'not-published',
                 'updated_at' => $pastorMessage?->updated_at,
             ],
             'events' => [
-                'status' => 'not-published',
-                'updated_at' => null,
+                'status' => ($latestEvent || $latestAnnouncement) ? 'published' : 'not-published',
+                'updated_at' => $latestEA?->updated_at,
+                'events_count' => Event::count(),
+                'announcements_count' => Announcement::count(),
             ],
             'ministries' => [
                 'status' => 'not-published',
@@ -48,7 +58,6 @@ class WebsiteManagementController extends Controller
             'content' => 'nullable|string',
         ]);
 
-        // Update or create the single pastor message record
         $pastorMessage = PastorMessage::first();
 
         if ($pastorMessage) {
@@ -67,55 +76,162 @@ class WebsiteManagementController extends Controller
             ]);
         }
 
-        return redirect()->route('website-management.pastor-message')
-            ->with('success', 'Pastor\'s Message saved successfully.');
+        return response()->json(['success' => true, 'updated_at' => $pastorMessage->updated_at->format('F d, Y h:i A')]);
     }
 
-    //FETCH PASTORS FROM DATABASE
     public function pastors()
     {
         $pastors = Member::where('is_leader', true)
             ->where('position', 'LIKE', '%Pastor%')
-            ->select(
-                'id',
-                'photo',
-                'first_name',
-                'middle_initial',
-                'last_name',
-                'suffix',
-                'position',
-                'organization'
-            )
+            ->select('id', 'photo', 'first_name', 'middle_initial', 'last_name', 'suffix', 'position', 'organization')
             ->get()
-            ->map(function ($member) {
-
-                return [
-
-                    'id' => $member->id,
-
-                    'photo' => $member->photo,
-
-                    'full_name' => trim(
-                        $member->first_name . ' ' .
-                        ($member->middle_initial ? $member->middle_initial . '. ' : '') .
-                        $member->last_name .
-                        ($member->suffix ? ' ' . $member->suffix : '')
-                    ),
-
-                    'position' => $member->position,
-                    'organization' => $member->organization,
-
-                    'status' => 'Active'
-                ];
-            });
+            ->map(fn($m) => [
+                'id' => $m->id,
+                'photo' => $m->photo,
+                'full_name' => $m->full_name,
+                'position' => $m->position,
+                'organization' => $m->organization,
+                'status' => 'Active',
+            ]);
 
         return response()->json($pastors);
     }
 
-    public function events()
+    // ========== EVENTS & ANNOUNCEMENTS PAGE ==========
+
+    public function eventsAnnouncements()
     {
-        return view('website-management.events');
+        return view('website-management.events-announcements');
     }
+
+    // ========== EVENTS CRUD ==========
+
+    public function getEvents(Request $request)
+    {
+        $query = Event::query()->latest();
+
+        if ($request->search) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
+
+        return response()->json($query->get()->map(fn($e) => [
+            'id' => $e->id,
+            'title' => $e->title,
+            'description' => $e->description,
+            'event_date' => $e->event_date?->format('Y-m-d'),
+            'event_time' => $e->event_time,
+            'location' => $e->location,
+            'is_published' => $e->is_published,
+            'updated_at' => $e->updated_at->format('M d, Y'),
+        ]));
+    }
+
+    public function storeEvent(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'event_date' => 'nullable|date',
+            'event_time' => 'nullable|string|max:100',
+            'location' => 'nullable|string|max:255',
+            'is_published' => 'boolean',
+        ]);
+
+        $event = Event::create($request->only('title', 'description', 'event_date', 'event_time', 'location', 'is_published'));
+
+        return response()->json(['success' => true, 'event' => $event]);
+    }
+
+    public function updateEvent(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'event_date' => 'nullable|date',
+            'event_time' => 'nullable|string|max:100',
+            'location' => 'nullable|string|max:255',
+            'is_published' => 'boolean',
+        ]);
+
+        $event = Event::findOrFail($id);
+        $event->update($request->only('title', 'description', 'event_date', 'event_time', 'location', 'is_published'));
+
+        return response()->json(['success' => true, 'event' => $event]);
+    }
+
+    public function destroyEvent($id)
+    {
+        Event::findOrFail($id)->delete();
+        return response()->json(['success' => true]);
+    }
+
+    public function toggleEvent($id)
+    {
+        $event = Event::findOrFail($id);
+        $event->update(['is_published' => !$event->is_published]);
+        return response()->json(['success' => true, 'is_published' => $event->is_published]);
+    }
+
+    // ========== ANNOUNCEMENTS CRUD ==========
+
+    public function getAnnouncements(Request $request)
+    {
+        $query = Announcement::query()->latest();
+
+        if ($request->search) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
+
+        return response()->json($query->get()->map(fn($a) => [
+            'id' => $a->id,
+            'title' => $a->title,
+            'description' => $a->description,
+            'is_published' => $a->is_published,
+            'updated_at' => $a->updated_at->format('M d, Y'),
+        ]));
+    }
+
+    public function storeAnnouncement(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'is_published' => 'boolean',
+        ]);
+
+        $announcement = Announcement::create($request->only('title', 'description', 'is_published'));
+
+        return response()->json(['success' => true, 'announcement' => $announcement]);
+    }
+
+    public function updateAnnouncement(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'is_published' => 'boolean',
+        ]);
+
+        $announcement = Announcement::findOrFail($id);
+        $announcement->update($request->only('title', 'description', 'is_published'));
+
+        return response()->json(['success' => true, 'announcement' => $announcement]);
+    }
+
+    public function destroyAnnouncement($id)
+    {
+        Announcement::findOrFail($id)->delete();
+        return response()->json(['success' => true]);
+    }
+
+    public function toggleAnnouncement($id)
+    {
+        $a = Announcement::findOrFail($id);
+        $a->update(['is_published' => !$a->is_published]);
+        return response()->json(['success' => true, 'is_published' => $a->is_published]);
+    }
+
+    // ========== OTHER MODULES ==========
 
     public function ministries()
     {

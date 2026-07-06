@@ -8,7 +8,7 @@
 
                 <select wire:model.live="selectedRegion"
                         name="region"
-                        class="form-control">
+                        class="form-control" required>
 
                     <option value="">-- Select Region --</option>
 
@@ -28,7 +28,7 @@
 
                 <select wire:model.live="selectedProvince"
                         name="province"
-                        class="form-control">
+                        class="form-control" required>
 
                     <option value="">-- Select Province --</option>
 
@@ -53,7 +53,7 @@
 
                 <select wire:model.live="selectedCity"
                         name="city"
-                        class="form-control">
+                        class="form-control" required>
 
                     <option value="">-- Select City --</option>
 
@@ -73,7 +73,7 @@
 
                 <select wire:model.live="selectedBarangay"
                         name="barangay"
-                        class="form-control">
+                        class="form-control" required>
 
                     <option value="">-- Select Barangay --</option>
 
@@ -100,7 +100,8 @@
                        wire:model.live="street"
                        name="street"
                        class="form-control"
-                       placeholder="Enter street / purok / sitio">
+                       placeholder="Enter street / purok / sitio"
+                       required>
             </div>
         </div>
 

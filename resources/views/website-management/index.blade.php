@@ -64,21 +64,21 @@
                             <h5 class="wm-card-title">Events & Announcements</h5>
                             <p class="wm-card-desc">Manage church events and announcements.</p>
                             <div class="wm-card-status">
-                                <span class="wm-status-label">Current Status</span>
-                                @if($cardStatuses['events']['status'] === 'published')
-                                    <span class="wm-status-badge wm-status-published">● Published</span>
-                                @elseif($cardStatuses['events']['status'] === 'draft')
-                                    <span class="wm-status-badge wm-status-draft">● Draft</span>
-                                @else
-                                    <span class="wm-status-badge wm-status-not-published">● Not Published</span>
-                                @endif
-                                <span class="wm-status-label">Last Updated</span>
+                                <div class="wm-mini-stats">
+                                    <div class="wm-mini-stat wm-mini-stat-clickable" onclick="window.dispatchEvent(new Event('open-events-modal'))">
+                                        <span class="wm-mini-label">Events</span>
+                                        <span class="wm-mini-value">{{ $cardStatuses['events']['events_count'] ?? 0 }}</span>
+                                        <span class="wm-mini-action">View →</span>
+                                    </div>
+                                    <div class="wm-mini-stat wm-mini-stat-clickable" onclick="window.dispatchEvent(new Event('open-announcements-modal'))">
+                                        <span class="wm-mini-label">Announcements</span>
+                                        <span class="wm-mini-value">{{ $cardStatuses['events']['announcements_count'] ?? 0 }}</span>
+                                        <span class="wm-mini-action">View →</span>
+                                    </div>
+                                </div>
+                                <span class="wm-status-label mt-3">Last Updated</span>
                                 <span class="wm-status-date">{{ $cardStatuses['events']['updated_at'] ? $cardStatuses['events']['updated_at']->format('F d, Y') : '—' }}</span>
                             </div>
-                            <a href="{{ route('website-management.events-announcements') }}"
-                               class="wm-manage-btn">
-                                <i class="mdi mdi-pencil-outline me-1"></i> Manage
-                            </a>
                         </div>
                     </div>
 
@@ -209,4 +209,8 @@
         </div>
     </div>
 </div>
+
+{{-- Vue Events & Announcements Modals --}}
+<div id="wm-modals-app"></div>
+
 @endsection
