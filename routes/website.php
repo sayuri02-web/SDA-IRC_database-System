@@ -19,6 +19,6 @@ Route::prefix('website')->name('website.')->group(function () {
     Route::get('/ministries', [WebsiteController::class, 'ministries'])->name('ministries');
     Route::get('/events', [WebsiteController::class, 'events'])->name('events');
     Route::get('/announcements', [WebsiteController::class, 'announcements'])->name('announcements');
-    Route::view('/gallery', 'website.gallery')->name('gallery');
+    Route::get('/gallery', [WebsiteController::class, 'gallery'])->name('gallery');
     Route::view('/contact', 'website.contact')->name('contact');
 });

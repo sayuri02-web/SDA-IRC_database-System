@@ -6,6 +6,7 @@ use App\Models\PastorMessage;
 use App\Models\Event;
 use App\Models\Announcement;
 use App\Models\Ministry;
+use App\Models\GalleryAlbum;
 use Illuminate\Http\Request;
 
 class WebsiteController extends Controller
@@ -50,5 +51,15 @@ class WebsiteController extends Controller
             ->get();
 
         return view('website.ministries', compact('ministries'));
+    }
+
+    public function gallery()
+    {
+        $albums = GalleryAlbum::published()
+            ->withCount('photos')
+            ->latest()
+            ->get();
+
+        return view('website.gallery', compact('albums'));
     }
 }

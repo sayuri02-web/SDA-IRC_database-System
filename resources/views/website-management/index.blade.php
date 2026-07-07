@@ -114,19 +114,20 @@
                             <h5 class="wm-card-title">Gallery</h5>
                             <p class="wm-card-desc">Manage website photos and gallery albums.</p>
                             <div class="wm-card-status">
-                                <span class="wm-status-label">Current Status</span>
-                                @if($cardStatuses['gallery']['status'] === 'published')
-                                    <span class="wm-status-badge wm-status-published">● Published</span>
-                                @elseif($cardStatuses['gallery']['status'] === 'draft')
-                                    <span class="wm-status-badge wm-status-draft">● Draft</span>
-                                @else
-                                    <span class="wm-status-badge wm-status-not-published">● Not Published</span>
-                                @endif
-                                <span class="wm-status-label">Last Updated</span>
+                                <div class="wm-mini-stats">
+                                    <div class="wm-mini-stat">
+                                        <span class="wm-mini-label">Albums</span>
+                                        <span class="wm-mini-value" style="font-size:22px;">{{ $cardStatuses['gallery']['albums_count'] ?? 0 }}</span>
+                                    </div>
+                                    <div class="wm-mini-stat">
+                                        <span class="wm-mini-label">Photos</span>
+                                        <span class="wm-mini-value" style="font-size:22px;">{{ $cardStatuses['gallery']['photos_count'] ?? 0 }}</span>
+                                    </div>
+                                </div>
+                                <span class="wm-status-label mt-3">Last Updated</span>
                                 <span class="wm-status-date">{{ $cardStatuses['gallery']['updated_at'] ? $cardStatuses['gallery']['updated_at']->format('F d, Y') : '—' }}</span>
                             </div>
-                            <a href="{{ route('website-management.gallery') }}"
-                               class="wm-manage-btn">
+                            <a href="{{ route('website-management.gallery') }}" class="wm-manage-btn">
                                 <i class="mdi mdi-pencil-outline me-1"></i> Manage
                             </a>
                         </div>

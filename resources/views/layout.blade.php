@@ -40,7 +40,7 @@
             <div class="icon">
                 <img src="{{ asset('assets/images/logo.jpg') }}" alt="Church Logo">
             </div>
-            <h4>SDA-IRC system</h4>
+            <h4>Admin</h4>
         </div>
 
         <!-- MENU -->
@@ -113,7 +113,7 @@
         <!-- TOPBAR -->
         <div class="topbar">
             <div class="topbar-left">
-                <h4 class="topbar-title">Church Record Management System</h4>
+                <h4 class="topbar-title">Seventh-day Adventist Church Management System</h4>
             </div>
             <div class="topbar-right">
                 <div class="topbar-date">

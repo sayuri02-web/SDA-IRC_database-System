@@ -153,6 +153,18 @@ Route::prefix('website-management')
 
         Route::get('/gallery', [WebsiteManagementController::class, 'gallery'])
             ->name('gallery');
+
+        // Gallery API
+        Route::get('/gallery/albums', [WebsiteManagementController::class, 'getAlbums'])->name('gallery.albums');
+        Route::post('/gallery/albums', [WebsiteManagementController::class, 'storeAlbum'])->name('gallery.albums.store');
+        Route::put('/gallery/albums/{id}', [WebsiteManagementController::class, 'updateAlbum'])->name('gallery.albums.update');
+        Route::delete('/gallery/albums/{id}', [WebsiteManagementController::class, 'destroyAlbum'])->name('gallery.albums.destroy');
+        Route::get('/gallery/{album}', [WebsiteManagementController::class, 'showAlbum'])->name('gallery.album');
+
+        // Gallery Photos API
+        Route::get('/gallery/{album}/photos', [WebsiteManagementController::class, 'getPhotos'])->name('gallery.photos');
+        Route::post('/gallery/{album}/photos', [WebsiteManagementController::class, 'uploadPhotos'])->name('gallery.photos.upload');
+        Route::delete('/gallery/photos/{photo}', [WebsiteManagementController::class, 'deletePhoto'])->name('gallery.photos.delete');
     });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])

@@ -46,6 +46,28 @@ if (wmModalsEl) {
     wmApp.mount('#wm-modals-app');
 }
 
+// Mount Gallery Page Vue App (only on gallery management page)
+import GalleryPage from './components/website-management/GalleryPage.vue';
+
+const galleryEl = document.getElementById('gallery-vue-app');
+if (galleryEl) {
+    const galleryApp = createApp(GalleryPage);
+    galleryApp.mount('#gallery-vue-app');
+}
+
+// Mount Album Photos Page (only on album detail page)
+import AlbumPhotosPage from './components/website-management/AlbumPhotosPage.vue';
+
+const albumPhotosEl = document.getElementById('album-photos-app');
+if (albumPhotosEl) {
+    const albumApp = createApp({
+        components: { AlbumPhotosPage },
+        template: '<AlbumPhotosPage :album-id="albumId" />',
+        data() { return { albumId: albumPhotosEl.dataset.albumId }; }
+    });
+    albumApp.mount('#album-photos-app');
+}
+
 // Read Laravel session flash messages and display as toasts
 document.addEventListener('DOMContentLoaded', function() {
     // Wait for Vue to mount the toast container

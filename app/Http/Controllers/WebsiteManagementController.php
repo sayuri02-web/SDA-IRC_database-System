@@ -7,6 +7,8 @@ use App\Models\PastorMessage;
 use App\Models\Event;
 use App\Models\Announcement;
 use App\Models\Ministry;
+use App\Models\GalleryAlbum;
+use App\Models\GalleryPhoto;
 use App\Models\ActivityLog;
 use App\Http\Requests\StoreMinistryRequest;
 use App\Http\Requests\UpdateMinistryRequest;
@@ -41,8 +43,12 @@ class WebsiteManagementController extends Controller
                 'count' => Ministry::count(),
             ],
             'gallery' => [
-                'status' => 'not-published',
-                'updated_at' => null,
+                'status' => GalleryPhoto::count() > 0 ? 'published' : 'not-published',
+                'updated_at' => GalleryAlbum::latest('updated_at')->first()?->updated_at,
+                'albums_count' => GalleryAlbum::count(),
+                'photos_count' => GalleryPhoto::count(),
+                'latest_photos' => GalleryPhoto::latest()->take(4)->pluck('filename')->toArray(),
+                'extra_count' => max(0, GalleryPhoto::count() - 4),
             ],
         ];
 
@@ -343,5 +349,193 @@ class WebsiteManagementController extends Controller
     public function gallery()
     {
         return view('website-management.gallery');
+    }
+
+    public function getAlbums(Request $request)
+    {
+        $query = GalleryAlbum::withCount('photos')->latest('updated_at');
+
+        if ($request->search) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
+
+        return response()->json($query->get()->map(fn($a) => [
+            'id' => $a->id,
+            'title' => $a->title,
+            'description' => $a->description,
+            'icon' => $a->icon,
+            'gradient_from' => $a->gradient_from,
+            'gradient_to' => $a->gradient_to,
+            'is_published' => $a->is_published,
+            'photos_count' => $a->photos_count,
+            'updated_at' => $a->updated_at->format('M d, Y'),
+        ]));
+    }
+
+    public function storeAlbum(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'icon' => 'nullable|string|max:100',
+            'gradient_from' => 'nullable|string|max:20',
+            'gradient_to' => 'nullable|string|max:20',
+            'is_published' => 'required',
+        ]);
+
+        try {
+            $album = GalleryAlbum::create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'icon' => $request->icon ?? 'mdi-image-multiple',
+                'gradient_from' => $request->gradient_from ?? '#667eea',
+                'gradient_to' => $request->gradient_to ?? '#764ba2',
+                'is_published' => filter_var($request->is_published, FILTER_VALIDATE_BOOLEAN),
+            ]);
+
+            ActivityLog::log('Website Management', 'Created', 'Created gallery album "' . $album->title . '"', $album->id);
+
+            return response()->json([
+                'success' => true,
+                'album' => [
+                    'id' => $album->id,
+                    'title' => $album->title,
+                    'description' => $album->description,
+                    'icon' => $album->icon,
+                    'gradient_from' => $album->gradient_from,
+                    'gradient_to' => $album->gradient_to,
+                    'is_published' => $album->is_published,
+                    'photos_count' => 0,
+                    'updated_at' => $album->updated_at->format('M d, Y'),
+                ]
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function updateAlbum(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'icon' => 'nullable|string|max:100',
+            'gradient_from' => 'nullable|string|max:20',
+            'gradient_to' => 'nullable|string|max:20',
+            'is_published' => 'required|in:0,1,true,false',
+        ]);
+
+        $album = GalleryAlbum::findOrFail($id);
+        $album->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'icon' => $request->icon ?? $album->icon,
+            'gradient_from' => $request->gradient_from ?? $album->gradient_from,
+            'gradient_to' => $request->gradient_to ?? $album->gradient_to,
+            'is_published' => filter_var($request->is_published, FILTER_VALIDATE_BOOLEAN),
+        ]);
+
+        ActivityLog::log('Website Management', 'Updated', 'Updated gallery album "' . $album->title . '"', $album->id);
+
+        return response()->json([
+            'success' => true,
+            'album' => [
+                'id' => $album->id,
+                'title' => $album->title,
+                'description' => $album->description,
+                'icon' => $album->icon,
+                'gradient_from' => $album->gradient_from,
+                'gradient_to' => $album->gradient_to,
+                'is_published' => $album->is_published,
+                'photos_count' => $album->photos()->count(),
+                'updated_at' => $album->updated_at->format('M d, Y'),
+            ]
+        ]);
+    }
+
+    public function destroyAlbum($id)
+    {
+        $album = GalleryAlbum::findOrFail($id);
+        $title = $album->title;
+        $album->delete();
+
+        ActivityLog::log('Website Management', 'Deleted', 'Deleted gallery album "' . $title . '"');
+
+        return response()->json(['success' => true]);
+    }
+
+    public function showAlbum($id)
+    {
+        $album = GalleryAlbum::withCount('photos')->findOrFail($id);
+        return view('website-management.gallery-album', compact('album'));
+    }
+
+    public function getPhotos($albumId)
+    {
+        $photos = GalleryPhoto::where('album_id', $albumId)
+            ->latest()
+            ->get()
+            ->map(fn($p) => [
+                'id' => $p->id,
+                'filename' => $p->filename,
+                'caption' => $p->caption,
+                'url' => asset('uploads/gallery/' . $p->filename),
+                'created_at' => $p->created_at->format('M d, Y'),
+            ]);
+
+        return response()->json($photos);
+    }
+
+    public function uploadPhotos(Request $request, $albumId)
+    {
+        $request->validate([
+            'photos' => 'required|array|min:1',
+            'photos.*' => 'image|max:10240',
+        ]);
+
+        $album = GalleryAlbum::findOrFail($albumId);
+        $uploaded = [];
+
+        $dir = public_path('uploads/gallery');
+        if (!file_exists($dir)) mkdir($dir, 0777, true);
+
+        foreach ($request->file('photos') as $file) {
+            $filename = 'photo_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move($dir, $filename);
+
+            $photo = GalleryPhoto::create([
+                'album_id' => $album->id,
+                'filename' => $filename,
+                'caption' => null,
+            ]);
+
+            $uploaded[] = [
+                'id' => $photo->id,
+                'filename' => $photo->filename,
+                'caption' => $photo->caption,
+                'url' => asset('uploads/gallery/' . $photo->filename),
+                'created_at' => $photo->created_at->format('M d, Y'),
+            ];
+        }
+
+        $album->touch();
+        ActivityLog::log('Website Management', 'Uploaded', 'Uploaded ' . count($uploaded) . ' photo(s) to "' . $album->title . '"', $album->id);
+
+        return response()->json(['success' => true, 'photos' => $uploaded, 'count' => count($uploaded)]);
+    }
+
+    public function deletePhoto($photoId)
+    {
+        $photo = GalleryPhoto::findOrFail($photoId);
+        $filepath = public_path('uploads/gallery/' . $photo->filename);
+        if (file_exists($filepath)) unlink($filepath);
+
+        $album = $photo->album;
+        $photo->delete();
+        $album->touch();
+
+        ActivityLog::log('Website Management', 'Deleted', 'Deleted photo from "' . $album->title . '"', $album->id);
+
+        return response()->json(['success' => true]);
     }
 }
