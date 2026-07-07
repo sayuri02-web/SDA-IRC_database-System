@@ -53,7 +53,7 @@
             <div class="icon">
                 <img src="{{ asset('assets/images/logo.jpg') }}" alt="Church Logo">
             </div>
-            <h4>Admin</h4>
+            <h4>{{ auth()->user()?->role?->label() ?? 'Admin' }}</h4>
         </div>
 
         <!-- MENU -->
