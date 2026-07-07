@@ -91,22 +91,17 @@
                             <h5 class="wm-card-title">Ministries</h5>
                             <p class="wm-card-desc">Manage church ministries and descriptions.</p>
                             <div class="wm-card-status">
-                                <span class="wm-status-label">Current Status</span>
-                                @if($cardStatuses['ministries']['status'] === 'published')
-                                    <span class="wm-status-badge wm-status-published">● Published</span>
-                                @elseif($cardStatuses['ministries']['status'] === 'draft')
-                                    <span class="wm-status-badge wm-status-draft">● Draft</span>
-                                @else
-                                    <span class="wm-status-badge wm-status-not-published">● Not Published</span>
-                                @endif
-                                <span class="wm-status-label">Last Updated</span>
+                                <div class="wm-mini-stats">
+                                    <div class="wm-mini-stat wm-mini-stat-clickable wm-mini-stat-full" onclick="window.dispatchEvent(new Event('open-ministries-modal'))">
+                                        <span class="wm-mini-label">Total</span>
+                                        <span class="wm-mini-value">{{ $cardStatuses['ministries']['count'] ?? 0 }}</span>
+                                        <span class="wm-mini-label">Ministries</span>
+                                        <span class="wm-mini-action">View →</span>
+                                    </div>
+                                </div>
+                                <span class="wm-status-label mt-3">Last Updated</span>
                                 <span class="wm-status-date">{{ $cardStatuses['ministries']['updated_at'] ? $cardStatuses['ministries']['updated_at']->format('F d, Y') : '—' }}</span>
                             </div>
-                            <a href="{{ route('website-management.ministries') }}"
-                                class="wm-manage-btn">
-                                    <i class="mdi mdi-pencil-outline me-1"></i>
-                                    Manage
-                            </a>
                         </div>
                     </div>
 

@@ -6,6 +6,10 @@ use App\Models\Member;
 use App\Models\PastorMessage;
 use App\Models\Event;
 use App\Models\Announcement;
+use App\Models\Ministry;
+use App\Models\ActivityLog;
+use App\Http\Requests\StoreMinistryRequest;
+use App\Http\Requests\UpdateMinistryRequest;
 use Illuminate\Http\Request;
 
 class WebsiteManagementController extends Controller
@@ -32,8 +36,9 @@ class WebsiteManagementController extends Controller
                 'announcements_count' => Announcement::count(),
             ],
             'ministries' => [
-                'status' => 'not-published',
-                'updated_at' => null,
+                'status' => Ministry::count() > 0 ? 'published' : 'not-published',
+                'updated_at' => Ministry::latest('updated_at')->first()?->updated_at,
+                'count' => Ministry::count(),
             ],
             'gallery' => [
                 'status' => 'not-published',
@@ -43,6 +48,8 @@ class WebsiteManagementController extends Controller
 
         return view('website-management.index', compact('cardStatuses'));
     }
+
+    // ========== PASTOR'S MESSAGE ==========
 
     public function pastorMessage()
     {
@@ -59,6 +66,7 @@ class WebsiteManagementController extends Controller
         ]);
 
         $pastorMessage = PastorMessage::first();
+        $isNew = !$pastorMessage;
 
         if ($pastorMessage) {
             $pastorMessage->update([
@@ -75,6 +83,13 @@ class WebsiteManagementController extends Controller
                 'is_published' => true,
             ]);
         }
+
+        ActivityLog::log(
+            'Website Management',
+            $isNew ? 'Created' : 'Updated',
+            ($isNew ? 'Created' : 'Updated') . ' Pastor\'s Message' . ($request->title ? ': "' . $request->title . '"' : ''),
+            $pastorMessage->id
+        );
 
         return response()->json(['success' => true, 'updated_at' => $pastorMessage->updated_at->format('F d, Y h:i A')]);
     }
@@ -139,6 +154,8 @@ class WebsiteManagementController extends Controller
 
         $event = Event::create($request->only('title', 'description', 'event_date', 'event_time', 'location', 'is_published'));
 
+        ActivityLog::log('Website Management', 'Created', 'Created event "' . $event->title . '"', $event->id);
+
         return response()->json(['success' => true, 'event' => $event]);
     }
 
@@ -156,12 +173,19 @@ class WebsiteManagementController extends Controller
         $event = Event::findOrFail($id);
         $event->update($request->only('title', 'description', 'event_date', 'event_time', 'location', 'is_published'));
 
+        ActivityLog::log('Website Management', 'Updated', 'Updated event "' . $event->title . '"', $event->id);
+
         return response()->json(['success' => true, 'event' => $event]);
     }
 
     public function destroyEvent($id)
     {
-        Event::findOrFail($id)->delete();
+        $event = Event::findOrFail($id);
+        $title = $event->title;
+        $event->delete();
+
+        ActivityLog::log('Website Management', 'Deleted', 'Deleted event "' . $title . '"');
+
         return response()->json(['success' => true]);
     }
 
@@ -169,6 +193,10 @@ class WebsiteManagementController extends Controller
     {
         $event = Event::findOrFail($id);
         $event->update(['is_published' => !$event->is_published]);
+
+        $action = $event->is_published ? 'Published' : 'Unpublished';
+        ActivityLog::log('Website Management', $action, $action . ' event "' . $event->title . '"', $event->id);
+
         return response()->json(['success' => true, 'is_published' => $event->is_published]);
     }
 
@@ -201,6 +229,8 @@ class WebsiteManagementController extends Controller
 
         $announcement = Announcement::create($request->only('title', 'description', 'is_published'));
 
+        ActivityLog::log('Website Management', 'Created', 'Created announcement "' . $announcement->title . '"', $announcement->id);
+
         return response()->json(['success' => true, 'announcement' => $announcement]);
     }
 
@@ -215,12 +245,19 @@ class WebsiteManagementController extends Controller
         $announcement = Announcement::findOrFail($id);
         $announcement->update($request->only('title', 'description', 'is_published'));
 
+        ActivityLog::log('Website Management', 'Updated', 'Updated announcement "' . $announcement->title . '"', $announcement->id);
+
         return response()->json(['success' => true, 'announcement' => $announcement]);
     }
 
     public function destroyAnnouncement($id)
     {
-        Announcement::findOrFail($id)->delete();
+        $announcement = Announcement::findOrFail($id);
+        $title = $announcement->title;
+        $announcement->delete();
+
+        ActivityLog::log('Website Management', 'Deleted', 'Deleted announcement "' . $title . '"');
+
         return response()->json(['success' => true]);
     }
 
@@ -228,7 +265,72 @@ class WebsiteManagementController extends Controller
     {
         $a = Announcement::findOrFail($id);
         $a->update(['is_published' => !$a->is_published]);
+
+        $action = $a->is_published ? 'Published' : 'Unpublished';
+        ActivityLog::log('Website Management', $action, $action . ' announcement "' . $a->title . '"', $a->id);
+
         return response()->json(['success' => true, 'is_published' => $a->is_published]);
+    }
+
+    // ========== MINISTRIES CRUD ==========
+
+    public function getMinistries(Request $request)
+    {
+        $query = Ministry::query()->latest();
+
+        if ($request->search) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        return response()->json($query->get()->map(fn($m) => [
+            'id' => $m->id,
+            'name' => $m->name,
+            'description' => $m->description,
+            'icon' => $m->icon,
+            'is_published' => $m->is_published,
+            'updated_at' => $m->updated_at->format('M d, Y'),
+        ]));
+    }
+
+    public function storeMinistry(StoreMinistryRequest $request)
+    {
+        $ministry = Ministry::create($request->validated());
+
+        ActivityLog::log('Website Management', 'Created', 'Created ministry "' . $ministry->name . '"', $ministry->id);
+
+        return response()->json(['success' => true, 'ministry' => $ministry]);
+    }
+
+    public function updateMinistry(UpdateMinistryRequest $request, $id)
+    {
+        $ministry = Ministry::findOrFail($id);
+        $ministry->update($request->validated());
+
+        ActivityLog::log('Website Management', 'Updated', 'Updated ministry "' . $ministry->name . '"', $ministry->id);
+
+        return response()->json(['success' => true, 'ministry' => $ministry]);
+    }
+
+    public function destroyMinistry($id)
+    {
+        $ministry = Ministry::findOrFail($id);
+        $name = $ministry->name;
+        $ministry->delete();
+
+        ActivityLog::log('Website Management', 'Deleted', 'Deleted ministry "' . $name . '"');
+
+        return response()->json(['success' => true]);
+    }
+
+    public function toggleMinistry($id)
+    {
+        $ministry = Ministry::findOrFail($id);
+        $ministry->update(['is_published' => !$ministry->is_published]);
+
+        $action = $ministry->is_published ? 'Published' : 'Unpublished';
+        ActivityLog::log('Website Management', $action, $action . ' ministry "' . $ministry->name . '"', $ministry->id);
+
+        return response()->json(['success' => true, 'is_published' => $ministry->is_published]);
     }
 
     // ========== OTHER MODULES ==========

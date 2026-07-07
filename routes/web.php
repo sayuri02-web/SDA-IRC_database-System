@@ -144,6 +144,13 @@ Route::prefix('website-management')
         Route::get('/ministries', [WebsiteManagementController::class, 'ministries'])
             ->name('ministries');
 
+        // Ministries API
+        Route::get('/ministries/list', [WebsiteManagementController::class, 'getMinistries'])->name('ministries.list');
+        Route::post('/ministries', [WebsiteManagementController::class, 'storeMinistry'])->name('ministries.store');
+        Route::put('/ministries/{id}', [WebsiteManagementController::class, 'updateMinistry'])->name('ministries.update');
+        Route::delete('/ministries/{id}', [WebsiteManagementController::class, 'destroyMinistry'])->name('ministries.destroy');
+        Route::post('/ministries/{id}/toggle', [WebsiteManagementController::class, 'toggleMinistry'])->name('ministries.toggle');
+
         Route::get('/gallery', [WebsiteManagementController::class, 'gallery'])
             ->name('gallery');
     });

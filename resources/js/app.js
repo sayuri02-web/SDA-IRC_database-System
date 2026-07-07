@@ -35,12 +35,13 @@ if (pastorModalEl) {
 // Mount Events & Announcements Modals (Website Management page)
 import EventsModal from './components/website-management/EventsModal.vue';
 import AnnouncementsModal from './components/website-management/AnnouncementMoodal.vue';
+import MinistriesModal from './components/website-management/MinistriesModal.vue';
 
 const wmModalsEl = document.getElementById('wm-modals-app');
 if (wmModalsEl) {
     const wmApp = createApp({
-        components: { EventsModal, AnnouncementsModal },
-        template: '<EventsModal /><AnnouncementsModal />'
+        components: { EventsModal, AnnouncementsModal, MinistriesModal },
+        template: '<EventsModal /><AnnouncementsModal /><MinistriesModal />'
     });
     wmApp.mount('#wm-modals-app');
 }

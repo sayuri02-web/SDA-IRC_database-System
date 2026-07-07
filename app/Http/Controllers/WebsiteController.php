@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PastorMessage;
 use App\Models\Event;
 use App\Models\Announcement;
+use App\Models\Ministry;
 use Illuminate\Http\Request;
 
 class WebsiteController extends Controller
@@ -40,5 +41,14 @@ class WebsiteController extends Controller
             ->get();
 
         return view('website.announcements', compact('announcements'));
+    }
+
+    public function ministries()
+    {
+        $ministries = Ministry::published()
+            ->orderBy('name')
+            ->get();
+
+        return view('website.ministries', compact('ministries'));
     }
 }

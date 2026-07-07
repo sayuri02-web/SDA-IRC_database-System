@@ -16,7 +16,7 @@ Route::prefix('website')->name('website.')->group(function () {
     Route::view('/', 'website.home')->name('home');
     Route::view('/about', 'website.about')->name('about');
     Route::get('/pastors-message', [WebsiteController::class, 'pastorsMessage'])->name('pastors-message');
-    Route::view('/ministries', 'website.ministries')->name('ministries');
+    Route::get('/ministries', [WebsiteController::class, 'ministries'])->name('ministries');
     Route::get('/events', [WebsiteController::class, 'events'])->name('events');
     Route::get('/announcements', [WebsiteController::class, 'announcements'])->name('announcements');
     Route::view('/gallery', 'website.gallery')->name('gallery');
