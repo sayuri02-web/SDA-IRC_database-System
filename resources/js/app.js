@@ -22,6 +22,19 @@ if (toastEl) {
     toastApp.mount('#toast-app');
 }
 
+// Mount Access Denied Page (if present)
+import AccessRequiredModal from './components/AccessRequiredModal.vue';
+
+const accessDeniedEl = document.getElementById('access-denied-app');
+if (accessDeniedEl) {
+    const adApp = createApp({
+        components: { AccessRequiredModal },
+        template: '<AccessRequiredModal :current-role="role" :module="module" />',
+        data() { return { role: accessDeniedEl.dataset.role, module: accessDeniedEl.dataset.module }; }
+    });
+    adApp.mount('#access-denied-app');
+}
+
 // Mount Pastor Selector Modal (only on pages that have the mount point)
 const pastorModalEl = document.getElementById('pastor-modal-app');
 if (pastorModalEl) {
@@ -102,3 +115,34 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, 200);
 });
+
+// Global 403 handler — show access denied when backend rejects an action
+window.handleForbidden = function(response) {
+    if (response && response.status === 403) {
+        response.clone().json().then(function(data) {
+            if (data && data.error === 'unauthorized') {
+                // Store data and show access denied modal
+                window.location.href = '/?access_denied=1&role=' + encodeURIComponent(data.current_role || '') + '&module=' + encodeURIComponent(data.required_module || '');
+            }
+        }).catch(function() {});
+        return true;
+    }
+    return false;
+};
+
+// Override global fetch to intercept 403 responses
+const originalFetch = window.fetch;
+window.fetch = function() {
+    return originalFetch.apply(this, arguments).then(function(response) {
+        if (response.status === 403) {
+            response.clone().json().then(function(data) {
+                if (data && data.error === 'unauthorized') {
+                    if (window.toast) {
+                        window.toast.error('Access Denied', 'This action requires ' + (data.required_module === 'admin' ? 'Administrator' : data.required_module === 'certificates' ? 'Certificate Manager' : 'Website Manager') + ' access. Please switch account.');
+                    }
+                }
+            }).catch(function() {});
+        }
+        return response;
+    });
+};

@@ -27,7 +27,7 @@
                     </div>
 
                     <!-- ADD BUTTON -->
-                    <a href="{{ url('/members/create')}}" class="btn btn-outline-success btn-sm me-2">
+                    <a href="{{ url('/members/create')}}" class="btn btn-outline-success btn-sm me-2" data-requires="admin">
                         <i class="fa fa-plus me-1"></i> Add New
                     </a>
 
@@ -183,7 +183,7 @@
 
                                 <a href="{{ url('/members/' . $item->id) }}" class="btn btn-outline-info btn-sm"><i class="fa fa-eye"></i> View</a>
 
-                                    <a href="{{ url('/members/' .$item->id .'/edit') }}">
+                                    <a href="{{ url('/members/' .$item->id .'/edit') }}" data-requires="admin">
                                         <button class="btn btn-outline-primary btn-sm">
                                             <i class="fa fa-pencil-square-o"></i> Edit
                                         </button>
@@ -191,7 +191,7 @@
 
                                     <form method="POST"
                                         action="{{ url('/members' . '/' .$item->id)}}"
-                                        style="display:inline">
+                                        style="display:inline" data-requires="admin">
 
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}

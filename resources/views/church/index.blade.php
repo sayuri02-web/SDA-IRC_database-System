@@ -17,7 +17,7 @@
                         <p class="church-page-subtitle mb-0">Manage registered churches and clusters</p>
                     </div>
                 </div>
-                <a href="{{ url('/church/create') }}" class="btn btn-outline-success btn-sm">
+                <a href="{{ url('/church/create') }}" class="btn btn-outline-success btn-sm" data-requires="admin">
                     <i class="mdi mdi-plus me-1"></i> Add New
                 </a>
             </div>
@@ -130,10 +130,10 @@
                                 {{-- ACTIONS --}}
                                 <div class="church-card-actions">
                                     <a href="{{ url('/church/' . $church->id . '/edit') }}"
-                                       class="church-action-btn church-edit-btn">
+                                       class="church-action-btn church-edit-btn" data-requires="admin">
                                         <i class="mdi mdi-pencil-outline me-1"></i> Edit
                                     </a>
-                                    <form action="{{ url('/church/' . $church->id) }}" method="POST" class="d-inline">
+                                    <form action="{{ url('/church/' . $church->id) }}" method="POST" class="d-inline" data-requires="admin">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"

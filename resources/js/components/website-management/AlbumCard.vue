@@ -19,10 +19,10 @@
             <a :href="'/website-management/gallery/' + album.id" class="gallery-action-btn gallery-action-open" title="Open Album">
                 <i class="mdi mdi-folder-open-outline"></i> Open
             </a>
-            <button class="gallery-action-btn gallery-action-edit" title="Edit" @click="$emit('edit', album)">
+            <button class="gallery-action-btn gallery-action-edit" title="Edit" @click="editAction">
                 <i class="mdi mdi-pencil-outline"></i>
             </button>
-            <button class="gallery-action-btn gallery-action-delete" title="Delete" @click="$emit('delete', album)">
+            <button class="gallery-action-btn gallery-action-delete" title="Delete" @click="deleteAction">
                 <i class="mdi mdi-delete-outline"></i>
             </button>
         </div>
@@ -39,6 +39,19 @@ export default {
     computed: {
         gradient() {
             return `linear-gradient(135deg, ${this.album.gradient_from || '#667eea'}, ${this.album.gradient_to || '#764ba2'})`;
+        },
+        canManage() {
+            return window.userPermissions && window.userPermissions.canManage('website-management');
+        }
+    },
+    methods: {
+        editAction() {
+            if (this.canManage) { this.$emit('edit', this.album); }
+            else { window.dispatchEvent(new CustomEvent('show-access-denied', { detail: { module: 'website-management' } })); }
+        },
+        deleteAction() {
+            if (this.canManage) { this.$emit('delete', this.album); }
+            else { window.dispatchEvent(new CustomEvent('show-access-denied', { detail: { module: 'website-management' } })); }
         }
     }
 };

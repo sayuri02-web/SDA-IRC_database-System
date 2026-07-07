@@ -22,8 +22,9 @@ $ws-shadow-lg: 0 16px 48px rgba(0,0,0,0.10);
 // Base
 * { box-sizing: border-box; }
 html { overflow-x: hidden; }
-body { font-family: 'Segoe UI', -apple-system, sans-serif; color: $ws-text; margin: 0; overflow-x: hidden; line-height: 1.6; width: 100%; }
+body { font-family: 'Segoe UI', -apple-system, sans-serif; color: $ws-text; margin: 0; overflow-x: hidden; line-height: 1.6; width: 100%; min-height: 100vh; display: flex; flex-direction: column; }
 img { max-width: 100%; }
+main { flex: 1; }
 
 // ============================================================
 // NAVBAR — Glassmorphism Design
@@ -580,6 +581,32 @@ img { max-width: 100%; }
 
     &:hover i:last-child {
         transform: translateX(3px);
+    }
+}
+
+// ============================================================
+// ALBUM PHOTO GRID (public website)
+// ============================================================
+.ws-album-photo {
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 1;
+    background: $ws-light;
+    border: 1px solid $ws-border;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: $ws-shadow-md;
+
+        img { transform: scale(1.05); }
     }
 }
 

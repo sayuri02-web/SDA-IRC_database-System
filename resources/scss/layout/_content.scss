@@ -72,21 +72,7 @@
 }
 
 .topbar-user {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 6px 14px 6px 6px;
-    border-radius: 30px;
-    background: rgba($color-bg, 0.8);
-    border: 1px solid $color-border-light;
-    transition: all 0.25s ease;
-    cursor: pointer;
-
-    &:hover {
-        background: $color-white;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-        border-color: $color-border;
-    }
+    position: relative;
 }
 
 .topbar-avatar {
@@ -236,4 +222,80 @@
         max-width: calc(100vw - 40px);
         right: -10px !important;
     }
+}
+
+// ============================================================
+// TOPBAR USER DROPDOWN
+// ============================================================
+
+.topbar-user-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px 6px 6px;
+    border-radius: 30px;
+    background: rgba($color-bg, 0.8);
+    border: 1px solid $color-border-light;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+        background: $color-white;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        border-color: $color-border;
+    }
+}
+
+.topbar-chevron {
+    font-size: 16px;
+    color: $color-muted;
+    transition: transform 0.2s;
+}
+
+.topbar-user.show .topbar-chevron {
+    transform: rotate(180deg);
+}
+
+.topbar-user-dropdown {
+    min-width: 220px;
+    border: 1px solid rgba($color-border, 0.6);
+    border-radius: 14px !important;
+    padding: 8px 0 !important;
+    margin-top: 8px !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12) !important;
+}
+
+.topbar-user-dropdown-header {
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+
+    strong { font-size: 14px; color: $color-dark; }
+    small { font-size: 12px; color: $color-muted; margin-top: 2px; }
+}
+
+.topbar-dropdown-item {
+    padding: 9px 16px !important;
+    font-size: 13px !important;
+    font-weight: 500;
+    color: $color-text !important;
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.15s;
+
+    i { font-size: 18px; color: $color-muted; }
+
+    &:hover {
+        background: rgba($color-primary, 0.04) !important;
+        i { color: $color-primary; }
+    }
+}
+
+.topbar-dropdown-logout {
+    color: $color-danger !important;
+    i { color: $color-danger !important; }
+
+    &:hover { background: rgba($color-danger, 0.04) !important; }
 }

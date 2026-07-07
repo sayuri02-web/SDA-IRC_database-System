@@ -9,7 +9,7 @@
                 <i class="mdi mdi-magnify"></i>
                 <input type="text" v-model="search" @input="fetchAnnouncements" placeholder="Search announcements...">
             </div>
-            <button class="wm-modal-add-btn" @click="openForm(null)"><i class="mdi mdi-plus"></i> Add Announcement</button>
+            <button class="wm-modal-add-btn" @click="addAction"><i class="mdi mdi-plus"></i> Add Announcement</button>
             <button class="wm-modal-close" @click="close"><i class="mdi mdi-close"></i></button>
         </div>
     </div>
@@ -24,9 +24,9 @@
                     <td><span :class="['wm-badge', a.is_published ? 'wm-badge-green' : 'wm-badge-gray']">{{ a.is_published ? 'Published' : 'Draft' }}</span></td>
                     <td class="text-muted">{{ a.updated_at }}</td>
                     <td class="text-center">
-                        <button class="wm-action-btn wm-action-edit" @click="openForm(a)" title="Edit"><i class="mdi mdi-pencil-outline"></i></button>
-                        <button class="wm-action-btn wm-action-toggle" @click="toggle(a)" :title="a.is_published ? 'Unpublish' : 'Publish'"><i :class="a.is_published ? 'mdi mdi-eye-off-outline' : 'mdi mdi-eye-outline'"></i></button>
-                        <button class="wm-action-btn wm-action-delete" @click="destroy(a)" title="Delete"><i class="mdi mdi-delete-outline"></i></button>
+                        <button class="wm-action-btn wm-action-edit" @click="editAction(a)" title="Edit"><i class="mdi mdi-pencil-outline"></i></button>
+                        <button class="wm-action-btn wm-action-toggle" @click="toggleAction(a)" :title="a.is_published ? 'Unpublish' : 'Publish'"><i :class="a.is_published ? 'mdi mdi-eye-off-outline' : 'mdi mdi-eye-outline'"></i></button>
+                        <button class="wm-action-btn wm-action-delete" @click="destroyAction(a)" title="Delete"><i class="mdi mdi-delete-outline"></i></button>
                     </td>
                 </tr>
             </tbody>
@@ -44,7 +44,19 @@ export default {
     name: 'AnnouncementsModal',
     components: { AnnouncementFormModal },
     data() { return { show: false, announcements: [], search: '', loading: false, debounce: null }; },
+    computed: {
+        canManage() { return window.userPermissions && window.userPermissions.canManage('website-management'); }
+    },
     methods: {
+        checkPerm() {
+            if (this.canManage) return true;
+            window.dispatchEvent(new CustomEvent('show-access-denied', { detail: { module: 'website-management' } }));
+            return false;
+        },
+        addAction() { if (this.checkPerm()) this.openForm(null); },
+        editAction(a) { if (this.checkPerm()) this.openForm(a); },
+        toggleAction(a) { if (this.checkPerm()) this.toggle(a); },
+        destroyAction(a) { if (this.checkPerm()) this.destroy(a); },
         open() { this.show = true; this.search = ''; document.body.style.overflow = 'hidden'; this.fetchAnnouncements(); },
         close() { this.show = false; document.body.style.overflow = ''; },
         openForm(item) { this.$refs.formModal.open(item); },

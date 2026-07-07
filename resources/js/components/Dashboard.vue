@@ -36,8 +36,8 @@
                         <div class="dash-panel-header">
                             <h5 class="dash-panel-title"><i class="mdi mdi-checkbox-marked-outline me-2"></i>Quick Tasks</h5>
                             <div class="d-flex gap-2">
-                                <button class="btn btn-outline-success btn-sm" @click="showAddTask = true"><i class="mdi mdi-plus me-1"></i>Add Task</button>
-                                <button class="btn btn-outline-primary btn-sm" @click="showUpdateStatus = true"><i class="mdi mdi-pencil-outline me-1"></i>Update Status</button>
+                                <button class="btn btn-outline-success btn-sm" @click="addTaskAction"><i class="mdi mdi-plus me-1"></i>Add Task</button>
+                                <button class="btn btn-outline-primary btn-sm" @click="updateStatusAction"><i class="mdi mdi-pencil-outline me-1"></i>Update Status</button>
                             </div>
                         </div>
                         <hr class="mb-3">
@@ -47,11 +47,11 @@
                                 <p class="text-muted mt-2 mb-0" style="font-size:13px;">No tasks yet. Add one above.</p>
                             </div>
                             <div v-for="task in tasks" :key="task.id" class="dash-task-item" :class="{ 'dash-task-done': task.completed }">
-                                <input type="checkbox" class="task-cb" :checked="task.completed" @change="toggleTask(task)">
+                                <input type="checkbox" class="task-cb" :checked="task.completed" @change="toggleTaskAction(task)">
                                 <span class="dash-task-text">{{ task.name }}</span>
                                 <span class="dash-task-due">{{ task.due_date || '—' }}</span>
                                 <span class="dash-task-status" :class="'dash-task-status-' + task.status">{{ capitalize(task.status) }}</span>
-                                <i class="mdi mdi-close-circle-outline dash-task-delete" @click="deleteTask(task)"></i>
+                                <i class="mdi mdi-close-circle-outline dash-task-delete" @click="deleteTaskAction(task)"></i>
                             </div>
                         </div>
                     </div>
@@ -207,6 +207,9 @@ export default {
         csrfToken() {
             return document.querySelector('meta[name="csrf-token"]')?.content || '';
         },
+        canManageAdmin() {
+            return window.userPermissions && window.userPermissions.canManage('admin');
+        },
     },
     async mounted() {
         try {
@@ -222,6 +225,17 @@ export default {
     },
     methods: {
         capitalize(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; },
+
+        checkPermission(module) {
+            if (window.userPermissions && window.userPermissions.canManage(module)) return true;
+            window.dispatchEvent(new CustomEvent('show-access-denied', { detail: { module: module } }));
+            return false;
+        },
+
+        addTaskAction() { if (this.checkPermission('admin')) this.showAddTask = true; },
+        updateStatusAction() { if (this.checkPermission('admin')) this.showUpdateStatus = true; },
+        toggleTaskAction(task) { if (this.checkPermission('admin')) this.toggleTask(task); },
+        deleteTaskAction(task) { if (this.checkPermission('admin')) this.deleteTask(task); },
 
         async fetchData() {
             const res = await fetch('/api/dashboard-data');

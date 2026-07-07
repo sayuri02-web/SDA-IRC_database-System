@@ -62,4 +62,15 @@ class WebsiteController extends Controller
 
         return view('website.gallery', compact('albums'));
     }
+
+    public function galleryAlbum($id)
+    {
+        $album = GalleryAlbum::published()
+            ->withCount('photos')
+            ->findOrFail($id);
+
+        $photos = $album->photos()->latest()->get();
+
+        return view('website.gallery-album', compact('album', 'photos'));
+    }
 }

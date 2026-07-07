@@ -24,7 +24,7 @@
 
                     {{-- BOTTOM: Button --}}
                     <div class="ws-gallery-card-footer">
-                        <a href="#" class="ws-gallery-card-btn">
+                        <a href="{{ route('website.gallery.album', $album->id) }}" class="ws-gallery-card-btn">
                             <i class="mdi mdi-camera-outline"></i> View Gallery <i class="mdi mdi-arrow-right"></i>
                         </a>
                     </div>

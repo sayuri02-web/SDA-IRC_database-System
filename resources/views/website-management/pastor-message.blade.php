@@ -167,7 +167,7 @@
                                             Cancel
                                     </a>
 
-                                    <button type="submit" class="btn btn-success">
+                                    <button type="submit" class="btn btn-success" data-requires="website-management">
                                         <i class="mdi mdi-content-save-outline me-1"></i>
                                         Save Changes
                                     </button>

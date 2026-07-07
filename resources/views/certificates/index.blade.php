@@ -17,7 +17,7 @@
                         <p class="cert-page-subtitle mb-0">Print and manage church certifications</p>
                     </div>
                 </div>
-                <a href="{{ route('certificates.create') }}" class="btn btn-outline-success btn-sm">
+                <a href="{{ route('certificates.create') }}" class="btn btn-outline-success btn-sm" data-requires="certificates">
                     <i class="mdi mdi-plus me-1"></i> Add New
                 </a>
             </div>
@@ -53,7 +53,7 @@
                                 <div class="cert-card-divider"></div>
 
                                 {{-- ACTIONS --}}
-                                <div class="cert-card-actions">
+                                <div class="cert-card-actions" data-requires="certificates">
                                     <button type="button"
                                             class="cert-action-btn cert-print-btn print-btn"
                                             data-bs-toggle="modal"

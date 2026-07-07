@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="d-flex gap-2">
-                    <button class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#addOrgModal"><i class="mdi mdi-plus me-1"></i> Add Organization</button>
+                    <button class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#addOrgModal" data-requires="admin"><i class="mdi mdi-plus me-1"></i> Add Organization</button>
                     <a href="{{ url('/members') }}" class="btn btn-outline-secondary btn-sm"><i class="mdi mdi-arrow-left me-1"></i> Back</a>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                             <p class="leaders-org-count">{{ $org->membersCount() }} Officers</p>
                             <div class="d-flex gap-2">
                                 <button class="btn btn-outline-primary btn-sm leaders-view-btn" data-bs-toggle="modal" data-bs-target="#modal-org-{{ $org->id }}"><i class="mdi mdi-eye-outline me-1"></i> View</button>
-                                <button class="btn btn-outline-danger btn-sm leaders-action-delete-org" data-id="{{ $org->id }}" data-name="{{ $org->name }}" data-count="{{ $org->membersCount() }}" title="Delete Organization"><i class="mdi mdi-delete-outline me-1"></i> Delete</button>
+                                <button class="btn btn-outline-danger btn-sm leaders-action-delete-org" data-id="{{ $org->id }}" data-name="{{ $org->name }}" data-count="{{ $org->membersCount() }}" title="Delete Organization" data-requires="admin"><i class="mdi mdi-delete-outline me-1"></i> Delete</button>
                             </div>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
             </div>
             <div class="modal-body px-4 pb-4">
                 <div class="mb-3">
-                    <a href="{{ url('/members/create?leader=1&organization=' . urlencode($org->name)) }}" class="btn btn-outline-success btn-sm"><i class="mdi mdi-plus me-1"></i> Add Officer</a>
+                    <a href="{{ url('/members/create?leader=1&organization=' . urlencode($org->name)) }}" class="btn btn-outline-success btn-sm" data-requires="admin"><i class="mdi mdi-plus me-1"></i> Add Officer</a>
                 </div>
                 @if(isset($orgMembers[$org->id]) && $orgMembers[$org->id]->count() > 0)
                 <table class="table table-hover align-middle mb-0">

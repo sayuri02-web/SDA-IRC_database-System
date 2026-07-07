@@ -33,5 +33,11 @@ class AppServiceProvider extends ServiceProvider
             $view->with('notifications', $notifications);
             $view->with('unreadNotifications', $unreadNotifications);
         });
+
+        // Register Blade directive for role-based UI
+        \Illuminate\Support\Facades\Blade::if('canManage', function (string $module) {
+            $user = auth()->user();
+            return $user && $user->hasAccessTo($module);
+        });
     }
 }

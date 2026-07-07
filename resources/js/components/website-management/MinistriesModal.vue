@@ -9,7 +9,7 @@
                 <i class="mdi mdi-magnify"></i>
                 <input type="text" v-model="search" @input="fetchMinistries" placeholder="Search ministries...">
             </div>
-            <button class="wm-modal-add-btn" @click="openForm(null)"><i class="mdi mdi-plus"></i> Add Ministry</button>
+            <button class="wm-modal-add-btn" @click="addAction"><i class="mdi mdi-plus"></i> Add Ministry</button>
             <button class="wm-modal-close" @click="close"><i class="mdi mdi-close"></i></button>
         </div>
     </div>
@@ -25,9 +25,9 @@
                     <td><span :class="['wm-badge', m.is_published ? 'wm-badge-green' : 'wm-badge-gray']">{{ m.is_published ? 'Published' : 'Draft' }}</span></td>
                     <td class="text-muted">{{ m.updated_at }}</td>
                     <td class="text-center">
-                        <button class="wm-action-btn wm-action-edit" @click="openForm(m)" title="Edit"><i class="mdi mdi-pencil-outline"></i></button>
-                        <button class="wm-action-btn wm-action-toggle" @click="toggle(m)" :title="m.is_published ? 'Unpublish' : 'Publish'"><i :class="m.is_published ? 'mdi mdi-eye-off-outline' : 'mdi mdi-eye-outline'"></i></button>
-                        <button class="wm-action-btn wm-action-delete" @click="destroy(m)" title="Delete"><i class="mdi mdi-delete-outline"></i></button>
+                        <button class="wm-action-btn wm-action-edit" @click="editAction(m)" title="Edit"><i class="mdi mdi-pencil-outline"></i></button>
+                        <button class="wm-action-btn wm-action-toggle" @click="toggleAction(m)" :title="m.is_published ? 'Unpublish' : 'Publish'"><i :class="m.is_published ? 'mdi mdi-eye-off-outline' : 'mdi mdi-eye-outline'"></i></button>
+                        <button class="wm-action-btn wm-action-delete" @click="destroyAction(m)" title="Delete"><i class="mdi mdi-delete-outline"></i></button>
                     </td>
                 </tr>
             </tbody>
@@ -45,7 +45,19 @@ export default {
     name: 'MinistriesModal',
     components: { MinistryFormModal },
     data() { return { show: false, ministries: [], search: '', loading: false, debounce: null }; },
+    computed: {
+        canManage() { return window.userPermissions && window.userPermissions.canManage('website-management'); }
+    },
     methods: {
+        checkPerm() {
+            if (this.canManage) return true;
+            window.dispatchEvent(new CustomEvent('show-access-denied', { detail: { module: 'website-management' } }));
+            return false;
+        },
+        addAction() { if (this.checkPerm()) this.openForm(null); },
+        editAction(m) { if (this.checkPerm()) this.openForm(m); },
+        toggleAction(m) { if (this.checkPerm()) this.toggle(m); },
+        destroyAction(m) { if (this.checkPerm()) this.destroy(m); },
         open() { this.show = true; this.search = ''; document.body.style.overflow = 'hidden'; this.fetchMinistries(); },
         close() { this.show = false; document.body.style.overflow = ''; },
         openForm(item) { this.$refs.formModal.open(item); },

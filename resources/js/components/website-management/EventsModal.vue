@@ -9,7 +9,7 @@
                 <i class="mdi mdi-magnify"></i>
                 <input type="text" v-model="search" @input="fetchEvents" placeholder="Search events...">
             </div>
-            <button class="wm-modal-add-btn" @click="openForm(null)"><i class="mdi mdi-plus"></i> Add Event</button>
+            <button class="wm-modal-add-btn" @click="addAction"><i class="mdi mdi-plus"></i> Add Event</button>
             <button class="wm-modal-close" @click="close"><i class="mdi mdi-close"></i></button>
         </div>
     </div>
@@ -27,9 +27,9 @@
                     <td><span :class="['wm-badge', e.is_published ? 'wm-badge-green' : 'wm-badge-gray']">{{ e.is_published ? 'Published' : 'Draft' }}</span></td>
                     <td class="text-muted">{{ e.updated_at }}</td>
                     <td class="text-center">
-                        <button class="wm-action-btn wm-action-edit" @click="openForm(e)" title="Edit"><i class="mdi mdi-pencil-outline"></i></button>
-                        <button class="wm-action-btn wm-action-toggle" @click="toggle(e)" :title="e.is_published ? 'Unpublish' : 'Publish'"><i :class="e.is_published ? 'mdi mdi-eye-off-outline' : 'mdi mdi-eye-outline'"></i></button>
-                        <button class="wm-action-btn wm-action-delete" @click="destroy(e)" title="Delete"><i class="mdi mdi-delete-outline"></i></button>
+                        <button class="wm-action-btn wm-action-edit" @click="editAction(e)" title="Edit"><i class="mdi mdi-pencil-outline"></i></button>
+                        <button class="wm-action-btn wm-action-toggle" @click="toggleAction(e)" :title="e.is_published ? 'Unpublish' : 'Publish'"><i :class="e.is_published ? 'mdi mdi-eye-off-outline' : 'mdi mdi-eye-outline'"></i></button>
+                        <button class="wm-action-btn wm-action-delete" @click="destroyAction(e)" title="Delete"><i class="mdi mdi-delete-outline"></i></button>
                     </td>
                 </tr>
             </tbody>
@@ -47,7 +47,19 @@ export default {
     name: 'EventsModal',
     components: { EventFormModal },
     data() { return { show: false, events: [], search: '', loading: false, debounce: null }; },
+    computed: {
+        canManage() { return window.userPermissions && window.userPermissions.canManage('website-management'); }
+    },
     methods: {
+        checkPerm() {
+            if (this.canManage) return true;
+            window.dispatchEvent(new CustomEvent('show-access-denied', { detail: { module: 'website-management' } }));
+            return false;
+        },
+        addAction() { if (this.checkPerm()) this.openForm(null); },
+        editAction(e) { if (this.checkPerm()) this.openForm(e); },
+        toggleAction(e) { if (this.checkPerm()) this.toggle(e); },
+        destroyAction(e) { if (this.checkPerm()) this.destroy(e); },
         open() { this.show = true; this.search = ''; document.body.style.overflow = 'hidden'; this.fetchEvents(); },
         close() { this.show = false; document.body.style.overflow = ''; },
         openForm(event) { this.$refs.formModal.open(event); },
