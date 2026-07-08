@@ -106,9 +106,21 @@
             font-size: 18px; color: rgba(255,255,255,0.4); pointer-events: none;
         }
 
+        .login-input-wrap .login-eye-toggle {
+            left: auto;
+            right: 14px;
+            pointer-events: auto;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .login-input-wrap .login-eye-toggle:hover {
+            color: rgba(255,255,255,0.8);
+        }
+
         .login-input-wrap input {
             width: 100%; height: 48px;
-            padding: 0 14px 0 44px;
+            padding: 0 44px 0 44px;
             border-radius: 12px;
             border: 1.5px solid rgba(255,255,255,0.15);
             font-size: 14px;
@@ -235,7 +247,8 @@
                         <label>Password</label>
                         <div class="login-input-wrap">
                             <i class="mdi mdi-lock-outline"></i>
-                            <input type="password" name="password" placeholder="Enter your password" required>
+                            <input type="password" name="password" id="passwordInput" placeholder="Enter your password" required>
+                            <i class="mdi mdi-eye-off-outline login-eye-toggle" id="togglePassword"></i>
                         </div>
                     </div>
 
@@ -255,5 +268,19 @@
             <i class="mdi mdi-arrow-left"></i> Back to Website
         </a>
     </div>
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            var input = document.getElementById('passwordInput');
+            if (input.type === 'password') {
+                input.type = 'text';
+                this.classList.remove('mdi-eye-off-outline');
+                this.classList.add('mdi-eye-outline');
+            } else {
+                input.type = 'password';
+                this.classList.remove('mdi-eye-outline');
+                this.classList.add('mdi-eye-off-outline');
+            }
+        });
+    </script>
 </body>
 </html>

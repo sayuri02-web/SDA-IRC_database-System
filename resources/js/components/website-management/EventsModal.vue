@@ -20,7 +20,7 @@
             <thead><tr><th>Title</th><th>Date</th><th>Time</th><th>Location</th><th>Status</th><th>Updated</th><th class="text-center">Actions</th></tr></thead>
             <tbody>
                 <tr v-for="e in events" :key="e.id">
-                    <td class="fw-600">{{ e.title }}</td>
+                    <td class="fw-600"><i :class="'mdi ' + (e.icon || 'mdi-calendar-star')" class="me-1 text-success"></i>{{ e.title }}</td>
                     <td>{{ e.event_date || '—' }}</td>
                     <td>{{ e.event_time || '—' }}</td>
                     <td>{{ e.location || '—' }}</td>

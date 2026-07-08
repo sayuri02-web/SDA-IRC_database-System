@@ -23,7 +23,7 @@
             <div class="ws-navbar-inner">
                 <a href="{{ route('website.home') }}" class="ws-brand">
                     <img src="{{ asset('assets/images/logo.jpg') }}" alt="Logo" class="ws-brand-logo">
-                    <span>Sevent-day Adventist churh-IRCP.INC</span>
+                    <span>Seventh-day Adventist churh-IRCP.INC</span>
                 </a>
                 <button class="ws-nav-toggle" id="navToggle" aria-label="Toggle menu">
                     <span class="ws-toggle-bar"></span>
@@ -55,7 +55,7 @@
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-4">
-                    <h5 class="ws-footer-title">SDA-IRC Church</h5>
+                    <h5 class="ws-footer-title">SDA-IRCPI Church</h5>
                     <p class="ws-footer-text">Growing in Faith. Serving the Community. Sharing God's Love.</p>
                     <p class="ws-footer-text">Website Creator: Francis Lloyd Andrew T. Cantones</p>
                 </div>
@@ -70,9 +70,9 @@
                 <div class="col-lg-4">
                     <h5 class="ws-footer-title">Connect</h5>
                     <p class="ws-footer-text">
-                        <i class="mdi mdi-map-marker me-1"></i>Panabo City, Davao del Norte<br>
-                        <i class="mdi mdi-phone me-1"></i>(084) 123-4567<br>
-                        <i class="mdi mdi-email me-1"></i>info@sdairc.org
+                        <i class="mdi mdi-map-marker me-1"></i>Santol St., Buhangin, Davao City, Philippines<br>
+                        <i class="mdi mdi-phone me-1"></i>09657561311<br>
+                        <i class="mdi mdi-email me-1"></i>info@sdaircpi.org
                     </p>
                 </div>
             </div>

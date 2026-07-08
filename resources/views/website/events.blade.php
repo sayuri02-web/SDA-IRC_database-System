@@ -10,6 +10,7 @@
             @forelse($events as $e)
             <div class="col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                 <div class="ws-event-card ws-event-card-lg">
+                    <div class="ws-event-icon"><i class="mdi {{ $e->icon ?? 'mdi-calendar-star' }}"></i></div>
                     <div class="ws-event-date"><i class="mdi mdi-calendar"></i> {{ $e->event_date ? $e->event_date->format('M d, Y') : '—' }}</div>
                     <h4 class="ws-event-title">{{ $e->title }}</h4>
                     <p class="ws-event-desc">{{ $e->description }}</p>

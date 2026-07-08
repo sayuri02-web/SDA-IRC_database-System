@@ -8,6 +8,7 @@ class Event extends Model
 {
     protected $fillable = [
         'title',
+        'icon',
         'description',
         'event_date',
         'event_time',

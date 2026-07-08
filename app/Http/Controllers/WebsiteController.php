@@ -6,6 +6,9 @@ use App\Models\PastorMessage;
 use App\Models\Event;
 use App\Models\Announcement;
 use App\Models\Ministry;
+use App\Models\Member;
+use App\Models\Church;
+use App\Models\CertificateLog;
 use App\Models\GalleryAlbum;
 use Illuminate\Http\Request;
 
@@ -13,7 +16,28 @@ class WebsiteController extends Controller
 {
     public function home()
     {
-        return view('website.home');
+        // God's Work in Numbers
+        $stats = [
+            'members' => Member::count(),
+            'churches' => Church::count(),
+            'certificates' => CertificateLog::count(),
+            'upcoming_events' => Event::published()->where('event_date', '>=', now()->toDateString())->count(),
+        ];
+
+        // Upcoming Events (latest 3 published, nearest first)
+        $events = Event::published()
+            ->where('event_date', '>=', now()->toDateString())
+            ->orderBy('event_date', 'asc')
+            ->take(3)
+            ->get();
+
+        // Latest Announcements (latest 3 published, nearest upcoming first)
+        $announcements = Announcement::published()
+            ->orderBy('announcement_date', 'asc')
+            ->take(3)
+            ->get();
+
+        return view('website.home', compact('stats', 'events', 'announcements'));
     }
 
     public function pastorsMessage()
@@ -38,7 +62,7 @@ class WebsiteController extends Controller
     public function announcements()
     {
         $announcements = Announcement::published()
-            ->latest()
+            ->orderBy('announcement_date', 'asc')
             ->get();
 
         return view('website.announcements', compact('announcements'));

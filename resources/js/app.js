@@ -24,6 +24,7 @@ if (toastEl) {
 
 // Mount Access Denied Page (if present)
 import AccessRequiredModal from './components/AccessRequiredModal.vue';
+import AccessRequiredModalGlobal from './components/common/AccessRequiredModal.vue';
 
 const accessDeniedEl = document.getElementById('access-denied-app');
 if (accessDeniedEl) {
@@ -33,6 +34,13 @@ if (accessDeniedEl) {
         data() { return { role: accessDeniedEl.dataset.role, module: accessDeniedEl.dataset.module }; }
     });
     adApp.mount('#access-denied-app');
+}
+
+// Mount Global Access Required Modal (always present)
+const accessModalEl = document.getElementById('access-modal-vue');
+if (accessModalEl) {
+    const amApp = createApp(AccessRequiredModalGlobal);
+    amApp.mount('#access-modal-vue');
 }
 
 // Mount Pastor Selector Modal (only on pages that have the mount point)

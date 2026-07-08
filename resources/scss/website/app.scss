@@ -212,7 +212,7 @@ main { flex: 1; }
 // ============================================================
 .ws-hero {
     position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center;
-    overflow: hidden; padding-bottom: 160px;
+    overflow: hidden; padding-bottom: 160px; padding-top: 60px;
 }
 .ws-hero-bg {
     position: absolute; inset: 0;
@@ -222,7 +222,7 @@ main { flex: 1; }
     position: absolute; inset: 0;
     background: linear-gradient(180deg, rgba($ws-dark, 0.7) 0%, rgba($ws-dark, 0.5) 50%, rgba($ws-dark, 0.85) 100%);
 }
-.ws-hero-content { text-align: center; max-width: 720px; margin: 0 auto; position: relative; z-index: 2; padding-top: 40px; }
+.ws-hero-content { text-align: center; max-width: 720px; margin: 0 auto; position: relative; z-index: 2; padding-top: 20px; }
 .ws-hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba($ws-white, 0.08); border: 1px solid rgba($ws-white, 0.18); padding: 8px 22px; border-radius: 30px; font-size: 13px; font-weight: 500; color: rgba($ws-white, 0.9); margin-bottom: 26px; letter-spacing: 0.6px; backdrop-filter: blur(4px); }
 .ws-hero-title { font-size: 50px; font-weight: 800; color: $ws-white; margin-bottom: 16px; line-height: 1.12; letter-spacing: -0.5px; text-shadow: 0 2px 20px rgba(0,0,0,0.3); }
 .ws-hero-accent { width: 48px; height: 3px; background: linear-gradient(90deg, #6c63ff, #8b7cf7); border-radius: 3px; margin: 0 auto 20px; }
@@ -338,7 +338,7 @@ main { flex: 1; }
     .ws-service-detail { gap: 4px; i { font-size: 11px; } span { font-size: 10px; } }
 }
 @media(max-width: 768px) {
-    .ws-hero { min-height: 85vh; padding-bottom: 140px; }
+    .ws-hero { min-height: 85vh; padding-bottom: 140px; padding-top: 70px; }
     .ws-hero-title { font-size: 28px; padding: 0 8px; }
     .ws-hero-sub { font-size: 15px; padding: 0 12px; }
     .ws-hero-content { padding-top: 20px; }
@@ -347,7 +347,7 @@ main { flex: 1; }
 }
 
 @media(max-width: 480px) {
-    .ws-hero { min-height: 80vh; padding-bottom: 120px; }
+    .ws-hero { min-height: 80vh; padding-bottom: 120px; padding-top: 64px; }
     .ws-hero-title { font-size: 24px; }
     .ws-hero-sub { font-size: 14px; margin-bottom: 28px; }
     .ws-hero-badge { font-size: 11px; margin-bottom: 18px; }
@@ -432,6 +432,7 @@ main { flex: 1; }
 .ws-announce-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
 .ws-announce-badge { font-size: 11px; font-weight: 600; color: $ws-primary-dark; background: $ws-primary-light; padding: 4px 10px; border-radius: 6px; }
 .ws-announce-date { font-size: 12px; color: $ws-muted; }
+.ws-announce-location { display: block; font-size: 12px; color: $ws-muted; margin-bottom: 12px; i { color: $ws-primary; } }
 
 // ============================================================
 // CTA BANNER

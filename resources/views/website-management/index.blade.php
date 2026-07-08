@@ -48,7 +48,7 @@
                                 <span class="wm-status-date">{{ $cardStatuses['pastor']['updated_at'] ? $cardStatuses['pastor']['updated_at']->format('F d, Y') : '—' }}</span>
                             </div>
                             <a href="{{ route('website-management.pastor-message') }}"
-                                class="wm-manage-btn">
+                                class="wm-manage-btn" data-requires="website-management">
                                     <i class="mdi mdi-pencil-outline me-1"></i>
                                     Manage
                             </a>
@@ -65,12 +65,12 @@
                             <p class="wm-card-desc">Manage church events and announcements.</p>
                             <div class="wm-card-status">
                                 <div class="wm-mini-stats">
-                                    <div class="wm-mini-stat wm-mini-stat-clickable" onclick="window.dispatchEvent(new Event('open-events-modal'))">
+                                    <div class="wm-mini-stat wm-mini-stat-clickable" data-requires="website-management" onclick="window.dispatchEvent(new Event('open-events-modal'))">
                                         <span class="wm-mini-label">Events</span>
                                         <span class="wm-mini-value">{{ $cardStatuses['events']['events_count'] ?? 0 }}</span>
                                         <span class="wm-mini-action">View →</span>
                                     </div>
-                                    <div class="wm-mini-stat wm-mini-stat-clickable" onclick="window.dispatchEvent(new Event('open-announcements-modal'))">
+                                    <div class="wm-mini-stat wm-mini-stat-clickable" data-requires="website-management" onclick="window.dispatchEvent(new Event('open-announcements-modal'))">
                                         <span class="wm-mini-label">Announcements</span>
                                         <span class="wm-mini-value">{{ $cardStatuses['events']['announcements_count'] ?? 0 }}</span>
                                         <span class="wm-mini-action">View →</span>
@@ -92,7 +92,7 @@
                             <p class="wm-card-desc">Manage church ministries and descriptions.</p>
                             <div class="wm-card-status">
                                 <div class="wm-mini-stats">
-                                    <div class="wm-mini-stat wm-mini-stat-clickable wm-mini-stat-full" onclick="window.dispatchEvent(new Event('open-ministries-modal'))">
+                                    <div class="wm-mini-stat wm-mini-stat-clickable wm-mini-stat-full" data-requires="website-management" onclick="window.dispatchEvent(new Event('open-ministries-modal'))">
                                         <span class="wm-mini-label">Total</span>
                                         <span class="wm-mini-value">{{ $cardStatuses['ministries']['count'] ?? 0 }}</span>
                                         <span class="wm-mini-label">Ministries</span>
@@ -127,7 +127,7 @@
                                 <span class="wm-status-label mt-3">Last Updated</span>
                                 <span class="wm-status-date">{{ $cardStatuses['gallery']['updated_at'] ? $cardStatuses['gallery']['updated_at']->format('F d, Y') : '—' }}</span>
                             </div>
-                            <a href="{{ route('website-management.gallery') }}" class="wm-manage-btn">
+                            <a href="{{ route('website-management.gallery') }}" class="wm-manage-btn" data-requires="website-management">
                                 <i class="mdi mdi-pencil-outline me-1"></i> Manage
                             </a>
                         </div>

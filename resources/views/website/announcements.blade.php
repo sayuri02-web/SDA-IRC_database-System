@@ -10,9 +10,15 @@
             @forelse($announcements as $a)
             <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 80 }}">
                 <div class="ws-announce-card">
+                    <div class="ws-announce-header">
+                        <span class="ws-announce-badge"><i class="mdi mdi-bullhorn-outline me-1"></i>Announcement</span>
+                        <span class="ws-announce-date"><i class="mdi mdi-calendar-outline me-1"></i>{{ $a->announcement_date ? $a->announcement_date->format('F d, Y') : $a->updated_at->format('F d, Y') }}</span>
+                    </div>
+                    @if($a->location)
+                    <span class="ws-announce-location"><i class="mdi mdi-map-marker-outline me-1"></i>{{ $a->location }}</span>
+                    @endif
                     <h5>{{ $a->title }}</h5>
                     <p>{{ $a->description }}</p>
-                    <span class="ws-announce-date"><i class="mdi mdi-clock-outline me-1"></i>{{ $a->updated_at->format('F d, Y') }}</span>
                 </div>
             </div>
             @empty

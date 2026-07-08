@@ -117,28 +117,28 @@
             <div class="col-6 col-lg-3" data-aos="zoom-in" data-aos-delay="0">
                 <div class="ws-stat-card">
                     <div class="ws-stat-icon"><i class="mdi mdi-account-group"></i></div>
-                    <span class="ws-stat-num">1,245<small>+</small></span>
+                    <span class="ws-stat-num">{{ number_format($stats['members']) }}<small>+</small></span>
                     <span class="ws-stat-label">Active Members</span>
                 </div>
             </div>
             <div class="col-6 col-lg-3" data-aos="zoom-in" data-aos-delay="100">
                 <div class="ws-stat-card">
                     <div class="ws-stat-icon"><i class="mdi mdi-home-group"></i></div>
-                    <span class="ws-stat-num">18</span>
+                    <span class="ws-stat-num">{{ $stats['churches'] }}</span>
                     <span class="ws-stat-label">Local Churches</span>
                 </div>
             </div>
             <div class="col-6 col-lg-3" data-aos="zoom-in" data-aos-delay="200">
                 <div class="ws-stat-card">
                     <div class="ws-stat-icon"><i class="mdi mdi-certificate"></i></div>
-                    <span class="ws-stat-num">523<small>+</small></span>
+                    <span class="ws-stat-num">{{ number_format($stats['certificates']) }}<small>+</small></span>
                     <span class="ws-stat-label">Certificates Issued</span>
                 </div>
             </div>
             <div class="col-6 col-lg-3" data-aos="zoom-in" data-aos-delay="300">
                 <div class="ws-stat-card">
                     <div class="ws-stat-icon"><i class="mdi mdi-calendar-star"></i></div>
-                    <span class="ws-stat-num">8</span>
+                    <span class="ws-stat-num">{{ $stats['upcoming_events'] }}</span>
                     <span class="ws-stat-label">Upcoming Events</span>
                 </div>
             </div>
@@ -155,24 +155,26 @@
             <p class="ws-section-desc">Join us for worship, fellowship, and community programs.</p>
         </div>
         <div class="row g-4">
-            @php
-            $events = [
-                ['icon' => 'mdi-campfire', 'title' => 'Youth Camp 2026', 'date' => 'Jun 28 - Jul 2', 'desc' => 'Annual spiritual retreat and outdoor adventure for young people.'],
-                ['icon' => 'mdi-hand-heart', 'title' => 'Community Outreach', 'date' => 'Jul 5, 2026', 'desc' => 'Feeding program, health screening, and community service.'],
-                ['icon' => 'mdi-microphone', 'title' => 'Evangelistic Crusade', 'date' => 'Jul 12 - 26', 'desc' => 'Two weeks of powerful preaching and Bible studies.'],
-                ['icon' => 'mdi-account-group', 'title' => 'Sabbath Fellowship', 'date' => 'Jul 19, 2026', 'desc' => 'Special inter-church fellowship and potluck gathering.'],
-            ];
-            @endphp
-            @foreach($events as $e)
-            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+            @forelse($events as $e)
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                 <div class="ws-event-card">
-                    <div class="ws-event-icon"><i class="mdi {{ $e['icon'] }}"></i></div>
-                    <div class="ws-event-date"><i class="mdi mdi-calendar-outline me-1"></i>{{ $e['date'] }}</div>
-                    <h5 class="ws-event-title">{{ $e['title'] }}</h5>
-                    <p class="ws-event-desc">{{ $e['desc'] }}</p>
+                    <div class="ws-event-icon"><i class="mdi {{ $e->icon ?? 'mdi-calendar-star' }}"></i></div>
+                    <div class="ws-event-date"><i class="mdi mdi-calendar-outline me-1"></i>{{ $e->event_date ? $e->event_date->format('M d, Y') : '—' }}</div>
+                    <h5 class="ws-event-title">{{ $e->title }}</h5>
+                    <p class="ws-event-desc">{{ Str::limit($e->description, 100) }}</p>
+                    @if($e->event_time)
+                    <span class="ws-event-time"><i class="mdi mdi-clock-outline me-1"></i>{{ $e->event_time }}</span>
+                    @endif
+                    @if($e->location)
+                    <span class="ws-event-time" style="margin-left:12px;"><i class="mdi mdi-map-marker-outline me-1"></i>{{ $e->location }}</span>
+                    @endif
                 </div>
             </div>
-            @endforeach
+            @empty
+            <div class="col-12 text-center py-4">
+                <p class="text-muted">No upcoming events at this time. Check back soon!</p>
+            </div>
+            @endforelse
         </div>
     </div>
 </section>
@@ -185,25 +187,25 @@
             <h2 class="ws-section-title">Latest Announcements</h2>
         </div>
         <div class="row g-4">
-            @php
-            $announcements = [
-                ['title' => 'Upcoming Baptism', 'desc' => 'Rejoice with us as new members commit their lives to Christ this Sabbath through baptism.', 'date' => 'June 22, 2026'],
-                ['title' => 'Prayer Meeting Schedule', 'desc' => 'Wednesday evening prayer meetings resume at 6:30 PM. Everyone is welcome.', 'date' => 'June 18, 2026'],
-                ['title' => 'District Fellowship', 'desc' => 'Annual inter-district fellowship gathering scheduled for August 3rd.', 'date' => 'June 15, 2026'],
-            ];
-            @endphp
-            @foreach($announcements as $a)
+            @forelse($announcements as $a)
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 120 }}">
                 <div class="ws-announce-card">
                     <div class="ws-announce-header">
                         <span class="ws-announce-badge"><i class="mdi mdi-bullhorn-outline me-1"></i>Announcement</span>
-                        <span class="ws-announce-date"><i class="mdi mdi-clock-outline me-1"></i>{{ $a['date'] }}</span>
+                        <span class="ws-announce-date"><i class="mdi mdi-calendar-outline me-1"></i>{{ $a->announcement_date ? $a->announcement_date->format('F d, Y') : $a->updated_at->format('F d, Y') }}</span>
                     </div>
-                    <h5>{{ $a['title'] }}</h5>
-                    <p>{{ $a['desc'] }}</p>
+                    @if($a->location)
+                    <span class="ws-announce-location"><i class="mdi mdi-map-marker-outline me-1"></i>{{ $a->location }}</span>
+                    @endif
+                    <h5>{{ $a->title }}</h5>
+                    <p>{{ Str::limit($a->description, 120) }}</p>
                 </div>
             </div>
-            @endforeach
+            @empty
+            <div class="col-12 text-center py-4">
+                <p class="text-muted">No announcements at this time. Check back soon!</p>
+            </div>
+            @endforelse
         </div>
     </div>
 </section>

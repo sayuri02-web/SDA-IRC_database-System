@@ -13,7 +13,15 @@
         </div>
         <div class="wm-form-field">
             <label>Description</label>
-            <textarea v-model="form.description" rows="5" placeholder="Announcement details..."></textarea>
+            <textarea v-model="form.description" rows="4" placeholder="Announcement details..."></textarea>
+        </div>
+        <div class="wm-form-field">
+            <label>Announcement Date <span class="text-danger">*</span></label>
+            <input type="date" v-model="form.announcement_date">
+        </div>
+        <div class="wm-form-field">
+            <label>Location <span class="text-danger">*</span></label>
+            <input type="text" v-model="form.location" placeholder="Enter announcement location">
         </div>
         <div class="wm-form-field">
             <label>Status</label>
@@ -42,21 +50,30 @@ export default {
     emits: ['saved'],
     data() { return { show: false, editing: false, editId: null, saving: false, error: null, form: this.emptyForm() }; },
     methods: {
-        emptyForm() { return { title: '', description: '', is_published: false }; },
+        emptyForm() { return { title: '', description: '', announcement_date: '', location: '', is_published: false }; },
         open(item) {
-            if (item) { this.editing = true; this.editId = item.id; this.form = { title: item.title, description: item.description, is_published: item.is_published }; }
-            else { this.editing = false; this.editId = null; this.form = this.emptyForm(); }
+            if (item) {
+                this.editing = true;
+                this.editId = item.id;
+                this.form = { title: item.title, description: item.description, announcement_date: item.announcement_date || '', location: item.location || '', is_published: item.is_published };
+            } else {
+                this.editing = false;
+                this.editId = null;
+                this.form = this.emptyForm();
+            }
             this.error = null; this.show = true;
         },
         close() { this.show = false; },
         async save() {
             if (!this.form.title.trim()) { this.error = 'Title is required.'; return; }
+            if (!this.form.announcement_date) { this.error = 'Announcement date is required.'; return; }
+            if (!this.form.location || !this.form.location.trim()) { this.error = 'Location is required.'; return; }
             this.saving = true; this.error = null;
             const token = document.querySelector('meta[name="csrf-token"]')?.content;
             const url = this.editing ? '/website-management/announcements/' + this.editId : '/website-management/announcements';
             const method = this.editing ? 'PUT' : 'POST';
             try {
-                const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': token }, body: JSON.stringify(this.form) });
+                const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': token, 'Accept': 'application/json' }, body: JSON.stringify(this.form) });
                 if (!res.ok) { const d = await res.json().catch(() => null); this.error = d?.message || 'Failed to save.'; this.saving = false; return; }
                 this.$emit('saved');
                 this.close();

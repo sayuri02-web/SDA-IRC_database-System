@@ -17,10 +17,12 @@
         <div v-if="loading" class="wm-modal-loading"><div class="wm-spinner"></div> Loading...</div>
         <div v-else-if="announcements.length === 0" class="wm-modal-empty"><i class="mdi mdi-bullhorn-variant-outline"></i><p>No announcements yet. Click "Add Announcement" to create one.</p></div>
         <table v-else class="wm-modal-table">
-            <thead><tr><th>Title</th><th>Status</th><th>Updated</th><th class="text-center">Actions</th></tr></thead>
+            <thead><tr><th>Title</th><th>Announcement Date</th><th>Location</th><th>Status</th><th>Updated</th><th class="text-center">Actions</th></tr></thead>
             <tbody>
                 <tr v-for="a in announcements" :key="a.id">
                     <td class="fw-600">{{ a.title }}</td>
+                    <td>{{ formatDate(a.announcement_date) }}</td>
+                    <td>{{ a.location || '—' }}</td>
                     <td><span :class="['wm-badge', a.is_published ? 'wm-badge-green' : 'wm-badge-gray']">{{ a.is_published ? 'Published' : 'Draft' }}</span></td>
                     <td class="text-muted">{{ a.updated_at }}</td>
                     <td class="text-center">
@@ -48,6 +50,11 @@ export default {
         canManage() { return window.userPermissions && window.userPermissions.canManage('website-management'); }
     },
     methods: {
+        formatDate(dateStr) {
+            if (!dateStr) return '—';
+            const d = new Date(dateStr + 'T00:00:00');
+            return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        },
         checkPerm() {
             if (this.canManage) return true;
             window.dispatchEvent(new CustomEvent('show-access-denied', { detail: { module: 'website-management' } }));

@@ -138,6 +138,7 @@ class WebsiteManagementController extends Controller
         return response()->json($query->get()->map(fn($e) => [
             'id' => $e->id,
             'title' => $e->title,
+            'icon' => $e->icon ?? 'mdi-calendar-star',
             'description' => $e->description,
             'event_date' => $e->event_date?->format('Y-m-d'),
             'event_time' => $e->event_time,
@@ -151,6 +152,7 @@ class WebsiteManagementController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
+            'icon' => 'required|string|max:100',
             'description' => 'nullable|string',
             'event_date' => 'nullable|date',
             'event_time' => 'nullable|string|max:100',
@@ -158,7 +160,7 @@ class WebsiteManagementController extends Controller
             'is_published' => 'boolean',
         ]);
 
-        $event = Event::create($request->only('title', 'description', 'event_date', 'event_time', 'location', 'is_published'));
+        $event = Event::create($request->only('title', 'icon', 'description', 'event_date', 'event_time', 'location', 'is_published'));
 
         ActivityLog::log('Website Management', 'Created', 'Created event "' . $event->title . '"', $event->id);
 
@@ -169,6 +171,7 @@ class WebsiteManagementController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
+            'icon' => 'required|string|max:100',
             'description' => 'nullable|string',
             'event_date' => 'nullable|date',
             'event_time' => 'nullable|string|max:100',
@@ -177,7 +180,7 @@ class WebsiteManagementController extends Controller
         ]);
 
         $event = Event::findOrFail($id);
-        $event->update($request->only('title', 'description', 'event_date', 'event_time', 'location', 'is_published'));
+        $event->update($request->only('title', 'icon', 'description', 'event_date', 'event_time', 'location', 'is_published'));
 
         ActivityLog::log('Website Management', 'Updated', 'Updated event "' . $event->title . '"', $event->id);
 
@@ -220,6 +223,8 @@ class WebsiteManagementController extends Controller
             'id' => $a->id,
             'title' => $a->title,
             'description' => $a->description,
+            'announcement_date' => $a->announcement_date?->format('Y-m-d'),
+            'location' => $a->location,
             'is_published' => $a->is_published,
             'updated_at' => $a->updated_at->format('M d, Y'),
         ]));
@@ -230,10 +235,12 @@ class WebsiteManagementController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'announcement_date' => 'required|date',
+            'location' => 'required|string|max:255',
             'is_published' => 'boolean',
         ]);
 
-        $announcement = Announcement::create($request->only('title', 'description', 'is_published'));
+        $announcement = Announcement::create($request->only('title', 'description', 'announcement_date', 'location', 'is_published'));
 
         ActivityLog::log('Website Management', 'Created', 'Created announcement "' . $announcement->title . '"', $announcement->id);
 
@@ -245,11 +252,13 @@ class WebsiteManagementController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'announcement_date' => 'required|date',
+            'location' => 'required|string|max:255',
             'is_published' => 'boolean',
         ]);
 
         $announcement = Announcement::findOrFail($id);
-        $announcement->update($request->only('title', 'description', 'is_published'));
+        $announcement->update($request->only('title', 'description', 'announcement_date', 'location', 'is_published'));
 
         ActivityLog::log('Website Management', 'Updated', 'Updated announcement "' . $announcement->title . '"', $announcement->id);
 

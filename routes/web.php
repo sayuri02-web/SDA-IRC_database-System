@@ -57,16 +57,16 @@ Route::post('/logout', function (Request $request) {
 
 Route::middleware('auth')->group(function () {
 
-// Certificates (read routes - accessible to all authenticated users)
+// Certificates (all routes - only Admin + Certificate Manager)
+Route::middleware('role:certificates')->group(function () {
+
 Route::get('/certificates', [CertificateController::class, 'index'])->name('certificates.index');
 Route::get('/certificates/create', [CertificateController::class, 'create'])->name('certificates.create');
 Route::get('/certificates/{certificate}', [CertificateController::class, 'show'])->name('certificates.show');
 Route::get('/certificates/{certificate}/edit', [CertificateController::class, 'edit'])->name('certificates.edit');
-
-// Certificates (write routes - only Admin + Certificate Manager)
-Route::post('/certificates', [CertificateController::class, 'store'])->middleware('role:certificates')->name('certificates.store');
-Route::put('/certificates/{certificate}', [CertificateController::class, 'update'])->middleware('role:certificates')->name('certificates.update');
-Route::delete('/certificates/{certificate}', [CertificateController::class, 'destroy'])->middleware('role:certificates')->name('certificates.destroy');
+Route::post('/certificates', [CertificateController::class, 'store'])->name('certificates.store');
+Route::put('/certificates/{certificate}', [CertificateController::class, 'update'])->name('certificates.update');
+Route::delete('/certificates/{certificate}', [CertificateController::class, 'destroy'])->name('certificates.destroy');
 
 Route::get('/certificates/baptism/search', [CertificateController::class, 'search'])
     ->name('certificates.baptism.search');
@@ -75,7 +75,6 @@ Route::get('/certificates/baptism/member/{id}', [CertificateController::class, '
     ->name('certificates.baptism.member');
 
 Route::post('/certificates/baptism/print', [BaptismCertificateController::class, 'print'])
-    ->middleware('role:certificates')
     ->name('certificates.baptism.print');
 
 // Dedication Certificate routes
@@ -84,7 +83,6 @@ Route::get('/certificates/dedication/search', [DedicationCertificateController::
 Route::get('/certificates/dedication/member/{id}', [DedicationCertificateController::class, 'form'])
     ->name('certificates.dedication.member');
 Route::post('/certificates/dedication/print', [DedicationCertificateController::class, 'print'])
-    ->middleware('role:certificates')
     ->name('certificates.dedication.print');
 Route::get('/certificates/dedication/history', [DedicationCertificateController::class, 'history'])
     ->name('certificates.dedication.history');
@@ -95,7 +93,6 @@ Route::get('/certificates/membership/search', [MembershipCertificateController::
 Route::get('/certificates/membership/member/{id}', [MembershipCertificateController::class, 'form'])
     ->name('certificates.membership.member');
 Route::post('/certificates/membership/print', [MembershipCertificateController::class, 'print'])
-    ->middleware('role:certificates')
     ->name('certificates.membership.print');
 
 // Counseling Certificate routes
@@ -104,7 +101,6 @@ Route::get('/certificates/counseling/search', [CounselingCertificateController::
 Route::get('/certificates/counseling/member/{id}', [CounselingCertificateController::class, 'form'])
     ->name('certificates.counseling.member');
 Route::post('/certificates/counseling/print', [CounselingCertificateController::class, 'print'])
-    ->middleware('role:certificates')
     ->name('certificates.counseling.print');
 
 // Student Certificate routes
@@ -113,7 +109,6 @@ Route::get('/certificates/student/search', [StudentCertificatesController::class
 Route::get('/certificates/student/member/{id}', [StudentCertificatesController::class, 'form'])
     ->name('certificates.student.member');
 Route::post('/certificates/student/print', [StudentCertificatesController::class, 'print'])
-    ->middleware('role:certificates')
     ->name('certificates.student.print');
 
 // Good Moral Certificate routes
@@ -122,7 +117,6 @@ Route::get('/certificates/goodmoral/search', [GoodMoralCertificatesController::c
 Route::get('/certificates/goodmoral/member/{id}', [GoodMoralCertificatesController::class, 'form'])
     ->name('certificates.goodmoral.member');
 Route::post('/certificates/goodmoral/print', [GoodMoralCertificatesController::class, 'print'])
-    ->middleware('role:certificates')
     ->name('certificates.goodmoral.print');
 
 // Members Affiliate Certificate routes
@@ -131,8 +125,9 @@ Route::get('/certificates/affiliate/search', [MembersAffiliateCertificateControl
 Route::get('/certificates/affiliate/member/{id}', [MembersAffiliateCertificateController::class, 'form'])
     ->name('certificates.affiliate.member');
 Route::post('/certificates/affiliate/print', [MembersAffiliateCertificateController::class, 'print'])
-    ->middleware('role:certificates')
     ->name('certificates.affiliate.print');
+
+}); // End certificates middleware group
 
 //Pastor Message routes
 Route::get(
@@ -171,6 +166,7 @@ Route::get('/members/{id}/json', [MemberController::class, 'showJson']);
 */
 Route::prefix('website-management')
     ->name('website-management.')
+    ->middleware('role:website-management')
     ->group(function () {
 
         Route::get('/', [WebsiteManagementController::class, 'index'])

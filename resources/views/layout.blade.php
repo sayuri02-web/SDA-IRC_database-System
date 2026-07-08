@@ -217,31 +217,8 @@
     {{-- Global Toast Notification Container --}}
     <div id="toast-app"></div>
 
-    {{-- Global Access Required Modal --}}
-    <div class="modal fade" id="accessRequiredModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content leaders-modal" style="border-radius:18px;">
-                <div class="leaders-modal-bar" style="background: linear-gradient(to right, #e53935, #ff6b6b);"></div>
-                <div class="modal-body p-4 text-center">
-                    <i class="mdi mdi-shield-lock-outline" style="font-size:48px; color:#e53935;"></i>
-                    <h5 class="fw-bold mt-3 mb-2">Access Restricted</h5>
-                    <p class="text-muted mb-2" style="font-size:13px;">
-                        You are currently signed in as <strong id="accessCurrentRole"></strong>.
-                    </p>
-                    <p class="text-muted mb-4" style="font-size:13px;">
-                        This action requires an <strong id="accessRequiredRole"></strong> account.<br>
-                        Please switch to an account with the required permissions.
-                    </p>
-                    <div class="d-flex gap-2 justify-content-center">
-                        <button class="btn btn-outline-secondary btn-sm px-4" data-bs-dismiss="modal">Cancel</button>
-                        <button class="btn btn-success btn-sm px-4" onclick="document.getElementById('logout-form').submit();">
-                            <i class="mdi mdi-account-switch-outline me-1"></i> Switch Account
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    {{-- Global Access Required Modal (Vue) --}}
+    <div id="access-modal-vue"></div>
 
     {{-- Laravel Flash Data Bridge --}}
     <div id="laravel-flash-data" class="d-none"
@@ -278,11 +255,22 @@ AOS.init({
     var currentRoleLabel = '{{ auth()->user()?->role?->label() ?? "Guest" }}';
 
     function showAccessModal(requiredModule) {
-        var modal = document.getElementById('accessRequiredModal');
-        if (!modal) return;
-        document.getElementById('accessCurrentRole').textContent = currentRoleLabel;
-        document.getElementById('accessRequiredRole').textContent = roleLabels[requiredModule] || 'Administrator';
-        new bootstrap.Modal(modal).show();
+        // Close any currently open Bootstrap modals
+        document.querySelectorAll('.modal.show').forEach(function(openModal) {
+            var instance = bootstrap.Modal.getInstance(openModal);
+            if (instance) instance.hide();
+        });
+
+        // Close Vue modals
+        document.querySelectorAll('.wm-modal-overlay, .vue-modal-overlay').forEach(function(overlay) {
+            overlay.style.display = 'none';
+        });
+
+        // Dispatch to Vue Access Required Modal
+        var requiredLabel = roleLabels[requiredModule] || 'Administrator';
+        window.dispatchEvent(new CustomEvent('show-access-modal-vue', {
+            detail: { currentRole: currentRoleLabel, requiredRole: requiredLabel }
+        }));
     }
 
     // Intercept clicks on elements with data-requires attribute
