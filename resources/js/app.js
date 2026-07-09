@@ -89,6 +89,15 @@ if (albumPhotosEl) {
     albumApp.mount('#album-photos-app');
 }
 
+// Mount Task Notification Bell (topbar)
+import TaskNotificationBell from './components/TaskNotificationBell.vue';
+
+const notifBellEl = document.getElementById('task-notification-bell');
+if (notifBellEl) {
+    const notifApp = createApp(TaskNotificationBell);
+    notifApp.mount('#task-notification-bell');
+}
+
 // Read Laravel session flash messages and display as toasts
 document.addEventListener('DOMContentLoaded', function() {
     // Wait for Vue to mount the toast container

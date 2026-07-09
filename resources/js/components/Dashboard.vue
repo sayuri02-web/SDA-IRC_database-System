@@ -49,7 +49,8 @@
                             <div v-for="task in tasks" :key="task.id" class="dash-task-item" :class="{ 'dash-task-done': task.completed }">
                                 <input type="checkbox" class="task-cb" :checked="task.completed" @change="toggleTaskAction(task)">
                                 <span class="dash-task-text">{{ task.name }}</span>
-                                <span class="dash-task-due">{{ task.due_date || '—' }}</span>
+                                <span class="dash-task-due">{{ formatDate(task.start_date) }}</span>
+                                <span class="dash-task-due">{{ formatDate(task.end_date) }}</span>
                                 <span class="dash-task-status" :class="'dash-task-status-' + task.status">{{ capitalize(task.status) }}</span>
                                 <i class="mdi mdi-close-circle-outline dash-task-delete" @click="deleteTaskAction(task)"></i>
                             </div>
@@ -126,7 +127,10 @@
                 </div>
                 <div class="vue-modal-body">
                     <input type="text" v-model="newTask.name" class="form-control mb-3" placeholder="Task name..." style="border-radius:10px; height:42px;">
-                    <input type="date" v-model="newTask.due_date" class="form-control mb-3" style="border-radius:10px; height:42px;">
+                    <label class="form-label fw-semibold" style="font-size:13px;">Start Date</label>
+                    <input type="date" v-model="newTask.start_date" class="form-control mb-3" style="border-radius:10px; height:42px;">
+                    <label class="form-label fw-semibold" style="font-size:13px;">End Date</label>
+                    <input type="date" v-model="newTask.end_date" class="form-control mb-3" style="border-radius:10px; height:42px;">
                     <button class="btn btn-outline-success w-100" @click="addTask">Save Task</button>
                 </div>
             </div>
@@ -141,19 +145,17 @@
                     <button class="btn-close" @click="showUpdateStatus = false"></button>
                 </div>
                 <div class="vue-modal-body">
-                    <label class="form-label fw-semibold" style="font-size:13px;">Select Date</label>
-                    <input type="date" v-model="statusForm.date" class="form-control mb-3" style="border-radius:10px; height:42px;" @change="loadTasksByDate">
-
                     <label class="form-label fw-semibold" style="font-size:13px;">Select Task</label>
-                    <select v-model="statusForm.task_id" class="form-select mb-3" style="border-radius:10px; height:42px;" :disabled="!dateTasks.length">
-                        <option value="">— Choose task —</option>
-                        <option v-for="t in dateTasks" :key="t.id" :value="t.id">{{ t.name }} ({{ t.status }})</option>
+                    <select v-model="statusForm.task_id" class="form-select mb-3" style="border-radius:10px; height:42px;">
+                        <option :value="null">— Choose task —</option>
+                        <option v-for="t in availableTasks" :key="t.id" :value="t.id">{{ t.name }} ({{ formatDate(t.start_date) }} - {{ formatDate(t.end_date) }})</option>
                     </select>
 
                     <label class="form-label fw-semibold" style="font-size:13px;">New Status</label>
                     <select v-model="statusForm.status" class="form-select mb-3" style="border-radius:10px; height:42px;">
-                        <option value="pending">Pending</option>
+                        <option value="upcoming">Upcoming</option>
                         <option value="ongoing">Ongoing</option>
+                        <option value="overdue">Overdue</option>
                         <option value="completed">Completed</option>
                     </select>
 
@@ -198,9 +200,8 @@ export default {
             showDeleteConfirm: false,
             deleteTargetId: null,
             // Forms
-            newTask: { name: '', due_date: new Date().toISOString().split('T')[0] },
-            statusForm: { date: new Date().toISOString().split('T')[0], task_id: '', status: 'pending' },
-            dateTasks: [],
+            newTask: { name: '', start_date: new Date().toISOString().split('T')[0], end_date: new Date().toISOString().split('T')[0] },
+            statusForm: { task_id: null, status: 'upcoming' },
         };
     },
     computed: {
@@ -209,6 +210,9 @@ export default {
         },
         canManageAdmin() {
             return window.userPermissions && window.userPermissions.canManage('admin');
+        },
+        availableTasks() {
+            return this.tasks.filter(t => t.status !== 'completed');
         },
     },
     async mounted() {
@@ -225,6 +229,12 @@ export default {
     },
     methods: {
         capitalize(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; },
+
+        formatDate(dateStr) {
+            if (!dateStr) return '—';
+            const d = new Date(dateStr + 'T00:00:00');
+            return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        },
 
         checkPermission(module) {
             if (window.userPermissions && window.userPermissions.canManage(module)) return true;
@@ -320,6 +330,7 @@ export default {
 
         async addTask() {
             if (!this.newTask.name.trim()) return;
+            if (!this.newTask.start_date || !this.newTask.end_date) return;
             const res = await fetch('/task/store', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': this.csrfToken },
@@ -330,38 +341,36 @@ export default {
                 this.tasks.unshift({
                     id: d.task.id,
                     name: d.task.name,
-                    status: d.task.status || 'pending',
+                    status: d.task.status,
                     completed: d.task.completed || false,
-                    due_date: d.task.due_date,
+                    start_date: d.task.start_date,
+                    end_date: d.task.end_date,
                 });
-                this.newTask = { name: '', due_date: new Date().toISOString().split('T')[0] };
+                this.newTask = { name: '', start_date: new Date().toISOString().split('T')[0], end_date: new Date().toISOString().split('T')[0] };
                 this.showAddTask = false;
             }
         },
 
-        async loadTasksByDate() {
-            if (!this.statusForm.date) { this.dateTasks = []; return; }
-            const res = await fetch('/task/by-date?date=' + this.statusForm.date);
-            this.dateTasks = await res.json();
-        },
-
         async updateStatus() {
             if (!this.statusForm.task_id) return;
-            const res = await fetch('/task/update-status', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': this.csrfToken },
-                body: JSON.stringify({ task_id: this.statusForm.task_id, status: this.statusForm.status })
-            });
-            const d = await res.json();
-            if (d.success) {
-                const task = this.tasks.find(t => t.id == this.statusForm.task_id);
-                if (task) {
-                    task.status = this.statusForm.status;
-                    task.completed = this.statusForm.status === 'completed';
+            try {
+                const res = await fetch('/task/update-status', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': this.csrfToken, 'Accept': 'application/json' },
+                    body: JSON.stringify({ task_id: this.statusForm.task_id, status: this.statusForm.status })
+                });
+                const d = await res.json();
+                if (d.success) {
+                    const task = this.tasks.find(t => t.id == this.statusForm.task_id);
+                    if (task) {
+                        task.status = d.task.status;
+                        task.completed = d.task.completed;
+                    }
+                    this.showUpdateStatus = false;
+                    this.statusForm = { task_id: null, status: 'upcoming' };
                 }
-                this.showUpdateStatus = false;
-                this.statusForm = { date: new Date().toISOString().split('T')[0], task_id: '', status: 'pending' };
-                this.dateTasks = [];
+            } catch (e) {
+                console.error('Update status failed:', e);
             }
         },
     }

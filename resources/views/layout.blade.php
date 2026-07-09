@@ -124,45 +124,7 @@
                     <span>{{ date('l, M d, Y') }}</span>
                 </div>
 
-                <div class="topbar-notification dropdown">
-                    <button
-                        class="btn position-relative"
-                        data-bs-toggle="dropdown">
-
-                        <i class="mdi mdi-bell-outline fs-4"></i>
-
-                        @if($unreadNotifications > 0)
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                {{ $unreadNotifications }}
-                            </span>
-                        @endif
-
-                    </button>
-
-                    <div class="dropdown-menu dropdown-menu-end shadow notification-dropdown">
-                        <div class="notification-header">
-                            Notifications
-                        </div>
-
-                        @forelse($notifications as $notification)
-                            <a href="#"
-                            class="dropdown-item notification-item">
-
-                                <div class="notification-title">
-                                    {{ $notification->title }}
-                                </div>
-
-                                <small class="text-muted">
-                                    {{ $notification->created_at->diffForHumans() }}
-                                </small>
-                            </a>
-                        @empty
-                            <div class="p-3 text-center text-muted">
-                                No notifications
-                            </div>
-                        @endforelse
-                    </div>
-                </div>
+                <div id="task-notification-bell"></div>
 
                 <div class="topbar-user dropdown">
                     <button class="topbar-user-btn" data-bs-toggle="dropdown" aria-expanded="false">

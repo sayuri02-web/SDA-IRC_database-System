@@ -7,6 +7,7 @@ use App\Http\Controllers\ChurchController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TaskNotificationController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\CertificateLogController;
 use App\Http\Controllers\DedicationCertificateController;
@@ -250,6 +251,12 @@ Route::post('/task/update-status', [TaskController::class, 'updateStatus'])->mid
 Route::get('/task/dates', [TaskController::class, 'getDates']);
 Route::get('/task/by-date', [TaskController::class, 'getByDate']);
 Route::delete('/task/delete/{id}', [TaskController::class, 'destroy'])->middleware('role:admin');
+
+// Task Notifications
+Route::get('/task-notifications', [TaskNotificationController::class, 'index']);
+Route::get('/task-notifications/unread-count', [TaskNotificationController::class, 'unreadCount']);
+Route::post('/task-notifications/mark-all-read', [TaskNotificationController::class, 'markAllRead']);
+Route::post('/task-notifications/{id}/mark-read', [TaskNotificationController::class, 'markRead']);
 
 /*
 |--------------------------------------------------------------------------

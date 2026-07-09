@@ -168,12 +168,20 @@ class DashboardController extends Controller
                 'created_at' => $a->created_at->toDateTimeString(),
             ]),
 
-            'tasks' => Task::latest()->get()->map(fn($t) => [
-                'id' => $t->id,
-                'name' => $t->name,
-                'status' => $t->status,
-                'completed' => $t->completed,
-                'due_date' => $t->due_date?->format('M d, Y'),
+            'tasks' => Task::latest()->get()->each(function ($t) {
+                if (!$t->completed && $t->end_date && $t->end_date->lt(now()->startOfDay())) {
+                    if ($t->status !== 'overdue') {
+                        $t->status = 'overdue';
+                        $t->save();
+                    }
+                }
+            })->map(fn($t) => [
+                'id'         => $t->id,
+                'name'       => $t->name,
+                'status'     => $t->status,
+                'completed'  => $t->completed,
+                'start_date' => $t->start_date?->format('Y-m-d'),
+                'end_date'   => $t->end_date?->format('Y-m-d'),
             ]),
         ]);
     }
