@@ -40,10 +40,10 @@
                     <li><a href="{{ route('website.gallery') }}" class="{{ request()->routeIs('website.gallery') ? 'active' : '' }}">Gallery</a></li>
                     <li><a href="{{ route('website.contact') }}" class="{{ request()->routeIs('website.contact') ? 'active' : '' }}">Contact</a></li>
                 </ul>
-                <div class="ws-nav-backdrop" id="navBackdrop"></div>
             </div>
         </div>
     </nav>
+    <div class="ws-nav-backdrop" id="navBackdrop"></div>
 
     {{-- CONTENT --}}
     <main>
@@ -95,7 +95,6 @@
 
             function updateNavbar() {
                 if (!hero) {
-                    // No hero at all — always light
                     navbar.classList.add('ws-navbar-light');
                     return;
                 }
@@ -117,32 +116,41 @@
             const toggle = document.getElementById('navToggle');
             const links = document.getElementById('navLinks');
             const backdrop = document.getElementById('navBackdrop');
+            var isOpen = false;
 
             function openNav() {
+                isOpen = true;
                 links.classList.add('show');
                 backdrop.classList.add('show');
                 toggle.classList.add('active');
-                document.body.style.overflow = 'hidden';
             }
 
             function closeNav() {
+                if (!isOpen) return;
+                isOpen = false;
                 links.classList.remove('show');
                 backdrop.classList.remove('show');
                 toggle.classList.remove('active');
-                document.body.style.overflow = '';
             }
 
-            toggle.addEventListener('click', function() {
-                if (links.classList.contains('show')) {
-                    closeNav();
-                } else {
-                    openNav();
-                }
+            // Toggle button
+            toggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (isOpen) { closeNav(); } else { openNav(); }
             });
 
-            backdrop.addEventListener('click', closeNav);
+            // Backdrop click — close menu
+            backdrop.addEventListener('click', function(e) {
+                e.stopPropagation();
+                closeNav();
+            });
 
-            // Close on link click (mobile)
+            // Prevent clicks inside the nav drawer from propagating to backdrop
+            links.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+
+            // Close on link click (navigate)
             links.querySelectorAll('a').forEach(function(link) {
                 link.addEventListener('click', function() {
                     if (window.innerWidth <= 992) {
@@ -153,7 +161,7 @@
 
             // Close on resize to desktop
             window.addEventListener('resize', function() {
-                if (window.innerWidth > 992) {
+                if (window.innerWidth > 992 && isOpen) {
                     closeNav();
                 }
             });

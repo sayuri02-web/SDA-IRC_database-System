@@ -76,9 +76,16 @@ main { flex: 1; }
 .ws-brand {
     display: flex; align-items: center; gap: 12px;
     text-decoration: none; color: $ws-white;
-    font-weight: 700; font-size: 17px; flex-shrink: 0;
+    font-weight: 700; font-size: 17px; flex-shrink: 1;
+    min-width: 0;
     letter-spacing: 0.3px;
     transition: opacity 0.2s, color 0.28s ease;
+
+    span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 
     &:hover { opacity: 0.9; color: $ws-white; }
 }
@@ -145,6 +152,12 @@ main { flex: 1; }
 
     &.active {
         background: rgba(255, 255, 255, 0.12);
+        position: fixed;
+        top: 18px;
+        right: 16px;
+        .ws-toggle-bar {
+            background: rgba(255, 255, 255, 0.9) !important;
+        }
         .ws-toggle-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
         .ws-toggle-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
         .ws-toggle-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
@@ -171,6 +184,12 @@ main { flex: 1; }
     .ws-nav-toggle { display: flex; }
     .ws-nav-backdrop { display: block; }
 
+    .ws-brand {
+        font-size: 14px;
+        gap: 10px;
+        max-width: calc(100vw - 100px);
+    }
+
     .ws-nav-links {
         display: flex;
         flex-direction: column;
@@ -178,6 +197,7 @@ main { flex: 1; }
         top: 0; right: 0;
         width: 280px; max-width: 80vw;
         height: 100vh;
+        height: 100dvh;
         background: rgba(11, 29, 58, 0.92);
         backdrop-filter: blur(24px);
         -webkit-backdrop-filter: blur(24px);
@@ -187,6 +207,7 @@ main { flex: 1; }
         box-shadow: -12px 0 48px rgba(0, 0, 0, 0.25);
         z-index: 1001;
         overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
         transform: translateX(100%);
         visibility: hidden;
         will-change: transform, visibility;
@@ -234,8 +255,59 @@ main { flex: 1; }
 
 @media(max-width: 576px) {
     .ws-navbar-inner { padding: 10px 0; }
-    .ws-brand { font-size: 15px; gap: 10px; }
+    .ws-brand { font-size: 13px; gap: 8px; }
+    .ws-brand-logo { width: 32px; height: 32px; }
+}
+
+// Mobile menu isolation — prevent desktop scroll state from affecting mobile drawer
+@media(max-width: 992px) {
+    .ws-navbar.ws-navbar-light .ws-nav-links {
+        background: rgba(11, 29, 58, 0.95);
+
+        a {
+            color: rgba(255, 255, 255, 0.8) !important;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.08) !important;
+                color: #fff !important;
+            }
+
+            &.active {
+                background: rgba(255, 255, 255, 0.1) !important;
+                color: #fff !important;
+            }
+        }
+    }
+}
+
+// Intermediate breakpoint — shrink links on smaller desktops
+@media(min-width: 993px) and (max-width: 1200px) {
+    .ws-nav-links {
+        gap: 0;
+        a {
+            font-size: 12px;
+            padding: 8px 9px;
+        }
+    }
+    .ws-brand {
+        font-size: 14px;
+        gap: 8px;
+        max-width: 240px;
+    }
     .ws-brand-logo { width: 36px; height: 36px; }
+}
+
+@media(min-width: 1201px) and (max-width: 1400px) {
+    .ws-nav-links {
+        gap: 1px;
+        a {
+            font-size: 12.5px;
+            padding: 8px 10px;
+        }
+    }
+    .ws-brand {
+        font-size: 15px;
+    }
 }
 
 // ============================================================
