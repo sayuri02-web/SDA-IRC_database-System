@@ -57,7 +57,6 @@
                 <div class="col-lg-4">
                     <h5 class="ws-footer-title">SDA-IRCPI Church</h5>
                     <p class="ws-footer-text">Growing in Faith. Serving the Community. Sharing God's Love.</p>
-                    <p class="ws-footer-text">Website Creator: Francis Lloyd Andrew T. Cantones</p>
                 </div>
                 <div class="col-lg-4">
                     <h5 class="ws-footer-title">Service Schedule</h5>
@@ -70,9 +69,10 @@
                 <div class="col-lg-4">
                     <h5 class="ws-footer-title">Connect</h5>
                     <p class="ws-footer-text">
-                        <i class="mdi mdi-map-marker me-1"></i>Santol St., Buhangin, Davao City, Philippines<br>
+                        <i class="mdi mdi-map-marker me-1"></i>Santol St., Dumanlas Rd., Buhangin, Davao City, Davao del Sur, Mindanao, Philippines, 8000<br>
                         <i class="mdi mdi-phone me-1"></i>09657561311<br>
-                        <i class="mdi mdi-email me-1"></i>info@sdaircpi.org
+                        <i class="mdi mdi-email me-1"></i>info@sdaircpi.org<br>
+                        <i class="mdi mdi-laptop me-1"></i>Website created by Francis Lloyd Andrew T. Cantones
                     </p>
                 </div>
             </div>
@@ -87,6 +87,30 @@
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true, offset: 50 });
+
+        // Navbar variant — auto-switch between transparent and light
+        (function() {
+            const navbar = document.querySelector('.ws-navbar');
+            const hero = document.querySelector('.ws-hero, .ws-page-hero');
+
+            function updateNavbar() {
+                if (!hero) {
+                    // No hero at all — always light
+                    navbar.classList.add('ws-navbar-light');
+                    return;
+                }
+                const heroBottom = hero.getBoundingClientRect().bottom;
+                if (heroBottom <= 60) {
+                    navbar.classList.add('ws-navbar-light');
+                } else {
+                    navbar.classList.remove('ws-navbar-light');
+                }
+            }
+
+            updateNavbar();
+            window.addEventListener('scroll', updateNavbar, { passive: true });
+            window.addEventListener('resize', updateNavbar, { passive: true });
+        })();
 
         // Mobile navigation
         (function() {
