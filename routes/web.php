@@ -8,6 +8,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskNotificationController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\CertificateLogController;
 use App\Http\Controllers\DedicationCertificateController;
@@ -269,5 +270,9 @@ Route::delete('/leaders-directory/organization/{id}', [LeadersDirectoryControlle
 Route::delete('/leaders-directory/member/{id}', [LeadersDirectoryController::class, 'destroyMember'])->middleware('role:admin')->name('leaders-directory.destroy-member');
 Route::put('/leaders-directory/member/{id}', [LeadersDirectoryController::class, 'updateMember'])->middleware('role:admin')->name('leaders-directory.update-member');
 Route::get('/leaders-directory/search', [LeadersDirectoryController::class, 'search'])->name('leaders-directory.search');
+
+// Profile
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
 
 }); // End auth middleware group

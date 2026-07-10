@@ -129,31 +129,36 @@
                 <div class="topbar-user dropdown">
                     <button class="topbar-user-btn" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="topbar-avatar">
-                            <i class="mdi mdi-account"></i>
+                            @if(auth()->user()->member?->photo && file_exists(public_path('uploads/' . auth()->user()->member->photo)))
+                                <img src="{{ asset('uploads/' . auth()->user()->member->photo) }}" alt="Avatar" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
+                            @else
+                                <i class="mdi mdi-account"></i>
+                            @endif
                         </div>
-                        <span class="topbar-username">{{ auth()->user()->name ?? 'Admin' }}</span>
+                        <span class="topbar-username">{{ auth()->user()->member?->full_name ?? auth()->user()->name ?? 'Admin' }}</span>
                         <i class="mdi mdi-chevron-down topbar-chevron"></i>
                     </button>
 
                     <div class="dropdown-menu dropdown-menu-end shadow topbar-user-dropdown">
                         <div class="topbar-user-dropdown-header">
-                            <strong>{{ auth()->user()->name ?? 'Admin' }}</strong>
-                            <small>{{ auth()->user()->role?->label() ?? 'Admin' }}</small>
+                            <x-member-avatar :member="auth()->user()->member" :size="40" />
+                            <div>
+                                <strong>{{ auth()->user()->member?->full_name ?? auth()->user()->name ?? 'Admin' }}</strong>
+                                <small>{{ auth()->user()->role?->label() ?? 'Admin' }}</small>
+                            </div>
                         </div>
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item topbar-dropdown-item">
+                        <a href="{{ url('/profile') }}" class="dropdown-item topbar-dropdown-item">
                             <i class="mdi mdi-account-outline"></i> My Profile
                         </a>
                         <a href="#" class="dropdown-item topbar-dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="mdi mdi-swap-horizontal"></i> Switch Account
                         </a>
                         @if(auth()->user()?->isAdmin())
-                        <div class="dropdown-divider"></div>
                         <a href="{{ url('/users') }}" class="dropdown-item topbar-dropdown-item">
                             <i class="mdi mdi-account-cog-outline"></i> User Management
                         </a>
                         @endif
-                        <div class="dropdown-divider"></div>
                         <a href="#" class="dropdown-item topbar-dropdown-item topbar-dropdown-logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="mdi mdi-logout"></i> Logout
                         </a>

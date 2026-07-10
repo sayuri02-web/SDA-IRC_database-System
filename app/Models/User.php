@@ -7,12 +7,13 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Member;
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $fillable = ['name', 'username', 'email', 'password', 'role'];
+    protected $fillable = ['name', 'username', 'email', 'password', 'role', 'member_id'];
 
     protected $hidden = ['password', 'remember_token'];
 
@@ -50,5 +51,10 @@ class User extends Authenticatable
             'admin' => $this->isAdmin(),
             default => false,
         };
+    }
+
+    public function member()
+    {
+        return $this->belongsTo(Member::class);
     }
 }

@@ -4,7 +4,7 @@
         <!-- LOADING STATE -->
         <div v-if="loading" class="dash-loading">
             <div class="row g-3 mb-4">
-                <div v-for="n in 6" :key="n" class="col-lg-2 col-md-4 col-sm-6">
+                <div v-for="n in 5" :key="n" class="col-lg col-md-4 col-sm-6">
                     <div class="dash-skeleton dash-skeleton-card"></div>
                 </div>
             </div>
@@ -19,7 +19,7 @@
 
             <!-- STAT CARDS -->
             <div class="row g-3 mb-4">
-                <div v-for="(stat, i) in stats" :key="i" class="col-lg-2 col-md-4 col-sm-6">
+                <div v-for="(stat, i) in stats" :key="i" class="col-lg col-md-4 col-sm-6">
                     <div class="dash-card" :style="{ background: stat.gradient }">
                         <div class="dash-card-icon"><i :class="'mdi ' + stat.icon"></i></div>
                         <div class="dash-card-num">{{ animatedValues[i] }}</div>
@@ -34,7 +34,10 @@
                 <div class="col-lg-8">
                     <div class="dash-tasks-widget">
                         <div class="dash-panel-header">
-                            <h5 class="dash-panel-title"><i class="mdi mdi-checkbox-marked-outline me-2"></i>Quick Tasks</h5>
+                            <div>
+                                <h5 class="dash-panel-title mb-0"><i class="mdi mdi-checkbox-marked-outline me-2"></i>Quick Tasks</h5>
+                                <small v-if="activitiesToday > 0" class="text-muted" style="font-size:12px;"><i class="mdi mdi-lightning-bolt" style="color:#fa709a;"></i> {{ activitiesToday }} {{ activitiesToday === 1 ? 'activity' : 'activities' }} today</small>
+                            </div>
                             <div class="d-flex gap-2">
                                 <button class="btn btn-outline-success btn-sm" @click="addTaskAction"><i class="mdi mdi-plus me-1"></i>Add Task</button>
                                 <button class="btn btn-outline-primary btn-sm" @click="updateStatusAction"><i class="mdi mdi-pencil-outline me-1"></i>Update Status</button>
@@ -194,6 +197,7 @@ export default {
             stats: [],
             animatedValues: [],
             tasks: [],
+            activitiesToday: 0,
             // Modals
             showAddTask: false,
             showUpdateStatus: false,
@@ -257,11 +261,11 @@ export default {
                 'linear-gradient(135deg, #f093fb, #f5576c)',
                 'linear-gradient(135deg, #7f53ac, #647dee)',
                 'linear-gradient(135deg, #4facfe, #00f2fe)',
-                'linear-gradient(135deg, #fa709a, #fee140)',
             ];
-            this.stats = this.data.stats.map((s, i) => ({ ...s, gradient: gradients[i] }));
+            this.stats = this.data.stats.map((s, i) => ({ ...s, gradient: gradients[i % gradients.length] }));
             this.animatedValues = this.stats.map(() => 0);
             this.tasks = this.data.tasks || [];
+            this.activitiesToday = this.data.activitiesToday || 0;
         },
 
         animateCounters() {

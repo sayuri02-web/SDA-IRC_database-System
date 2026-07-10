@@ -138,8 +138,12 @@ class DashboardController extends Controller
                 ['label' => 'Certificates', 'value' => CertificateLog::count(), 'icon' => 'mdi-certificate', 'color' => '#f093fb'],
                 ['label' => 'Templates', 'value' => Certificate::count(), 'icon' => 'mdi-file-document-multiple', 'color' => '#7f53ac'],
                 ['label' => 'New This Month', 'value' => Member::whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->count(), 'icon' => 'mdi-account-plus', 'color' => '#4facfe'],
-                ['label' => 'Activities Today', 'value' => Task::whereDate('due_date', $now->toDateString())->count(), 'icon' => 'mdi-lightning-bolt', 'color' => '#fa709a'],
             ],
+            'activitiesToday' => Task::where('completed', false)
+                ->where(function ($q) use ($now) {
+                    $q->whereDate('start_date', '<=', $now->toDateString())
+                      ->whereDate('end_date', '>=', $now->toDateString());
+                })->count(),
             'memberGrowth' => $this->getMemberGrowth($now),
             'membershipStatus' => [
                 'baptized' => Member::where('membership_status', 'baptized')->count(),
