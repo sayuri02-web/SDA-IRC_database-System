@@ -18,8 +18,8 @@
 // Search
 .church-search-wrap { position: relative; flex: 0 0 200px; }
 .church-search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #28a745; font-size: 16px; pointer-events: none; z-index: 1; }
-.church-search-input { width: 100%; height: 42px; padding-left: 36px !important; border-radius: 10px; border: 1.5px solid #e2e8f0; background: #f8fafc; font-size: 14px; transition: 0.25s; box-shadow: none; &:focus { border-color: #28a745; background: #fff; box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.12); outline: none; } }
-.church-cluster-filter { flex: 0 0 150px; height: 42px; border-radius: 10px; border: 1.5px solid #e2e8f0; background: #f8fafc; font-size: 14px; padding-left: 10px; transition: 0.25s; cursor: pointer; &:focus { border-color: #28a745; box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.12); outline: none; } }
+.church-search-input { width: 100%; height: 34px; padding-left: 36px !important; border-radius: 10px; border: 1.5px solid #e2e8f0; background: #f8fafc; font-size: 14px; transition: 0.25s; box-shadow: none; &:focus { border-color: #28a745; background: #fff; box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.12); outline: none; } }
+.church-cluster-filter { flex: 0 0 150px; height: 34px; border-radius: 10px; border: 1.5px solid #e2e8f0; background: #f8fafc; font-size: 14px; padding-left: 10px; transition: 0.25s; cursor: pointer; &:focus { border-color: #28a745; box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.12); outline: none; } }
 
 // Stats row
 .church-stats-row { background: #f8fafc; border-radius: 14px; border: 1px solid #edf0f5; flex-shrink: 0; padding-top: 12px; padding-bottom: 12px; }

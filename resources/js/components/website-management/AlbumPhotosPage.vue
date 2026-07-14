@@ -144,6 +144,8 @@ export default {
                 this.photos.unshift(...data.photos);
                 this.showUpload = false; this.files = []; this.previews = [];
                 if (window.toast) window.toast.success('Uploaded', data.count + ' photo(s) uploaded successfully.');
+                var toolbarBtn = document.getElementById('uploadPhotosBtn');
+                if (toolbarBtn) toolbarBtn.style.display = '';
             } catch (e) { this.uploadError = 'Network error.'; }
             this.uploading = false;
         },

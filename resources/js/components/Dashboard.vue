@@ -276,6 +276,7 @@ export default {
 
         animateCounters() {
             this.stats.forEach((stat, i) => {
+                if (stat.dual) return; // dual card displays its own values
                 const target = stat.value;
                 const duration = 1200;
                 const start = performance.now();

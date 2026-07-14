@@ -23,7 +23,7 @@
                         </p>
                     </div>
                 </div>
-                <button class="btn btn-success btn-sm gallery-new-btn" id="uploadPhotosBtn">
+                <button class="btn btn-success btn-sm gallery-new-btn" id="uploadPhotosBtn" @if($album->photos_count == 0) style="display:none;" @endif>
                     <i class="mdi mdi-cloud-upload-outline me-1"></i> Upload Photos
                 </button>
             </div>

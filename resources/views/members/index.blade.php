@@ -28,7 +28,7 @@
 
                     <!-- ADD BUTTON -->
                     <a href="{{ url('/members/create')}}" class="btn btn-outline-success btn-sm me-2" data-requires="admin">
-                        <i class="fa fa-plus me-1"></i> Add New
+                        <i class="mdi mdi-plus me-1"></i> Add New
                     </a>
 
                     <!-- LEADERS DIRECTORY -->

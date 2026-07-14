@@ -11,7 +11,7 @@
             <i class="mdi mdi-image-filter-hdr"></i>
             <h5>No Albums Yet</h5>
             <p>Create your first gallery album to start uploading photos.</p>
-            <button class="btn btn-success btn-sm" @click="openNewAlbumModal">
+            <button class="btn btn-outline-success btn-sm" @click="openNewAlbumModal">
                 <i class="mdi mdi-plus me-1"></i> New Album
             </button>
         </div>
@@ -128,9 +128,11 @@ export default {
                 this.albums = [];
             }
             this.loading = false;
+            this.toggleToolbarBtn();
         },
         onAlbumCreated(album) {
             this.albums.unshift(album);
+            this.toggleToolbarBtn();
         },
         onAlbumUpdated(updated) {
             const index = this.albums.findIndex(a => a.id === updated.id);
@@ -141,6 +143,10 @@ export default {
         },
         setViewMode(mode) {
             this.viewMode = mode;
+        },
+        toggleToolbarBtn() {
+            var btn = document.getElementById('newAlbumBtn');
+            if (btn) btn.style.display = this.albums.length > 0 ? '' : 'none';
         }
     },
     mounted() {

@@ -22,7 +22,7 @@
         <div class="container">
             <div class="ws-navbar-inner">
                 <a href="{{ route('website.home') }}" class="ws-brand">
-                    <img src="{{ asset('assets/images/logo.jpg') }}" alt="Logo" class="ws-brand-logo">
+                    <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" class="ws-brand-logo">
                     <span>Seventh-day Adventist churh-IRCP.INC</span>
                 </a>
                 <button class="ws-nav-toggle" id="navToggle" aria-label="Toggle menu">

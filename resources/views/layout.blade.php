@@ -24,6 +24,8 @@
 
     <!-- Material Design Icons (CDN) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+    <!-- domain logo -->
+    <link rel="icon" type="image/jpeg" href="{{ asset('assets/images/logo.png') }}">
 
     <title>SDA-IRCPI Management System</title>
 
@@ -51,7 +53,7 @@
         <!-- LOGO -->
         <div class="logo">
             <div class="icon">
-                <img src="{{ asset('assets/images/logo.jpg') }}" alt="Church Logo">
+                <img src="{{ asset('assets/images/logo.png') }}" alt="Church Logo">
             </div>
             <h4>{{ auth()->user()?->role?->label() ?? 'Admin' }}</h4>
         </div>

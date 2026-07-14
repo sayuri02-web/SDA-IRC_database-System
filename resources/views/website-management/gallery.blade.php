@@ -21,7 +21,7 @@
                         <p class="gallery-page-subtitle">Manage website albums and photos</p>
                     </div>
                 </div>
-                <button id="newAlbumBtn" class="btn btn-success btn-sm gallery-new-btn" data-requires="website-management">
+                <button id="newAlbumBtn" class="btn btn-outline-success btn-sm gallery-new-btn" data-requires="website-management" style="display:none;">
                     <i class="mdi mdi-plus me-1"></i> New Album
                 </button>
             </div>
