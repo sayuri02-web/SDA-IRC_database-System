@@ -1,20 +1,20 @@
 {
-  "__plugin-vue_export-helper-B0kUGIHQ.js": {
-    "file": "assets/_plugin-vue_export-helper-B0kUGIHQ.js",
+  "__plugin-vue_export-helper-5OlfSRVj.js": {
+    "file": "assets/_plugin-vue_export-helper-5OlfSRVj.js",
     "name": "_plugin-vue_export-helper",
     "imports": [
-      "_chunk-CSTbPo02.js"
+      "_chunk-C7_3YI0-.js"
     ]
   },
-  "_chunk-CSTbPo02.js": {
-    "file": "assets/chunk-CSTbPo02.js",
+  "_chunk-C7_3YI0-.js": {
+    "file": "assets/chunk-C7_3YI0-.js",
     "name": "chunk"
   },
-  "_cropper-CUMngptx.js": {
-    "file": "assets/cropper-CUMngptx.js",
+  "_cropper-D6gfR_bu.js": {
+    "file": "assets/cropper-D6gfR_bu.js",
     "name": "cropper",
     "imports": [
-      "_chunk-CSTbPo02.js"
+      "_chunk-C7_3YI0-.js"
     ],
     "css": [
       "assets/cropper-cx_wrqbx.css"
@@ -25,7 +25,7 @@
     "src": "_cropper-cx_wrqbx.css"
   },
   "resources/css/app.css": {
-    "file": "assets/app-wHRUQzUq.css",
+    "file": "assets/app-4IA_oZrT.css",
     "name": "app",
     "names": [
       "app.css"
@@ -33,49 +33,61 @@
     "src": "resources/css/app.css",
     "isEntry": true
   },
+  "resources/js/about-management.js": {
+    "file": "assets/about-management-DO14Yveo.js",
+    "name": "about-management",
+    "src": "resources/js/about-management.js",
+    "isEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-5OlfSRVj.js"
+    ],
+    "css": [
+      "assets/about-management-BpnqS0Y4.css"
+    ]
+  },
   "resources/js/app.js": {
-    "file": "assets/app-BHOUdmgT.js",
+    "file": "assets/app-Cq3bgzAf.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "imports": [
-      "__plugin-vue_export-helper-B0kUGIHQ.js",
-      "_chunk-CSTbPo02.js",
-      "_cropper-CUMngptx.js"
+      "__plugin-vue_export-helper-5OlfSRVj.js",
+      "_chunk-C7_3YI0-.js",
+      "_cropper-D6gfR_bu.js"
     ],
     "css": [
       "assets/app-Uy-Jfc6y.css"
     ]
   },
   "resources/js/dashboard.js": {
-    "file": "assets/dashboard-ZL8V7zFm.js",
+    "file": "assets/dashboard-iT3GIdjN.js",
     "name": "dashboard",
     "src": "resources/js/dashboard.js",
     "isEntry": true,
     "imports": [
-      "__plugin-vue_export-helper-B0kUGIHQ.js"
+      "__plugin-vue_export-helper-5OlfSRVj.js"
     ],
     "css": [
       "assets/dashboard-WC_RKnqF.css"
     ]
   },
   "resources/js/member/edit.js": {
-    "file": "assets/edit-C1hLOvND.js",
+    "file": "assets/edit-CVbwna7V.js",
     "name": "edit",
     "src": "resources/js/member/edit.js",
     "isEntry": true,
     "imports": [
-      "_chunk-CSTbPo02.js",
-      "_cropper-CUMngptx.js"
+      "_chunk-C7_3YI0-.js",
+      "_cropper-D6gfR_bu.js"
     ]
   },
   "resources/js/website.js": {
-    "file": "assets/website-BtRdNlsl.js",
+    "file": "assets/website-CtcU9FXl.js",
     "name": "website",
     "src": "resources/js/website.js",
     "isEntry": true,
     "imports": [
-      "__plugin-vue_export-helper-B0kUGIHQ.js"
+      "__plugin-vue_export-helper-5OlfSRVj.js"
     ],
     "css": [
       "assets/website-C9Mk6vo0.css"

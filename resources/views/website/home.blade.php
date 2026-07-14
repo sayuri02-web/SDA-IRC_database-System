@@ -85,22 +85,32 @@
             <h2 class="ws-section-title">Our Mission & Vision</h2>
         </div>
         <div class="row g-4">
-            <div class="col-md-6" data-aos="fade-right" data-aos-duration="800">
+            <div class="{{ $churchInfo?->core_values ? 'col-md-4' : 'col-md-6' }}" data-aos="fade-right" data-aos-duration="800">
                 <div class="ws-mv-card ws-mv-mission">
                     <div class="ws-mv-icon"><i class="mdi mdi-target"></i></div>
                     <h3>Our Mission</h3>
-                    <p>To proclaim the everlasting gospel to all peoples in preparation for the Second Coming of Jesus Christ, nurturing believers in their walk with God and empowering communities through service and education.</p>
+                    <p>{{ $churchInfo?->mission ?? 'To proclaim the everlasting gospel to all peoples in preparation for the Second Coming of Jesus Christ, nurturing believers in their walk with God and empowering communities through service and education.' }}</p>
                     <div class="ws-mv-accent"></div>
                 </div>
             </div>
-            <div class="col-md-6" data-aos="fade-left" data-aos-duration="800">
+            <div class="{{ $churchInfo?->core_values ? 'col-md-4' : 'col-md-6' }}" data-aos="fade-left" data-aos-duration="800">
                 <div class="ws-mv-card ws-mv-vision">
                     <div class="ws-mv-icon"><i class="mdi mdi-eye-outline"></i></div>
                     <h3>Our Vision</h3>
-                    <p>A transformed community of believers living in harmony with God's will, actively participating in His mission, and reflecting His character of love, justice, and mercy to the world around us.</p>
+                    <p>{{ $churchInfo?->vision ?? 'A transformed community of believers living in harmony with God\'s will, actively participating in His mission, and reflecting His character of love, justice, and mercy to the world around us.' }}</p>
                     <div class="ws-mv-accent"></div>
                 </div>
             </div>
+            @if($churchInfo?->core_values)
+            <div class="col-md-4" data-aos="fade-up" data-aos-duration="800">
+                <div class="ws-mv-card">
+                    <div class="ws-mv-icon"><i class="mdi mdi-heart-outline"></i></div>
+                    <h3>Core Values</h3>
+                    <p>{{ $churchInfo->core_values }}</p>
+                    <div class="ws-mv-accent"></div>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 </section>

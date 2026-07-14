@@ -133,6 +133,30 @@
                         </div>
                     </div>
 
+                    {{-- About Us --}}
+                    <div class="col-md-6 col-xl-3">
+                        <div class="wm-card">
+                            <div class="wm-card-icon" style="background: #e8f5e9; color: #2e7d32;">
+                                <i class="mdi mdi-information-outline"></i>
+                            </div>
+                            <h5 class="wm-card-title">About Us</h5>
+                            <p class="wm-card-desc">Manage church history, mission, vision, and leadership.</p>
+                            <div class="wm-card-status">
+                                <span class="wm-status-label">Current Status</span>
+                                @if($cardStatuses['about']['status'] === 'published')
+                                    <span class="wm-status-badge wm-status-published">● Published</span>
+                                @else
+                                    <span class="wm-status-badge wm-status-not-published">● Not Published</span>
+                                @endif
+                                <span class="wm-status-label">Last Updated</span>
+                                <span class="wm-status-date">{{ $cardStatuses['about']['updated_at'] ? $cardStatuses['about']['updated_at']->format('F d, Y') : '—' }}</span>
+                            </div>
+                            <a href="{{ route('website-management.about') }}" class="wm-manage-btn" data-requires="website-management">
+                                <i class="mdi mdi-pencil-outline me-1"></i> Manage
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

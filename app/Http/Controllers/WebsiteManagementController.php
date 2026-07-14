@@ -9,6 +9,8 @@ use App\Models\Announcement;
 use App\Models\Ministry;
 use App\Models\GalleryAlbum;
 use App\Models\GalleryPhoto;
+use App\Models\ChurchInformation;
+use App\Models\ChurchFeaturedLeader;
 use App\Models\ActivityLog;
 use App\Http\Requests\StoreMinistryRequest;
 use App\Http\Requests\UpdateMinistryRequest;
@@ -49,6 +51,10 @@ class WebsiteManagementController extends Controller
                 'photos_count' => GalleryPhoto::count(),
                 'latest_photos' => GalleryPhoto::latest()->take(4)->pluck('filename')->toArray(),
                 'extra_count' => max(0, GalleryPhoto::count() - 4),
+            ],
+            'about' => [
+                'status' => ChurchInformation::first() ? 'published' : 'not-published',
+                'updated_at' => ChurchInformation::first()?->updated_at,
             ],
         ];
 
@@ -544,6 +550,122 @@ class WebsiteManagementController extends Controller
         $album->touch();
 
         ActivityLog::log('Website Management', 'Deleted', 'Deleted photo from "' . $album->title . '"', $album->id);
+
+        return response()->json(['success' => true]);
+    }
+
+    // ========== ABOUT US ==========
+
+    public function about()
+    {
+        $churchInfo = ChurchInformation::first();
+        $leaders = ChurchFeaturedLeader::with('member')->orderBy('sort_order')->get();
+
+        return view('website-management.about', compact('churchInfo', 'leaders'));
+    }
+
+    public function saveAbout(Request $request)
+    {
+        $request->validate([
+            'church_history' => 'nullable|string',
+            'mission' => 'nullable|string',
+            'vision' => 'nullable|string',
+            'core_values' => 'nullable|string',
+            'church_image' => 'nullable|image|max:5120',
+        ]);
+
+        $churchInfo = ChurchInformation::first() ?: new ChurchInformation();
+
+        $churchInfo->church_history = $request->church_history;
+        $churchInfo->mission = $request->mission;
+        $churchInfo->vision = $request->vision;
+        $churchInfo->core_values = $request->core_values;
+
+        if ($request->hasFile('church_image')) {
+            $dir = public_path('uploads/about');
+            if (!file_exists($dir)) mkdir($dir, 0777, true);
+            $filename = 'church_' . uniqid() . '.' . $request->file('church_image')->getClientOriginalExtension();
+            $request->file('church_image')->move($dir, $filename);
+            $churchInfo->church_image = $filename;
+        }
+
+        $churchInfo->save();
+
+        ActivityLog::log('Website Management', 'Updated', 'Updated About Us church information');
+
+        return response()->json(['success' => true, 'churchInfo' => $churchInfo]);
+    }
+
+    public function getAboutData()
+    {
+        $churchInfo = ChurchInformation::first();
+        $leaders = ChurchFeaturedLeader::with('member.church')->orderBy('sort_order')->get()->map(fn($l) => [
+            'id' => $l->id,
+            'member_id' => $l->member_id,
+            'name' => $l->member?->full_name ?? '—',
+            'organization' => $l->member?->organization ?? '',
+            'position' => $l->member?->position ?? '',
+            'church' => $l->member?->church?->church_name ?? '',
+            'photo' => $l->member?->photo,
+        ]);
+
+        return response()->json([
+            'churchInfo' => $churchInfo,
+            'leaders' => $leaders,
+        ]);
+    }
+
+    public function getAvailableLeaders(Request $request)
+    {
+        $query = Member::where('is_leader', true);
+
+        if ($request->search) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('first_name', 'like', "%{$search}%")
+                  ->orWhere('last_name', 'like', "%{$search}%")
+                  ->orWhere('position', 'like', "%{$search}%")
+                  ->orWhere('organization', 'like', "%{$search}%");
+            });
+        }
+
+        $members = $query->orderBy('last_name')->get()->map(fn($m) => [
+            'id' => $m->id,
+            'full_name' => $m->full_name,
+            'position' => $m->position,
+            'organization' => $m->organization,
+            'church' => $m->church?->church_name ?? '',
+            'photo' => $m->photo,
+        ]);
+
+        return response()->json($members);
+    }
+
+    public function saveLeaders(Request $request)
+    {
+        $request->validate([
+            'member_ids' => 'required|array',
+            'member_ids.*' => 'exists:members,id',
+        ]);
+
+        // Sync leaders - remove old, insert new
+        ChurchFeaturedLeader::query()->delete();
+
+        foreach ($request->member_ids as $index => $memberId) {
+            ChurchFeaturedLeader::create([
+                'member_id' => $memberId,
+                'sort_order' => $index,
+            ]);
+        }
+
+        ActivityLog::log('Website Management', 'Updated', 'Updated About Us featured leaders');
+
+        return response()->json(['success' => true]);
+    }
+
+    public function removeLeader($id)
+    {
+        ChurchFeaturedLeader::findOrFail($id)->delete();
 
         return response()->json(['success' => true]);
     }

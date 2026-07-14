@@ -9,6 +9,8 @@ use App\Models\Ministry;
 use App\Models\Member;
 use App\Models\Church;
 use App\Models\CertificateLog;
+use App\Models\ChurchInformation;
+use App\Models\ChurchFeaturedLeader;
 use App\Models\GalleryAlbum;
 use Illuminate\Http\Request;
 
@@ -36,7 +38,10 @@ class WebsiteController extends Controller
             ->take(3)
             ->get();
 
-        return view('website.home', compact('stats', 'events', 'announcements'));
+        // Church Information (for Mission, Vision, Core Values)
+        $churchInfo = ChurchInformation::first();
+
+        return view('website.home', compact('stats', 'events', 'announcements', 'churchInfo'));
     }
 
     public function pastorsMessage()
@@ -47,6 +52,14 @@ class WebsiteController extends Controller
             ->first();
 
         return view('website.pastors-message', compact('pastorMessage'));
+    }
+
+    public function about()
+    {
+        $churchInfo = ChurchInformation::first();
+        $leaders = ChurchFeaturedLeader::with('member.church')->orderBy('sort_order')->get();
+
+        return view('website.about', compact('churchInfo', 'leaders'));
     }
 
     public function events()

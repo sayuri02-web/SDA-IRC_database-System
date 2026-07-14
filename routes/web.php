@@ -222,6 +222,14 @@ Route::prefix('website-management')
         Route::get('/gallery/{album}/photos', [WebsiteManagementController::class, 'getPhotos'])->name('gallery.photos');
         Route::post('/gallery/{album}/photos', [WebsiteManagementController::class, 'uploadPhotos'])->middleware('role:website-management')->name('gallery.photos.upload');
         Route::delete('/gallery/photos/{photo}', [WebsiteManagementController::class, 'deletePhoto'])->middleware('role:website-management')->name('gallery.photos.delete');
+
+        // About Us
+        Route::get('/about', [WebsiteManagementController::class, 'about'])->name('about');
+        Route::post('/about', [WebsiteManagementController::class, 'saveAbout'])->middleware('role:website-management')->name('about.save');
+        Route::get('/about/data', [WebsiteManagementController::class, 'getAboutData'])->name('about.data');
+        Route::get('/about/leaders', [WebsiteManagementController::class, 'getAvailableLeaders'])->name('about.leaders');
+        Route::post('/about/leaders', [WebsiteManagementController::class, 'saveLeaders'])->middleware('role:website-management')->name('about.leaders.save');
+        Route::delete('/about/leaders/{id}', [WebsiteManagementController::class, 'removeLeader'])->middleware('role:website-management')->name('about.leaders.remove');
     });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
