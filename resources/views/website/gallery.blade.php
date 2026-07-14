@@ -9,21 +9,34 @@
         <div class="row g-4">
             @forelse($albums as $album)
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 80 }}">
-                <div class="ws-gallery-card">
-                    {{-- TOP: Gradient + Icon --}}
-                    <div class="ws-gallery-card-top" style="background: linear-gradient(135deg, {{ $album->gradient_from }}, {{ $album->gradient_to }});">
-                        <i class="mdi {{ $album->icon }} ws-gallery-card-icon"></i>
-                        <span class="ws-gallery-card-badge"><i class="mdi mdi-camera-outline"></i> Gallery</span>
+                <div class="ws-gallery-card-v2">
+                    {{-- Cover Image Grid --}}
+                    <div class="ws-gallery-cover" style="background: linear-gradient(135deg, {{ $album->gradient_from }}30, {{ $album->gradient_to }}30);">
+                        <div class="ws-gallery-cover-grid">
+                            @foreach($album->photos->take(4) as $photo)
+                            <div class="ws-gallery-cover-thumb" style="background: linear-gradient(135deg, {{ $album->gradient_from }}50, {{ $album->gradient_to }}50);">
+                                <img src="{{ asset('uploads/gallery/' . $photo->filename) }}" alt="" loading="lazy">
+                            </div>
+                            @endforeach
+                            @for($i = $album->photos->count(); $i < 4; $i++)
+                            <div class="ws-gallery-cover-thumb ws-gallery-cover-empty" style="background: linear-gradient(135deg, {{ $album->gradient_from }}30, {{ $album->gradient_to }}30);"></div>
+                            @endfor
+                        </div>
+                        {{-- Photo Count Badge --}}
+                        <span class="ws-gallery-count-badge"><i class="mdi mdi-image-multiple-outline"></i> {{ $album->photos_count }} Photos</span>
                     </div>
 
-                    {{-- MIDDLE: Content --}}
-                    <div class="ws-gallery-card-body">
-                        <h5 class="ws-gallery-card-title">{{ $album->title }}</h5>
-                        <p class="ws-gallery-card-desc">{{ $album->description }}</p>
-                    </div>
+                    {{-- Card Body --}}
+                    <div class="ws-gallery-card-v2-body">
+                        {{-- Icon Badge --}}
+                        <div class="ws-gallery-icon-badge" style="background: {{ $album->gradient_from }}20; color: {{ $album->gradient_from }};">
+                            <i class="mdi {{ $album->icon }}"></i>
+                        </div>
 
-                    {{-- BOTTOM: Button --}}
-                    <div class="ws-gallery-card-footer">
+                        <h5 class="ws-gallery-card-v2-title">{{ $album->title }}</h5>
+                        <p class="ws-gallery-card-v2-desc">{{ $album->description }}</p>
+
+                        {{-- View Gallery Button (unchanged) --}}
                         <a href="{{ route('website.gallery.album', $album->id) }}" class="ws-gallery-card-btn">
                             <i class="mdi mdi-camera-outline"></i> View Gallery <i class="mdi mdi-arrow-right"></i>
                         </a>

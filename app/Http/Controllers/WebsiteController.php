@@ -24,9 +24,8 @@ class WebsiteController extends Controller
             'upcoming_events' => Event::published()->where('event_date', '>=', now()->toDateString())->count(),
         ];
 
-        // Upcoming Events (latest 3 published, nearest first)
+        // Upcoming Events (latest 3 published, same source as Events page)
         $events = Event::published()
-            ->where('event_date', '>=', now()->toDateString())
             ->orderBy('event_date', 'asc')
             ->take(3)
             ->get();
@@ -81,6 +80,9 @@ class WebsiteController extends Controller
     {
         $albums = GalleryAlbum::published()
             ->withCount('photos')
+            ->with(['photos' => function ($q) {
+                $q->latest()->take(4);
+            }])
             ->latest()
             ->get();
 

@@ -679,6 +679,7 @@ main { flex: 1; }
     font-weight: 600;
     text-decoration: none;
     transition: all 0.25s ease;
+    align-self: flex-start;
 
     &:hover {
         background: $ws-primary;
@@ -698,6 +699,146 @@ main { flex: 1; }
 
 // ============================================================
 // ALBUM PHOTO GRID (public website)
+
+// ============================================================
+// GALLERY CARD V2 — Modern Reference Design
+// ============================================================
+.ws-gallery-card-v2 {
+    background: $ws-white;
+    border-radius: 24px;
+    border: 1px solid $ws-border;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+
+    &:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.ws-gallery-cover {
+    position: relative;
+    padding: 14px;
+    border-radius: 24px 24px 0 0;
+}
+
+.ws-gallery-cover-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.ws-gallery-cover-thumb {
+    aspect-ratio: 16/10;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+}
+
+.ws-gallery-cover-empty {
+    // Just shows the gradient placeholder
+}
+
+.ws-gallery-count-badge {
+    position: absolute;
+    bottom: 22px;
+    right: 22px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: rgba(50, 55, 65, 0.85);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+
+    i { font-size: 14px; }
+}
+
+.ws-gallery-card-v2-body {
+    padding: 24px 24px 22px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.ws-gallery-icon-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 16px;
+    flex-shrink: 0;
+}
+
+.ws-gallery-card-v2-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: $ws-dark;
+    margin-bottom: 8px;
+}
+
+.ws-gallery-card-v2-desc {
+    font-size: 13px;
+    color: $ws-muted;
+    line-height: 1.6;
+    margin: 0 0 20px;
+    flex: 1;
+}
+
+@media (max-width: 768px) {
+    .ws-gallery-card-v2 {
+        border-radius: 20px;
+    }
+    .ws-gallery-cover {
+        padding: 10px;
+        border-radius: 20px 20px 0 0;
+    }
+    .ws-gallery-cover-grid {
+        gap: 6px;
+    }
+    .ws-gallery-cover-thumb {
+        border-radius: 10px;
+    }
+    .ws-gallery-card-v2-body {
+        padding: 20px 18px 18px;
+    }
+    .ws-gallery-card-v2-title {
+        font-size: 16px;
+    }
+    .ws-gallery-card-v2-desc {
+        font-size: 12px;
+    }
+    .ws-gallery-icon-badge {
+        width: 38px;
+        height: 38px;
+        font-size: 19px;
+        margin-bottom: 12px;
+    }
+    .ws-gallery-count-badge {
+        bottom: 16px;
+        right: 16px;
+        font-size: 11px;
+        padding: 5px 12px;
+    }
+}
 // ============================================================
 .ws-album-photo {
     border-radius: 12px;

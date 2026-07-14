@@ -99,14 +99,6 @@
                 </a>
             </li>
 
-            <li>
-                <a class="{{ request()->is('settings') ? 'active' : '' }}"
-                   href="{{ url('/settings') }}">
-                    <i class="mdi mdi-cog"></i>
-                    Settings
-                </a>
-            </li>
-
         </ul>
     </div>
 
