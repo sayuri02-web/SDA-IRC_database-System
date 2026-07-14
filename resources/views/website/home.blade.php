@@ -1,5 +1,5 @@
 @extends('website.layout')
-@section('title', 'Home - SDA-IRC Church')
+@section('title', 'Home')
 
 @section('content')
 

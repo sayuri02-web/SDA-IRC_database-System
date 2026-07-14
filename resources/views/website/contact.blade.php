@@ -1,5 +1,5 @@
 @extends('website.layout')
-@section('title', 'Contact - SDA-IRC Church')
+@section('title', 'Contact')
 @section('content')
 
 <section class="ws-page-hero"><div class="container" data-aos="fade-up"><h1>Contact Us</h1><p>We'd love to hear from you.</p></div></section>

@@ -1,5 +1,5 @@
 @extends('website.layout')
-@section('title', 'Events - SDA-IRC Church')
+@section('title', 'Events')
 @section('content')
 
 <section class="ws-page-hero"><div class="container" data-aos="fade-up"><h1>Church Events</h1><p>Join us for worship, fellowship, and outreach.</p></div></section>

@@ -1,5 +1,5 @@
 @extends('website.layout')
-@section('title', $album->title . ' - Gallery - SDA-IRC Church')
+@section('title', $album->title . ' - Gallery')
 @section('content')
 
 <section class="ws-page-hero" style="background: linear-gradient(135deg, {{ $album->gradient_from }}, {{ $album->gradient_to }});">

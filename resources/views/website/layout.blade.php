@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'SDA Church')</title>
+    <title>@hasSection('title')@yield('title')- SDA-IRCPI Church Website @else SDA-IRCPI Church Website @endif</title>
 
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
     <!-- SCSS + Vue -->
     @vite(['resources/scss/website/app.scss', 'resources/js/website.js'])
+    <!-- DOMAIN LOGO -->
+    <link rel="icon" type="image/jpeg" href="{{ asset('assets/images/logo.png') }}">
+
 </head>
 <body>
 
