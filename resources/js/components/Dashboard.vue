@@ -20,11 +20,17 @@
             <!-- STAT CARDS -->
             <div class="row g-3 mb-4">
                 <div v-for="(stat, i) in stats" :key="i" class="col-lg col-md-4 col-sm-6">
-                    <div class="dash-card" :style="{ background: stat.gradient }">
+                    <a :href="stat.link" class="dash-card" :style="{ background: stat.gradient, cursor: 'pointer', textDecoration: 'none', color: 'inherit' }">
                         <div class="dash-card-icon"><i :class="'mdi ' + stat.icon"></i></div>
-                        <div class="dash-card-num">{{ animatedValues[i] }}</div>
-                        <div class="dash-card-label">{{ stat.label }}</div>
-                    </div>
+                        <template v-if="stat.dual">
+                            <div class="dash-card-num">{{ stat.published }} <small style="opacity:.7;font-size:14px;">/</small> {{ stat.draft }}</div>
+                            <div class="dash-card-label">Published / Draft</div>
+                        </template>
+                        <template v-else>
+                            <div class="dash-card-num">{{ animatedValues[i] }}</div>
+                            <div class="dash-card-label">{{ stat.label }}</div>
+                        </template>
+                    </a>
                 </div>
             </div>
 
@@ -263,7 +269,7 @@ export default {
                 'linear-gradient(135deg, #4facfe, #00f2fe)',
             ];
             this.stats = this.data.stats.map((s, i) => ({ ...s, gradient: gradients[i % gradients.length] }));
-            this.animatedValues = this.stats.map(() => 0);
+            this.animatedValues = this.stats.map(s => s.dual ? 0 : 0);
             this.tasks = this.data.tasks || [];
             this.activitiesToday = this.data.activitiesToday || 0;
         },

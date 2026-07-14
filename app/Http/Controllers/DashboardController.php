@@ -6,6 +6,11 @@ use App\Models\Member;
 use App\Models\Church;
 use App\Models\Certificate;
 use App\Models\CertificateLog;
+use App\Models\Organization;
+use App\Models\Event;
+use App\Models\Announcement;
+use App\Models\Ministry;
+use App\Models\GalleryAlbum;
 use App\Models\ActivityLog;
 use App\Models\Task;
 use Carbon\Carbon;
@@ -133,11 +138,19 @@ class DashboardController extends Controller
 
         return response()->json([
             'stats' => [
-                ['label' => 'Total Members', 'value' => Member::count(), 'icon' => 'mdi-account-group', 'color' => '#667eea'],
-                ['label' => 'Churches', 'value' => Church::count(), 'icon' => 'mdi-home-group', 'color' => '#11998e'],
-                ['label' => 'Certificates', 'value' => CertificateLog::count(), 'icon' => 'mdi-certificate', 'color' => '#f093fb'],
-                ['label' => 'Templates', 'value' => Certificate::count(), 'icon' => 'mdi-file-document-multiple', 'color' => '#7f53ac'],
-                ['label' => 'New This Month', 'value' => Member::whereMonth('created_at', $now->month)->whereYear('created_at', $now->year)->count(), 'icon' => 'mdi-account-plus', 'color' => '#4facfe'],
+                ['label' => 'Total Members', 'value' => Member::count(), 'icon' => 'mdi-account-group', 'color' => '#667eea', 'link' => '/members'],
+                ['label' => 'Churches', 'value' => Church::count(), 'icon' => 'mdi-home-group', 'color' => '#11998e', 'link' => '/church'],
+                ['label' => 'Certificates', 'value' => CertificateLog::count(), 'icon' => 'mdi-certificate', 'color' => '#f093fb', 'link' => '/certificates'],
+                ['label' => 'Organizations', 'value' => Organization::count(), 'icon' => 'mdi-account-multiple-outline', 'color' => '#7f53ac', 'link' => '/leaders-directory'],
+                [
+                    'label' => 'Published / Draft',
+                    'icon' => 'mdi-web',
+                    'color' => '#4facfe',
+                    'link' => '/website-management',
+                    'dual' => true,
+                    'published' => Event::where('is_published', true)->count() + Announcement::where('is_published', true)->count() + Ministry::where('is_published', true)->count() + GalleryAlbum::where('is_published', true)->count(),
+                    'draft' => Event::where('is_published', false)->count() + Announcement::where('is_published', false)->count() + Ministry::where('is_published', false)->count() + GalleryAlbum::where('is_published', false)->count(),
+                ],
             ],
             'activitiesToday' => Task::where('completed', false)
                 ->where(function ($q) use ($now) {

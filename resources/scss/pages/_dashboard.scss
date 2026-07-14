@@ -17,6 +17,7 @@
 
 // ---- SUMMARY CARDS (gradient) ----
 .dash-card {
+    display: block;
     border-radius: 18px;
     border: none;
     padding: 22px 18px;
@@ -27,6 +28,7 @@
     overflow: hidden;
     transition: transform .35s cubic-bezier(.4,0,.2,1), box-shadow .35s cubic-bezier(.4,0,.2,1);
     box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    cursor: pointer;
 
     &:hover {
         transform: translateY(-5px);
