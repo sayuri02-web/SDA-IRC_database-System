@@ -20,6 +20,8 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/dashboard.js',                        // Vue Dashboard
                 'resources/js/website.js',                          // Vue Website (Login Modal)
+
+                'resources/js/member/edit.js',
             ],
             refresh: true,
         }),

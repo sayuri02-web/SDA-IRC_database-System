@@ -1,10 +1,31 @@
 {
-  "__plugin-vue_export-helper-BR8D6hQz.js": {
-    "file": "assets/_plugin-vue_export-helper-BR8D6hQz.js",
-    "name": "_plugin-vue_export-helper"
+  "__plugin-vue_export-helper-B0kUGIHQ.js": {
+    "file": "assets/_plugin-vue_export-helper-B0kUGIHQ.js",
+    "name": "_plugin-vue_export-helper",
+    "imports": [
+      "_chunk-CSTbPo02.js"
+    ]
+  },
+  "_chunk-CSTbPo02.js": {
+    "file": "assets/chunk-CSTbPo02.js",
+    "name": "chunk"
+  },
+  "_cropper-CUMngptx.js": {
+    "file": "assets/cropper-CUMngptx.js",
+    "name": "cropper",
+    "imports": [
+      "_chunk-CSTbPo02.js"
+    ],
+    "css": [
+      "assets/cropper-cx_wrqbx.css"
+    ]
+  },
+  "_cropper-cx_wrqbx.css": {
+    "file": "assets/cropper-cx_wrqbx.css",
+    "src": "_cropper-cx_wrqbx.css"
   },
   "resources/css/app.css": {
-    "file": "assets/app-DLV0l0u_.css",
+    "file": "assets/app-4IA_oZrT.css",
     "name": "app",
     "names": [
       "app.css"
@@ -13,36 +34,48 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-BrTKwgC5.js",
+    "file": "assets/app-BekY-Sjc.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "imports": [
-      "__plugin-vue_export-helper-BR8D6hQz.js"
+      "__plugin-vue_export-helper-B0kUGIHQ.js",
+      "_chunk-CSTbPo02.js",
+      "_cropper-CUMngptx.js"
     ],
     "css": [
-      "assets/app-CyScwOG8.css"
+      "assets/app-Uy-Jfc6y.css"
     ]
   },
   "resources/js/dashboard.js": {
-    "file": "assets/dashboard-BOO7Jhs6.js",
+    "file": "assets/dashboard-B0dtzqau.js",
     "name": "dashboard",
     "src": "resources/js/dashboard.js",
     "isEntry": true,
     "imports": [
-      "__plugin-vue_export-helper-BR8D6hQz.js"
+      "__plugin-vue_export-helper-B0kUGIHQ.js"
     ],
     "css": [
       "assets/dashboard-B_YSoXTj.css"
     ]
   },
+  "resources/js/member/edit.js": {
+    "file": "assets/edit-C1hLOvND.js",
+    "name": "edit",
+    "src": "resources/js/member/edit.js",
+    "isEntry": true,
+    "imports": [
+      "_chunk-CSTbPo02.js",
+      "_cropper-CUMngptx.js"
+    ]
+  },
   "resources/js/website.js": {
-    "file": "assets/website-BwfYUftj.js",
+    "file": "assets/website-BtRdNlsl.js",
     "name": "website",
     "src": "resources/js/website.js",
     "isEntry": true,
     "imports": [
-      "__plugin-vue_export-helper-BR8D6hQz.js"
+      "__plugin-vue_export-helper-B0kUGIHQ.js"
     ],
     "css": [
       "assets/website-C9Mk6vo0.css"
