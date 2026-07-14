@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+    <!-- DOMAIN LOGO -->
+    <link rel="icon" type="image/jpeg" href="{{ asset('assets/images/logo.png') }}">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -97,9 +99,9 @@
             letter-spacing: 0.5px;
         }
 
-        .login-input-wrap {
-            position: relative;
-        }
+            .login-input-wrap {
+                position: relative;
+            }
 
         .login-input-wrap i {
             position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
@@ -218,7 +220,7 @@
         <div class="login-card">
             <div class="login-header">
                 <div class="login-logo">
-                    <img src="{{ asset('assets/images/logo.jpg') }}" alt="SDA-IRC Logo">
+                    <img src="{{ asset('assets/images/logo.png') }}" alt="SDA-IRC Logo">
                 </div>
                 <h1 class="login-title">SDA-IRC Church Management System</h1>
                 <p class="login-subtitle">Sign in to continue.</p>
