@@ -1191,3 +1191,268 @@ main { flex: 1; }
         &:active { transform: scale(0.96); transition: transform 0.1s; }
     }
 }
+
+
+// ============================================================
+// LEADERS SECTION — MOBILE CAROUSEL
+// ============================================================
+
+// Desktop grid — visible by default
+.ws-leaders-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+// Mobile carousel — hidden on desktop
+.ws-leaders-carousel {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .ws-leaders-grid {
+        display: none !important;
+    }
+
+    .ws-leaders-carousel {
+        display: block;
+        position: relative;
+        overflow: hidden;
+        padding: 8px 0 36px;
+    }
+
+    .ws-leaders-carousel-track {
+        display: flex;
+        will-change: transform;
+        transform: translate3d(0, 0, 0);
+    }
+
+    .ws-leaders-carousel-slide {
+        flex: 0 0 100%;
+        width: 100%;
+        padding: 0 16px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    // Mobile leader card — Premium floating glass style
+    .ws-leader-card-mobile {
+        position: relative;
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.06),
+            0 2px 8px rgba(0, 0, 0, 0.04),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        overflow: hidden;
+        transition: box-shadow 0.3s ease;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #28a745, #6c63ff, #28a745);
+            background-size: 200% 100%;
+            border-radius: 24px 24px 0 0;
+            opacity: 0.85;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            border: 1px solid transparent;
+            background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(255,255,255,0.05)) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+    }
+
+    .ws-leader-card-mobile-glow {
+        position: absolute;
+        top: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: 120px;
+        background: radial-gradient(circle, rgba(40, 167, 69, 0.12), transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+
+    .ws-leader-card-mobile-inner {
+        position: relative;
+        padding: 32px 24px 28px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        z-index: 1;
+    }
+
+    .ws-leader-avatar-mobile {
+        width: 88px;
+        height: 88px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-bottom: 18px;
+        border: 3px solid rgba(40, 167, 69, 0.2);
+        box-shadow:
+            0 4px 16px rgba(0, 0, 0, 0.08),
+            0 0 0 4px rgba(40, 167, 69, 0.06);
+        flex-shrink: 0;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+    }
+
+    .ws-leader-avatar-mobile-placeholder {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #f0f4f8, #e8ede9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        i {
+            font-size: 38px;
+            color: #b0bec5;
+        }
+    }
+
+    .ws-leader-info-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+
+        h6 {
+            font-size: 17px;
+            font-weight: 700;
+            color: $ws-dark;
+            margin: 0 0 4px;
+            line-height: 1.3;
+        }
+    }
+
+    .ws-leader-position-mobile {
+        display: inline-block;
+        font-size: 13px;
+        font-weight: 600;
+        color: $ws-primary-dark;
+        background: rgba(40, 167, 69, 0.08);
+        padding: 3px 12px;
+        border-radius: 20px;
+        letter-spacing: 0.2px;
+    }
+
+    .ws-leader-org-mobile {
+        font-size: 12px;
+        color: $ws-muted;
+        font-weight: 500;
+    }
+
+    .ws-leader-church-mobile {
+        font-size: 11px;
+        color: rgba(108, 117, 125, 0.7);
+        font-weight: 500;
+    }
+
+    // Carousel dots
+    .ws-leaders-carousel-dots {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 20px;
+    }
+
+    .ws-leaders-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.12);
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        -webkit-tap-highlight-color: transparent;
+
+        &.active {
+            width: 24px;
+            border-radius: 4px;
+            background: $ws-primary;
+        }
+    }
+}
+
+// Extra-small phones
+@media (max-width: 359px) {
+    .ws-leaders-carousel-slide {
+        padding: 0 12px;
+    }
+
+    .ws-leader-card-mobile-inner {
+        padding: 24px 16px 22px;
+    }
+
+    .ws-leader-avatar-mobile {
+        width: 76px;
+        height: 76px;
+        margin-bottom: 14px;
+    }
+
+    .ws-leader-info-mobile h6 {
+        font-size: 15px;
+    }
+
+    .ws-leader-position-mobile {
+        font-size: 12px;
+    }
+}
+
+// Landscape orientation on mobile
+@media (max-width: 767px) and (orientation: landscape) {
+    .ws-leaders-carousel {
+        padding: 4px 0 28px;
+    }
+
+    .ws-leader-card-mobile-inner {
+        padding: 20px 24px;
+        flex-direction: row;
+        text-align: left;
+        gap: 20px;
+    }
+
+    .ws-leader-avatar-mobile {
+        width: 72px;
+        height: 72px;
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+
+    .ws-leader-info-mobile {
+        align-items: flex-start;
+    }
+
+    .ws-leaders-carousel-dots {
+        margin-top: 12px;
+    }
+}
